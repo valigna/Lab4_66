@@ -1,0 +1,3 @@
+#ifndef TRADUCCION
+#define TRADUCCION
+
