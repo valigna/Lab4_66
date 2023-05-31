@@ -10,7 +10,7 @@
 // DataUsuario
 
 
-class ControladorUsuario 
+class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
 {
 private:
     // Simulando Memoria Del Sistema...

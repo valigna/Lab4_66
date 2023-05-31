@@ -6,7 +6,7 @@
 #include "../Idioma.hh"
 #include "../Curso.hh"
 
-class ControladorCurso
+class ControladorCurso : public IGestionCurso
 {
 private:
     map<string,Idioma *> colIdiomas;

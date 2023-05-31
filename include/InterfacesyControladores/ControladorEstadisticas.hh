@@ -12,7 +12,7 @@
 // Creo que me falta el DT InfoCursoEst
 
 
-class ControladorEstadisticas
+class ControladorEstadisticas : public IControladorEstadisticas
 {
 private:
 
