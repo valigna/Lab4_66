@@ -25,7 +25,10 @@ public:
     set<string> getIdiomas();
     set<string> idiomasSuscritos(string nickname);
     set<string> getCursosInscriptosNoAporbados(string nickname);
-    set<string> darNicksAlumnos();
+    set<string> darNicksEstudiantes();
+    set<InfoCursoEst *> darInfoCursoEst(string nickEstudiante);
+    set<string> darNicksProfesores();
+    set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
 }
 
 #endif

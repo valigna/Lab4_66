@@ -9,6 +9,8 @@
 
 // Includes...
 #include "../Utils.hh"
+// Creo que me falta el DT InfoCursoEst
+
 
 class ControladorEstadisticas
 {
@@ -16,7 +18,11 @@ private:
 
 public:
     set<string> getNicksEstudiantes();
-
+    set<InfoCursoEst *> listarCursosEstudiante(string nickEstudiante);
+    set<string> getNicksProfesores();
+    set<InfoCursoProf *> listarCursosPropuestos(string nickProfesor);
+    set<string> getCursos();
+    set<InformacionCurso *> infoCurso(string nombreCurso);
 }
 
 #endif

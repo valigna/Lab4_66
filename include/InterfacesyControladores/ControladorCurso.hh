@@ -17,7 +17,8 @@ public:
     set<string> darIdiomas();
     set<string> getNombreCursos();
     void seleccionarCurso(string nombreCurso);
-
+    set<string> darNombreCursos();
+    InformacionCurso darInformacionCurso(string nombreCurso);
 }
 
 #endif

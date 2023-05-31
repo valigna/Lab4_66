@@ -9,10 +9,10 @@
 class Usuario
 {
 private:
-    string nickname;
-    string nombre;
-    string password;
-    string descripcion;
+    string Nickname;
+    string Nombre;
+    string Password;
+    string Descripcion;
 
     //Colecciones
     vector<Notificacion *> colNotificaciones;
@@ -22,6 +22,8 @@ public:
     set<string> getCursosNoAprobados();
     
     // Para distinguir entre las clases que se derivan de Usuario...
-    bool esAlumno();
+    bool esEstudiante();
     bool esProfesor();
 }
+
+#endif
