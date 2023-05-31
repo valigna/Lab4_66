@@ -8,3 +8,16 @@ set<string> Usuario::getIdiomasSuscritos(){
     }
     return res;
 }
+
+set<string> Usuario::getCursosNoAprobados(){
+    for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
+        if(verificarEstado(it)){
+            string curso = it->
+        }
+    }
+}
+
+
+bool Usuario::esAlumno(){
+    Estudiante* dummy = dynamic_cast<
+}

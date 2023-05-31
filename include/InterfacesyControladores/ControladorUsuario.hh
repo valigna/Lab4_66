@@ -24,6 +24,8 @@ public:
     void ingresarUsuario(DataUsuario Datos);
     set<string> getIdiomas();
     set<string> idiomasSuscritos(string nickname);
+    set<string> getCursosInscriptosNoAporbados(string nickname);
+    set<string> darNicksAlumnos();
 }
 
-
+#endif

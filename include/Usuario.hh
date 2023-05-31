@@ -19,4 +19,9 @@ private:
 
 public:
     set<string> getIdiomasSuscritos();
+    set<string> getCursosNoAprobados();
+    
+    // Para distinguir entre las clases que se derivan de Usuario...
+    bool esAlumno();
+    bool esProfesor();
 }
