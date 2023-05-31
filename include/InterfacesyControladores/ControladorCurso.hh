@@ -3,14 +3,20 @@
 
 // includes ...
 #include "../Utils.hh"
+#include "../Idioma.hh"
+#include "../Curso.hh"
 
 class ControladorCurso
 {
 private:
-    std::map<string,Idioma *> colIdiomas;
+    map<string,Idioma *> colIdiomas;
+    map<string,Curso *> colCursos;
+    string nombreCurso;
 
 public:
     set<string> darIdiomas();
-
+    set<string> getNombreCursos();
+    void seleccionarCurso(string nombreCurso);
 
 }
+

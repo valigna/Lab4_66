@@ -13,3 +13,8 @@ set<string> ControladorUsuario::getIdiomas(){
     
     return idiomas;
 }
+
+
+set<string> ControladorUsuario::idiomasSuscritos(string nickname){
+    return this->colUsuarios[nickname]->getIdiomasSuscritos();
+}
