@@ -21,6 +21,19 @@ void ControladorCurso::seleccionarCurso(string nombreCurso){
     this->nombreCurso = nombreCurso;
 }
 
+set<string> ControladorCurso::darNombreCursos(){
+    set<string> res;
+    for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end();++it) {
+        string nomC = (*it)->getNombre();
+        res.insert(nomC);
+    }
+    return res;
+}
+
+InformacionCurso Curso::darInformacionCurso(string nombreCurso){
+    map<string,Curso *>::iterator it = this->colCursos.find(nombreCurso);
+    InformacionCurso res = it->second->infoCurso();
+}
 
 
 

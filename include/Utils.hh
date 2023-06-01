@@ -1,8 +1,15 @@
-#include<string>
-#include<vector>
-#include<map>
-#include<forward_list>
+/* Clases de la biblioteca STD utilizadas...*/
+#include <string>
+#include <set>
+#include <map>
+#include <vector>
+#include <list>
 
-#include<iostream>
+// Confirmar...
+#include <forward_list>
 
 using namespace std;
+/* --------------------------------------- */
+
+// Para entrada/salida
+#include <iostream>
