@@ -23,7 +23,7 @@ set<string> Usuario::darIdiomasSuscritos(){
     return res;
 }
 
-//Funcion sin terminar?
+//Funcion sin terminar
 set<string> Usuario::getCursosNoAprobados(){
     for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
         if(verificarEstado(it)){
@@ -49,4 +49,17 @@ bool Usuario::esProfesor(){
     } else {
         return false;
     }
+}
+
+
+// Para el caso de uso : [Suscribirse a notificaciones]
+set<string> Usuario::darIdiomasNoSuscritos() {
+    set<string> res;
+
+    // Obtengo la instancia de Controlador Curso y delego la operacion...
+    ControladorCurso *cu;
+    cu = ControladorCurso::getInstancia();
+    set<string> idiomas = cu->darIdiomas();
+    //Falta terminar
+
 }

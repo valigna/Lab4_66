@@ -20,10 +20,11 @@ void ControladorCurso::seleccionarCurso(string nombreCurso){
     this->nombreCurso = nombreCurso;
 }
 
+//Igual a getNombreCusos?
 set<string> ControladorCurso::darNombreCursos(){
     set<string> res;
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end();++it) {
-        string nomC = (*it)->getNombre();
+        string nomC = (it->second)->getNombre();
         res.insert(nomC);
     }
     return res;
@@ -36,10 +37,10 @@ InformacionCurso Curso::darInformacionCurso(string nombreCurso){
 }
 
 void ControladorCurso::bajarCurso(){
-    Curso C = this->colCursos[this->nombreCurso];
+    Curso *C = this->colCursos[this->nombreCurso];
     this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
-
-    //Se deberia llamar al destructor directamente o primero hacer todo y que el destructor solo borre el curso en si??
+    // Sin Terminar
+    // Se deberia llamar al destructor directamente o primero hacer todo y que el destructor solo borre el curso en si??
 }
 
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){

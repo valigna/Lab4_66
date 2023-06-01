@@ -1,5 +1,13 @@
 #include "../../include/InterfacesyControladores/ControladorUsuario.hh"
 
+// Constructores
+
+// Destructor
+
+// Getters y Setters
+
+// Otros
+
 void ControladorUsuario::ingresarUsuario(DataUsuario Datos) {this->Datos = Datos;}
 
 // Set : Unordered set (STL)
@@ -71,10 +79,18 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
 
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->obtenerEjerciciosNoAprobados(string curso);
+    return it->second->obtenerEjerciciosNoAprobados(string curso);
 }
 
 string ControladorUsuario::getProblema(int ejercicio){
-    // cc = getInstance();
+    ControladorCurso *cc;
+    cc = ControladorCurso::getInstancia();
     return cc->obtenerLetra(string nomC, int ejercicio);
 }
+
+set<string> ControladorUsuario::idiomasNoSuscritos(string nickname) {
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    return it->second->darIdiomasNoSuscritos();
+}
+
+

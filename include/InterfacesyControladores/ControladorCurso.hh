@@ -19,8 +19,9 @@ public:
     // Destructor
 
     // Getters y Setters
-    void seleccionarCurso(string nombreCurso);
+    
     // Otros
+    void seleccionarCurso(string nombreCurso);
     void bajarCurso();
     set<string> darIdiomas();
     set<string> getNombreCursos();

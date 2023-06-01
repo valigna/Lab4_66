@@ -17,3 +17,5 @@ public:
     string getNombre();
     // Otros
 }
+
+#endif

@@ -14,3 +14,5 @@ public:
     DataEjercicio* obtenerDataEjercicio();
     string getDescripcion();
 }
+
+#endif

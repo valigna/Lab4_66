@@ -4,9 +4,9 @@
 // includes...
 #include "Utils.hh"
 #include "Notificacion.hh"
+#include "InterfacesyControladores/Suscripcion.hh"
 
-
-class Usuario
+class Usuario : public Suscripcion
 {
 private:
     string Nickname;
@@ -31,6 +31,9 @@ public:
     // Para distinguir entre las clases que se derivan de Usuario...
     bool esEstudiante();
     bool esProfesor();
+
+    // Para el caso de uso : [Suscribirse a notificaciones]
+    set<string> darIdiomasNoSuscritos();
 }
 
 #endif

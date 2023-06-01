@@ -8,7 +8,11 @@
 class Notificacion
 {
 private:
+    // PseudoAtributos...
     Idioma* MiIdioma;
+    Curso* MiCurso;
 public:
     string darIdioma();
 }
+
+#endif

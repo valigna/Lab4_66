@@ -21,6 +21,13 @@ private:
 
 
 public:
+    // Constructores
+
+    // Destructor
+
+    // Getters y Setters
+
+    // Otros
     void ingresarUsuario(DataUsuario Datos);
     set<string> getIdiomas();
     set<string> idiomasSuscritos(string nickname);
@@ -31,6 +38,9 @@ public:
     set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
     string getProblema(int ejercicio);
+
+    // Para caso de uso : [Suscribirse a Notificaciones]
+    set<string> idiomasNoSuscritos(string nickname);
 }
 
 #endif

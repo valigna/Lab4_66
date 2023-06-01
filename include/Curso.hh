@@ -36,3 +36,5 @@ public:
     string buscarLetraEnCurso(int ejercicio);
 
 }
+
+#endif
