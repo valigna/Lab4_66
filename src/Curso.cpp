@@ -82,3 +82,29 @@ InformacionCurso* Curso::infoCurso(){
 
 }
 
+bool Curso::igualCurso(string curso){
+    if(this->getNombre == curso){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+set<DataEjercicio *> Curso::obtenerListaEjerciciosNoAprobadosCurso(){
+    set<DataEjercicio *> res;
+    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        set<DataEjercicio *> aux;
+        aux = it->ejerciciosNoAprobadosLeccion();
+        res.insert(aux);
+    }
+    return res;
+}
+
+string Curso::buscarLetraEnCurso(int ejercicio){
+    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        if(it->buscarLetraEnLeccion(ejercicio) != NULL){
+            return it->buscarLetraEnLeccion(ejercicio);
+        }
+    }
+}

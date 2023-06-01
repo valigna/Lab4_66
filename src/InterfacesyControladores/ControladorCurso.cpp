@@ -42,6 +42,11 @@ void ControladorCurso::bajarCurso(){
     //Se deberia llamar al destructor directamente o primero hacer todo y que el destructor solo borre el curso en si??
 }
 
+string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
+    map<string,Curso *>::iterator it = this->colCursos.find(nomC);
+    return it->buscarLetraEnCurso(int ejercicio);
+}
+
 
 
 

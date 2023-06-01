@@ -64,3 +64,17 @@ set<InfoCursoProf *> ControladorUsuario::darInfoCursoProrf(string nickProfesor){
     
     return res;
 }
+set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    return it->second->obtenerCursosNoAprobados();
+}
+
+set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    return it->obtenerEjerciciosNoAprobados(string curso);
+}
+
+string ControladorUsuario::getProblema(int ejercicio){
+    // cc = getInstance();
+    return cc->obtenerLetra(string nomC, int ejercicio);
+}

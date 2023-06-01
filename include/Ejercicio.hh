@@ -10,4 +10,7 @@ private:
     string:Descripcion;
     int id;
 public:
+    bool comprobarEjercicio();
+    DataEjercicio* obtenerDataEjercicio();
+    string getDescripcion();
 }

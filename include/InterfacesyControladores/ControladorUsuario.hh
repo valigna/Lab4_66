@@ -29,7 +29,8 @@ public:
     set<InfoCursoEst *> darInfoCursoEst(string nickEstudiante);
     set<string> darNicksProfesores();
     set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
-
+    set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
+    string getProblema(int ejercicio);
 }
 
 #endif

@@ -20,6 +20,8 @@ public:
 
     // Otres
     int totalEjercicios();
+    set<DataEjercicio *> ejerciciosNoAprobadosLeccion();
+    string buscarLetraEnLeccion(int ejercicio);
 }
 
 #endif

@@ -27,6 +27,7 @@ public:
     set<string> darNombreCursos();
     InformacionCurso darInformacionCurso(string nombreCurso);
     void ingresarDataCurso(string profesor,DTCurso curso);
+    string obtenerLetra(nomC string, int ejercicio);
 }
 
 #endif

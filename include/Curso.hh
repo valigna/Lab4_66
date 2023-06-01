@@ -31,5 +31,8 @@ public:
     int obtenerTotalEjercicios();
     float darPromedio();
     InformacionCurso* infoCurso();
+    bool igualCurso(string curso);
+    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
+    string buscarLetraEnCurso(int ejercicio);
 
 }

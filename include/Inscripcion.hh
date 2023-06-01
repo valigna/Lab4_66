@@ -19,7 +19,8 @@ public:
     float darAvance();
     float darAvance(int cantEj);
     int cantEjAprobados();
-
+    string obtenerCursoNoAprobado();
+    bool getCursoAprobado();
 }
 
 #endif

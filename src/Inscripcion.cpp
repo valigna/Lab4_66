@@ -29,3 +29,17 @@ float Inscricpion::darAvance(int cantEj){
         return 0;
     }
 }
+
+string Inscripcion::obtenerCursoNoAprobado(){
+    Curso* aux = this->//getCurso();
+    return aux->getNombre();
+}
+
+bool Inscripcion::getCursoAprobado(){
+    if(this->CursoAprobado == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
