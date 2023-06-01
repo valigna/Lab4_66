@@ -29,6 +29,7 @@ public:
     set<InfoCursoEst *> darInfoCursoEst(string nickEstudiante);
     set<string> darNicksProfesores();
     set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
+
 }
 
 #endif

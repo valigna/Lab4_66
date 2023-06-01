@@ -3,6 +3,7 @@
 
 // includes...
 #include "Utils.hh"
+#include "Idioma.hh"
 
 class Notificacion
 {

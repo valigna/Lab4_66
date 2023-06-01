@@ -14,11 +14,19 @@ private:
     string nombreCurso;
 
 public:
+    // Constructores
+
+    // Destructor
+
+    // Getters y Setters
+    void seleccionarCurso(string nombreCurso);
+    // Otros
+    void bajarCurso();
     set<string> darIdiomas();
     set<string> getNombreCursos();
-    void seleccionarCurso(string nombreCurso);
     set<string> darNombreCursos();
     InformacionCurso darInformacionCurso(string nombreCurso);
+    void ingresarDataCurso(string profesor,DTCurso curso);
 }
 
 #endif

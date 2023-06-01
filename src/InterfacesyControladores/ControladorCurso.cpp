@@ -16,7 +16,6 @@ set<string> ControladorCurso::getNombreCursos(){
     return res;
 }
 
-
 void ControladorCurso::seleccionarCurso(string nombreCurso){
     this->nombreCurso = nombreCurso;
 }
@@ -30,10 +29,20 @@ set<string> ControladorCurso::darNombreCursos(){
     return res;
 }
 
+//no deberia ser ControladorCurso::dar...
 InformacionCurso Curso::darInformacionCurso(string nombreCurso){
     map<string,Curso *>::iterator it = this->colCursos.find(nombreCurso);
     InformacionCurso res = it->second->infoCurso();
 }
+
+void ControladorCurso::bajarCurso(){
+    Curso C = this->colCursos[this->nombreCurso];
+    this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
+
+    //Se deberia llamar al destructor directamente o primero hacer todo y que el destructor solo borre el curso en si??
+}
+
+
 
 
 

@@ -14,7 +14,7 @@ string Usuario::getNickname() {
 // Otres...
 
 
-set<string> Usuario::getIdiomasSuscritos(){
+set<string> Usuario::darIdiomasSuscritos(){
     set<string> res;
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it) {
         string idioma = it->darIdioma();
@@ -23,6 +23,7 @@ set<string> Usuario::getIdiomasSuscritos(){
     return res;
 }
 
+//Funcion sin terminar?
 set<string> Usuario::getCursosNoAprobados(){
     for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
         if(verificarEstado(it)){

@@ -18,7 +18,14 @@ private:
     vector<Notificacion *> colNotificaciones;
 
 public:
-    set<string> getIdiomasSuscritos();
+    // Constructores
+
+    // Destructor
+
+    // Getters y Setters
+
+    // Otros
+    set<string> darIdiomasSuscritos();
     set<string> getCursosNoAprobados();
     
     // Para distinguir entre las clases que se derivan de Usuario...
