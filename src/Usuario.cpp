@@ -63,3 +63,18 @@ set<string> Usuario::darIdiomasNoSuscritos() {
     //Falta terminar
 
 }
+
+
+// Para el caso de uso : [Eliminar Curso]
+void Usuario::notificarBaja(string nombreCurso){
+    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
+        if (it->presentaCurso(nombreCurso)) {
+            vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
+            this->colNotificaciones.erase(it);
+            delete itSup;
+            break;
+        }
+    }
+    
+    
+}

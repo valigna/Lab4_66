@@ -21,14 +21,16 @@ public:
     // Getters y Setters
     
     // Otros
-    void seleccionarCurso(string nombreCurso);
-    void bajarCurso();
     set<string> darIdiomas();
-    set<string> getNombreCursos();
     set<string> darNombreCursos();
     InformacionCurso darInformacionCurso(string nombreCurso);
     void ingresarDataCurso(string profesor,DTCurso curso);
     string obtenerLetra(nomC string, int ejercicio);
+
+    // Operaciones de: [eliminar curso]
+    set<string> getNombreCursos();
+    void seleccionarCurso(string nombreCurso);
+    void bajarCurso();
 }
 
 #endif

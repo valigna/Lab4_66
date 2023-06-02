@@ -34,6 +34,9 @@ public:
 
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();
+
+    // Para el caso de uso : [Eliminar Curso]
+    void notificarBaja(string nombreCurso);
 }
 
 #endif

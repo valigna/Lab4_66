@@ -10,6 +10,13 @@ private:
     string:Descripcion;
     int id;
 public:
+    // Constructores
+
+    // Destructor
+    ~Ejercicio(); // Destructor por defecto
+    // Getters y Setters
+
+    // Otres
     bool comprobarEjercicio();
     DataEjercicio* obtenerDataEjercicio();
     string getDescripcion();

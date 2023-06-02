@@ -15,13 +15,14 @@ public:
     // Constructores
 
     // Destructor
-
+    ~Leccion();
     // Getters y Setters
 
     // Otres
     int totalEjercicios();
     set<DataEjercicio *> ejerciciosNoAprobadosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
+
 }
 
 #endif

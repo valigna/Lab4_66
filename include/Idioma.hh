@@ -3,10 +3,13 @@
 
 // includes...
 #include "Utils.hh"
+#include "InterfacesYControladores/Suscripcion"
 
 class Idioma
 {
 private:
+    // Pseudoatibutos...
+    vector<Suscripcion *> colSuscripciones;
     string Nombre;
 public:
     // Constructores
@@ -16,6 +19,7 @@ public:
     // Getters y Setters
     string getNombre();
     // Otros
+    void cursoEliminado(string nombreCurso);
 }
 
 #endif

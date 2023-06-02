@@ -9,7 +9,7 @@ private:
     string instituto;
 
     // PseudoAtributos
-    set<Curso *> colCursos;
+    map<string,Curso *> colCursos; // Se cambia la implementacion de set a map
 public:
     // Constructores
 
@@ -19,6 +19,9 @@ public:
 
     // Otres
     set<InfoCursoProf *> darInfoCurso();
+
+    // Para el caso de uso : [Eliminar Curso]
+    void eliminarLinkP(string nombreCurso);
 }
 
 #endif

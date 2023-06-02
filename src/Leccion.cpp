@@ -3,7 +3,11 @@
 // Constructores
 
 // Destructor
-
+Leccion::~Leccion(){
+    for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        delete it;
+    }
+}
 // Getters y Setters
 
 // Otres
@@ -15,12 +19,12 @@ int Leccion::cantEjAprobados(){
     return this->colEjAprobados->size();
 }
 
-set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
+set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){ //CUIDADO CON EJERCICIOS QUE ESTAN EN UN SET
     set<DataEjercicio *> res;
     for(map<string,Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        if(it->comprobarEjercicio() == false){
+        if(it->second->comprobarEjercicio() == false){
             DataEjercicio* aux;
-            aux = it->obtenerDataEjercicio();
+            aux = it->second->obtenerDataEjercicio();
             res.insert(aux);
         }
     }

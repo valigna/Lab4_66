@@ -39,8 +39,7 @@ InformacionCurso Curso::darInformacionCurso(string nombreCurso){
 void ControladorCurso::bajarCurso(){
     Curso *C = this->colCursos[this->nombreCurso];
     this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
-    // Sin Terminar
-    // Se deberia llamar al destructor directamente o primero hacer todo y que el destructor solo borre el curso en si??
+    delete C; // Se llama al destructor de Curso
 }
 
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){

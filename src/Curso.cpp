@@ -3,6 +3,16 @@
 // Constructores
 
 // Destructor
+Curso::~Curso() {
+    this->idioma->cursoEliminado(this->Nombre);
+    this->profesor->eliminarLink(this->Nombre);
+    for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
+        delete it; // Se llama el destructor de cada inscripcion
+    }
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        delete it; // Se llama el destructor de cada leccion
+    }
+}
 
 // Getters y Setters
 string Curso::getNombre(){return this->Nombre;}
@@ -30,7 +40,7 @@ float Curso::darPromedio(){
         cantEj += cEjj;
     }
 
-    // Itero sobre mis inscricpiones...
+    // Itero sobre mis inscripciones...
     for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         int cAp = (*it)->cantEjAprobados();
         float avance = (cAp/cantEj) * 100;
@@ -83,7 +93,7 @@ InformacionCurso* Curso::infoCurso(){
 }
 
 bool Curso::igualCurso(string curso){
-    if(this->getNombre == curso){
+    if(this->getNombre() == curso){
         return true;
     }
     else{
@@ -95,7 +105,7 @@ set<DataEjercicio *> Curso::obtenerListaEjerciciosNoAprobadosCurso(){
     set<DataEjercicio *> res;
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         set<DataEjercicio *> aux;
-        aux = it->ejerciciosNoAprobadosLeccion();
+        aux = it->second->ejerciciosNoAprobadosLeccion();
         res.insert(aux);
     }
     return res;
@@ -108,3 +118,6 @@ string Curso::buscarLetraEnCurso(int ejercicio){
         }
     }
 }
+
+
+

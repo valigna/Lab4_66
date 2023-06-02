@@ -27,8 +27,8 @@ set<InfoCursoEst> Estudiante::infCursosInscriptos(){
 set<string> Estudiante::obtenerCursosNoAprobados(){
     set<string> res;
     for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        if(it->getCursoAprobado() == false){
-            string aux = it->obtenerCursoNoAprobado();
+        if(it->second->getCursoAprobado() == false){
+            string aux = it->second->darNombreCurso();
             res.insert(aux);
         }
     }
@@ -37,9 +37,13 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = it->//getCurso();
+        Curso * aux = it->second->getCurso();
         if(aux->igualCurso(curso)){
-            return aux->obtenerListaEjerciciosNoAprobadosCurso();
+            return it->second->obtenerListaEjerciciosNoAprobadosIns();
         }
     }
+}
+
+void Estudiante::eliminarLinkE(string nombreCurso){
+    this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso
 }

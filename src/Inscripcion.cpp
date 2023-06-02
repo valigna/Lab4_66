@@ -3,6 +3,9 @@
 // Constructores
 
 // Destructor
+Inscripcion::~Inscripcion(){
+    this->e->eliminarLinkE(this->darNombreCurso);
+}
 
 // Getters y Setters
 
@@ -21,18 +24,13 @@ float Inscripcion::darAvance(){
 
 }
 
-float Inscricpion::darAvance(int cantEj){
+float Inscripcion::darAvance(int cantEj){
     if (cantEj > 0) {
         int cantAprobados = this->colEjAprobados.size();
         return ((cantAprobados/cantEj) * 100);
     } else {
         return 0;
     }
-}
-
-string Inscripcion::obtenerCursoNoAprobado(){
-    Curso* aux = this->//getCurso();
-    return aux->getNombre();
 }
 
 bool Inscripcion::getCursoAprobado(){
@@ -42,4 +40,12 @@ bool Inscripcion::getCursoAprobado(){
     else{
         return false;
     }
+}
+
+Curso* getCurso(){
+    return this->c;
+}
+
+set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
+    Curso* 
 }
