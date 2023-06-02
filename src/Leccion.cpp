@@ -19,12 +19,12 @@ int Leccion::cantEjAprobados(){
     return this->colEjAprobados->size();
 }
 
-set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){ //CUIDADO CON EJERCICIOS QUE ESTAN EN UN SET
+set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
     set<DataEjercicio *> res;
-    for(map<string,Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        if(it->second->comprobarEjercicio() == false){
+    for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        if(it->comprobarEjercicio() == false){
             DataEjercicio* aux;
-            aux = it->second->obtenerDataEjercicio();
+            aux = it->obtenerDataEjercicio();
             res.insert(aux);
         }
     }

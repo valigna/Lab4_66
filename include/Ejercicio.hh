@@ -15,6 +15,8 @@ public:
     // Destructor
     ~Ejercicio(); // Destructor por defecto
     // Getters y Setters
+    getDescripcion();
+    getId();
 
     // Otres
     bool comprobarEjercicio();

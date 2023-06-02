@@ -47,5 +47,5 @@ Curso* getCurso(){
 }
 
 set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
-    Curso* 
+    return this->c->obtenerListaEjerciciosNoAprobadosCurso();
 }

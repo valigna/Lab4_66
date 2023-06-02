@@ -17,6 +17,6 @@ public:
     // Getters
     string getNombreCurso();
     float getAvance();
-}
+} 
 
 #endif

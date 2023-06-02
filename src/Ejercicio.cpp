@@ -5,6 +5,13 @@
 // Destructor
 
 // Getters y Setters
+string getDescripcion(){
+    return this->descripcion;
+}
+
+float getId(){
+    return this->getId();
+}
 
 // Otres
 //No terminada...
@@ -19,7 +26,9 @@ bool Ejercicio::comprobarEjercicio(){
 
 //No terminada...
 DataEjercicio* Ejercicio::obtenerDataEjercicio(){
-    
+    string descripcion = this->getDescripcion();
+    float id = this->getId();
+    return DatosEjercicio(descripcion, id);
 }
 
 string Ejercicio:getDescripcion(){
