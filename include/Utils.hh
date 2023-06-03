@@ -1,4 +1,4 @@
-/* Clases de la biblioteca STD utilizadas...*/
+/* Clases de la biblioteca STL utilizadas... */
 #include <string>
 #include <set>
 #include <map>

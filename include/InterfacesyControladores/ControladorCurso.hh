@@ -1,10 +1,11 @@
 #ifndef CONTROLADOR_CURSO
 #define CONTROLADOR_CURSO
 
-// includes ...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 #include "../Idioma.hh"
 #include "../Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorCurso : public IGestionCurso
 {

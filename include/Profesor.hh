@@ -32,6 +32,6 @@ public:
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<InfoCursoProf *> darInfoCursos();
-}
+};
 
 #endif

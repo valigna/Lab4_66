@@ -1,10 +1,11 @@
 #ifndef NOTIFICACION
 #define NOTIFICACION
 
-// includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Idioma.hh"
 #include "Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Notificacion
 {
@@ -27,6 +28,6 @@ public:
 
     // Para el Caso De Uso : [Eliminar Curso]
     bool presentaCurso(string nombreCurso);
-}
+};
 
 #endif

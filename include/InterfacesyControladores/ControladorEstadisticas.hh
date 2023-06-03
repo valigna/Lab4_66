@@ -13,7 +13,6 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 #include "IConsultarEstadisticas.hh"
-
 // DataTypes
 #include "../DataTypes/InfoCursoEst.hh"
 #include "../DataTypes/InfoCursoProf.hh"

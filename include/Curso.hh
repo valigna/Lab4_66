@@ -43,6 +43,6 @@ public:
     float darPromedio();
     InformacionCurso* infoCurso();
 
-}
+};
 
 #endif

@@ -31,6 +31,6 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     int totalEjercicios();
 
-}
+};
 
 #endif

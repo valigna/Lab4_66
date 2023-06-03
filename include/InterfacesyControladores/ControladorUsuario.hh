@@ -5,8 +5,8 @@
 #include "../Utils.hh"
 #include "../Usuario.hh"
 #include "ControladorCurso.hh"
+// DataTypes
 #include "../DataTypes/DataUsuario.hh"
-
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
@@ -50,6 +50,6 @@ public:
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> idiomasSuscritos(string nickname);
-}
+};
 
 #endif
