@@ -1,24 +1,23 @@
-#ifndef INFO_CURSO_EST
-#define INFO_CURSO_EST
+#ifndef INFO_CURSO_PROF
+#define INFO_CURSO_PROF
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-
-class InfoCursoEst
+class InfoCursoProf
 {
 private:
     string NombreCurso;
-    float Avance;
+    float Promedio;
 public:
     // Constructores
-    InfoCursoEst(string nomC,float avance);
+    InfoCursoProf(string nomC,float prom);
     // Destructor
-    ~InfoCursoEst();
+    ~InfoCursoProf();
     // Getters
     string getNombreCurso();
-    float getAvance();
-}; 
+    float getPromedio();
+};
 
 #endif

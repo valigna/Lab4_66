@@ -1,9 +1,9 @@
 #include "../../include/DataTypes/InfoCursoEst.hh"
 
 // Constructores
-InfoCursoEst::InfoCursoEst(string NomC,float Avance){
-    this->NombreCurso = NomC;
-    this->Avance = Avance;
+InfoCursoEst::InfoCursoEst(string nomC,float avance){
+    this->NombreCurso = nomC;
+    this->Avance = avance;
 }
 
 // Destructores

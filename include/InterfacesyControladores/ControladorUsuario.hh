@@ -1,24 +1,26 @@
 #ifndef CONTROLADOR_USUARIO
 #define CONTROLADOR_USUARIO
 
-
-
-// includes...
-#include "../Usuario.hh"
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
-// ControladorCurso
-// DataUsuario
+#include "../Usuario.hh"
+#include "ControladorCurso.hh"
+#include "../DataTypes/DataUsuario.hh"
 
+/* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
 {
 private:
     // Simulando Memoria Del Sistema...
-    DataUsuario Datos;
+    string nickname
 
     //Colecciones
     map<string,Usuario *> colUsuarios;
 
+    // Memoria para el Caso de Uso : [Alta de Usuario]
+    DataUsuario* datos;
+    set<string> seleccionados;
 
 public:
     // Constructores
@@ -28,19 +30,26 @@ public:
     // Getters y Setters
 
     // Otros
-    void ingresarUsuario(DataUsuario Datos);
-    set<string> getIdiomas();
-    set<string> idiomasSuscritos(string nickname);
+    set<string> getIdiomas(); // Tambien usado en : {Alta de Usuario}
     set<string> getCursosInscriptosNoAporbados(string nickname);
-    set<string> darNicksEstudiantes();
-    set<InfoCursoEst *> darInfoCursoEst(string nickEstudiante);
-    set<string> darNicksProfesores();
-    set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
     string getProblema(int ejercicio);
 
-    // Para caso de uso : [Suscribirse a Notificaciones]
+    // Para el Caso de Uso : [Alta de Usuario]
+    void ingresarUsuario(DataUsuario *datos);
+    void ingresarIdiomas(set<string> seleccionados);
+    bool confirmarAltaUsuario();
+    // Para el Caso de Uso : [Consultar Estadisticas]
+    set<string> darNicksEstudiantes();
+    set<InfoCursoEst *> darInfoCursosEst(string nickEstudiante);
+    set<string> darNicksProfesores();
+    set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
+
+    // Para el Caso de Uso : [Suscribirse a Notificaciones]
     set<string> idiomasNoSuscritos(string nickname);
+
+    // Para el caso de uso: [Eliminar Suscripciones]
+    set<string> idiomasSuscritos(string nickname);
 }
 
 #endif

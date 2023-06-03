@@ -1,6 +1,13 @@
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../../include/InterfacesyControladores/ControladorEstadisticas.hh"
+// Dependencias
+#include  "../../include/InterfacesyControladores/ControladorUsuario.hh"
+#include "../../include/InterfacesyControladores/ControladorCurso.hh"
 
-set<string> ControladorEstadisticas::getNicksEstudiantes(){
+/* ------------------------------------------------------------------------------------------------------ */
+
+set<string> ControladorEstadisticas::getNicksEstudiantes()
+{
     set<string> res;
     
     // Obtengo la instancia de Controlador Usuario y le pido lista la lista de nicks de alumnos...
@@ -11,14 +18,15 @@ set<string> ControladorEstadisticas::getNicksEstudiantes(){
     return res;
 }
 
-set<InfoCursoEst *> ControladorEstadisticas::listarCursosEstudiante(string nickEstudiante) {
-    set<InfoCursoEst> res;
+set<InfoCursoEst *> ControladorEstadisticas::listarCursosEstudiante(string nickEstudiante) 
+{
+    set<InfoCursoEst *> res;
 
     // Obtengo la instancia de Controlador Usuario
     ControladorUsuario *cu;
     cu = ControladoUsuario::getInstancia();
     
-    res = cu->darInfoCursoEst(nickEstudiante);
+    res = cu->darInfoCursosEst(nickEstudiante);
     return res;
 }
 
@@ -33,16 +41,17 @@ set<string> ControladorEstadisticas::getNicksProfesores(){
     return res;
 }
 
-set<InfoCursoProf *> ControladorEstadisticas::listarCursosPropuestos(string nickProfesor){
-    set<InfoCursoProf> res;
+set<InfoCursoProf *> ControladorEstadisticas::listarCursosPropuestos(string nickProfesor)
+{
+    set<InfoCursoProf *> res;
 
     // Obtengo la instancia de Controlador Usuario
     ControladorUsuario *cu;
     cu = ControladorUsuario::getInstancia();
-    res = cu->darInfoCursoProf(nickProfesor);
+    res = cu->darInfoCursosProf(nickProfesor);
 }
 
-set<string> ControladorEstadisticas::getCursos(){
+set<string> ControladorEstadisticas::getNombresCursos(){
     set<string> res;
 
     // Obtengo la instancia de Controlador Curso y le pido la lista de nombres de cursos...

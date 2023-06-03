@@ -1,19 +1,30 @@
 #ifndef ESTUDIANTE
 #define ESTUDIANTE
 
-// includes....
+/* ---------------------------------------------- Includes ---------------------------------------------- */
+#include "Utils.hh"
+#include "Usuario.hh"
+// DataTypes
+#include "DataTypes/InfoCursoEst.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Estudiante: public Usuario
 {
 private:
 
     // PseudoAtributos
-    map<string,Inscripcion *> colInscripciones; // La clave vendria a ser el nombre del curso...
+    set<Inscripcion *> colInscripciones; 
 public:
-    set<InfoCursoEst> infCursosInscriptos();
+    // Constructores
+    Estudiante(string nick,string name, string pass, string desc, DataEstudiante* est);
+    // Destructor
+
     set<string> obtenerCursosNoAprobados();
     set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
     void eliminarLinkE(string nombreCurso);
-}
+
+    // Para el Caso de Uso : [Consultar Estadisticas]
+    set<InfoCursoEst *> infCursosInscriptos();
+};
 
 #endif

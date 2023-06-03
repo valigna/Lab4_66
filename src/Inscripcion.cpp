@@ -10,7 +10,31 @@ Inscripcion::~Inscripcion(){
 // Getters y Setters
 
 // Otres
-string Inscripcion::darNombreCurso(){
+bool Inscripcion::getCursoAprobado(){
+    if(this->CursoAprobado == true){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+Curso* getCurso(){
+    return this->c;
+}
+
+set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
+    return this->c->obtenerListaEjerciciosNoAprobadosCurso();
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+int Inscripcion::cantEjAprobados()
+{
+    return this->colEjAprobados.size();
+}
+
+string Inscripcion::darNombreCurso()
+{
     return this->c->getNombre();
 }
 
@@ -31,21 +55,4 @@ float Inscripcion::darAvance(int cantEj){
     } else {
         return 0;
     }
-}
-
-bool Inscripcion::getCursoAprobado(){
-    if(this->CursoAprobado == true){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-Curso* getCurso(){
-    return this->c;
-}
-
-set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
-    return this->c->obtenerListaEjerciciosNoAprobadosCurso();
 }

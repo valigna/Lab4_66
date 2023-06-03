@@ -1,24 +1,23 @@
-#ifndef INFO_CURSO_EST
-#define INFO_CURSO_EST
-
+#ifndef DATA_FECHA
+#define DATA_FECHA
 /* ---------------------------------------------- Includes ---------------------------------------------- */
-#include "../Utils.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-
-class InfoCursoEst
+class DataFecha
 {
 private:
-    string NombreCurso;
-    float Avance;
+    int Dia;
+    int Mes;
+    int Anio;
 public:
     // Constructores
-    InfoCursoEst(string nomC,float avance);
+    DataFecha(int dia, int mes, int anio);
     // Destructor
-    ~InfoCursoEst();
+    ~DataFecha();
     // Getters
-    string getNombreCurso();
-    float getAvance();
-}; 
+    int getDia();
+    int getMes();
+    int getAnio();
+};
 
 #endif

@@ -1,13 +1,17 @@
 #ifndef CURSO
 #define CURSO
 
-// Includes...
+/*Comentario para la coleccion de lecciones*/
+    // El orden de las lecciones queda definido por el orden en el que el usuario las ingresa.
+    // Podriamos simplemente agregar cada Leccion al final de una lista, quedando de esta forma con el orden pedido...
+
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Idioma.hh"
 #include "Profesor.hh"
 #include "Leccion.hh"
 #include "Inscripcion.hh"
-
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Curso
 {
@@ -18,11 +22,8 @@ private:
     // PseudoAtributos...
     Profesor *profesor;
     Idioma *idioma;
-    /*Comentario para la coleccion de lecciones*/
-    // El orden de las lecciones queda definido por el orden en el que el usuario las ingresa.
-    // Podriamos simplemente agregar cada Leccion al final de una lista, quedando de esta forma con el orden pedido...
     list<Leccion *> colLecciones;
-    map<string,Inscripcion *> colInscripciones;
+    set<Inscripcion *> colInscripciones;
     set<Curso *> colPrevios;
 
 public:
@@ -34,13 +35,13 @@ public:
     // Getters y Setters
     string getNombre();
     // Otres
-    int obtenerTotalEjercicios();
-    float darPromedio();
-    InformacionCurso* infoCurso();
     bool igualCurso(string curso);
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
     string buscarLetraEnCurso(int ejercicio);
-
+    // Para el Caso de Uso : [Consultar Estadisticas]
+    int obtenerTotalEjercicios();
+    float darPromedio();
+    InformacionCurso* infoCurso();
 
 }
 

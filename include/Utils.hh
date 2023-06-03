@@ -13,3 +13,8 @@ using namespace std;
 
 // Para entrada/salida
 #include <iostream>
+
+#ifndef UTILS
+#define UTILS
+enum difficulty {Principiante, Intermedio, Avanzado};
+#endif

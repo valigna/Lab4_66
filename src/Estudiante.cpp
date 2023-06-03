@@ -10,20 +10,6 @@
 
 // Otres
 
-set<InfoCursoEst> Estudiante::infCursosInscriptos(){
-    set<InfoCursoEst> res;
-
-    for (map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        string nomC = it->second->darNombreCurso();
-        float av = it->second->darAvance();
-
-        InfoCursoEst elem = new InfoCursoEst(nomC,av);
-        res.insert(elem);
-    }
-
-    return res;
-}
-
 set<string> Estudiante::obtenerCursosNoAprobados(){
     set<string> res;
     for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
@@ -46,4 +32,20 @@ set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
 
 void Estudiante::eliminarLinkE(string nombreCurso){
     this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+set<InfoCursoEst *> Estudiante::infCursosInscriptos()
+{
+    set<InfoCursoEst *> res;
+
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
+        string nomC = it->second->darNombreCurso();
+        float av = it->second->darAvance();
+
+        InfoCursoEst elem = new InfoCursoEst(nomC,av);
+        res.insert(elem);
+    }
+
+    return res;
 }

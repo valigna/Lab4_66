@@ -1,8 +1,16 @@
 #ifndef INSCRIPCION
 #define INSCRIPCION
 
-// Includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+#include "Leccion.hh"
+#include "Ejercicio.hh"
+#include "Estudiante.hh"
+#include "Curso.hh"
+// DataTypes
+#include "DataTypes/DataEjercicio.hh"
+/* ------------------------------------------------------------------------------------------------------ */
+
 
 class Inscripcion
 {
@@ -23,12 +31,14 @@ public:
     // Getters y Setters
 
     // Otres
+    bool getCursoAprobado();
+    Curso* getCurso();
+    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
+
+    // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();
     float darAvance();
     float darAvance(int cantEj);
     int cantEjAprobados();
-    bool getCursoAprobado();
-    Curso* getCurso();
-    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
 }
 #endif

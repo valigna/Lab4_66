@@ -1,8 +1,13 @@
 #ifndef LECCION
 #define LECCION
 
-// Includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+#include "Ejercicio.hh"
+// DataTypes
+#include "DataTypes/DataEjercicio.hh"
+/* ------------------------------------------------------------------------------------------------------ */
+
 
 class Leccion
 {
@@ -19,9 +24,12 @@ public:
     // Getters y Setters
 
     // Otres
-    int totalEjercicios();
+
     set<DataEjercicio *> ejerciciosNoAprobadosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
+
+    // Para el Caso de Uso : [Consultar Estadisticas]
+    int totalEjercicios();
 
 }
 

@@ -20,10 +20,12 @@ public:
     // Getters y Setters
 
     // Otros
+
+    // Para el caso de uso: [Eliminar Suscripciones]
     string darIdioma();
 
 
-    // Para el caso de uso : [Eliminar Curso]
+    // Para el Caso De Uso : [Eliminar Curso]
     bool presentaCurso(string nombreCurso);
 }
 

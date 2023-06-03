@@ -2,26 +2,48 @@
 
 // Constructores
 
+Usuario::Usuario(DataUsuario *datos,set<string> seleccionados)
+{
+    Usuario* nuevo = NULL;
+
+    string nick = datos->getNickname();
+    string name = datos->getNombre();
+    string pass = datos->getContrasenia();
+    string desc = datos->getDescripcion();
+
+    DataEstudiante* est = dynamic_cast<DataEstudiante *>(&datos);
+    if (est != NULL)
+    {
+        nuevo = new Estudiante(nick,name,pass,desc,est);
+    } else
+    {
+        DataProfesor* prof = dynamic_cast<DataProfesor *>(&datos);
+        nuevo = new Profesor(nick,name,pass,desc,prof,seleccionados);
+    }
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+bool Usuario::esEstudiante()
+{
+    Estudiante* aux = dynamic_cast<Estudiante *>(&this);
+    if (aux != NULL) 
+    {
+        return true;
+    } else 
+    {
+        return false;
+    }
+}
 
 // Destructor
 
 
 // Getters y Setters
-string Usuario::getNickname() {
-    return this->Nickname;
-}
+string Usuario::getNickname() { return this->Nickname; }
 
 // Otres...
 
 
-set<string> Usuario::darIdiomasSuscritos(){
-    set<string> res;
-    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it) {
-        string idioma = it->darIdioma();
-        res.insert(idioma);
-    }
-    return res;
-}
 
 //Funcion sin terminar
 set<string> Usuario::getCursosNoAprobados(){
@@ -32,25 +54,32 @@ set<string> Usuario::getCursosNoAprobados(){
     }
 }
 
-// Estas dos funciones podrian quedar como una sola, al ser un Usuario Estudiante O Profesor; Pero por las dudas lo dejo asi por el momento...
-bool Usuario::esEstudiante(){
+// Para el caso de uso : [Eliminar Curso]
+void Usuario::notificarBaja(string nombreCurso){
+    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
+        if (it->presentaCurso(nombreCurso)) {
+            vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
+            this->colNotificaciones.erase(it);
+            delete itSup;
+            break;
+        }
+    }
+    
+    
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+bool Usuario::esEstudiante()
+{
     Estudiante* aux = dynamic_cast<Estudiante *>(&this);
-    if (aux != NULL) {
+    if (aux != NULL) 
+    {
         return true;
-    } else {
+    } else 
+    {
         return false;
     }
 }
-
-bool Usuario::esProfesor(){
-    Profesor* aux = dynamic_cast<Profesor *>(&this);
-    if (aux != NULL) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 
 // Para el caso de uso : [Suscribirse a notificaciones]
 set<string> Usuario::darIdiomasNoSuscritos() {
@@ -65,16 +94,12 @@ set<string> Usuario::darIdiomasNoSuscritos() {
 }
 
 
-// Para el caso de uso : [Eliminar Curso]
-void Usuario::notificarBaja(string nombreCurso){
-    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
-        if (it->presentaCurso(nombreCurso)) {
-            vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
-            this->colNotificaciones.erase(it);
-            delete itSup;
-            break;
-        }
+// Para el caso de uso: [Eliminar Suscripciones]
+set<string> Usuario::darIdiomasSuscritos(){
+    set<string> res;
+    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it) {
+        string idioma = it->darIdioma();
+        res.insert(idioma);
     }
-    
-    
+    return res;
 }
