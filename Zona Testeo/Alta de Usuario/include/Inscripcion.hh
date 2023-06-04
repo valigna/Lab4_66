@@ -3,10 +3,10 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../../../include/Utils.hh"
+#include "Curso.hh"
 #include "Leccion.hh"
 #include "Ejercicio.hh"
 #include "Estudiante.hh"
-#include "Curso.hh"
 // DataTypes
 #include "../../../include/DataTypes/DataEjercicio.hh"
 #include "../../../include/DataTypes/DataFecha.hh"

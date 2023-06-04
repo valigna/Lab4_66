@@ -21,22 +21,15 @@ ControladorUsuario* ControladorUsuario::getInstancia()
     }
     return ControladorUsuario::instancia;
 }
-// Otros
 
-// Set : Unordered set (STL)
-set<string> ControladorUsuario::getIdiomas(){
-    // Paso 1:
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
-    // Paso 2:
-    set<string> idiomas;
-    idiomas = cc->darIdiomas();
-    
-    return idiomas;
+Usuario* ControladorUsuario::darUsuario(string nick)
+{
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nick);
+    return it->second;
 }
 
 // Para el Caso de Uso : [Alta de Usuario]
-void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
+void ControladorUsuario::ingresarUsuario(DataUsuario* datos) { this->datos = datos; }
 void ControladorUsuario::ingresarIdiomas(set<string> seleccionados){ this->seleccionados = seleccionados; }
 
 bool ControladorUsuario::confirmarAltaUsuario()
@@ -46,9 +39,17 @@ bool ControladorUsuario::confirmarAltaUsuario()
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     if (it == this->colUsuarios.end())
     {
-        Usuario* nuevo = new Usuario(this->datos,this->seleccionados);
-        this->colUsuarios.insert(this->datos->getNickname,nuevo);
+        //Usuario* nuevo = new Usuario(this->datos,this->seleccionados);
+        DataEstudiante* aux = dynamic_cast<DataEstudiante *>(this->datos);
+        if (aux != NULL)
+        {
+            Usuario *nuevo = new Estudiante(aux);
+            this->colUsuarios.insert(std::pair<string,Usuario *>(this->datos->getNickname(),nuevo));
+        } else 
+        {
+            Usuario *nuevo = NULL;
+        }
         altaExitosa = true;
     }
-    return res;
+    return altaExitosa;
 }

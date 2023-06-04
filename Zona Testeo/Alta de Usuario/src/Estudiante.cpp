@@ -1,8 +1,9 @@
 #include "../include/Estudiante.hh"
 
 // Constructores
-Estudiante::Estudiante(string nick,string name, string pass, string desc, DataEstudiante* est) : Usuario(nick,name,pass,desc)
+Estudiante::Estudiante(DataUsuario* u) : Usuario(u->getNickname(),u->getNombre(),u->getContrasenia(),u->getDescripcion())
 {
+    DataEstudiante* est = (DataEstudiante*) u;
     this->PaisResidencia = est->getPaisResidencia();
     this->Nacimiento = est->getNacimiento();
 }

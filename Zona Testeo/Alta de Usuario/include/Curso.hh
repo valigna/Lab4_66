@@ -8,9 +8,12 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../../../include/Utils.hh"
 #include "Idioma.hh"
-#include "Profesor.hh"
-#include "Leccion.hh"
-#include "Inscripcion.hh"
+
+// Como la mayoria de las referencias circulares incluyen a curso, haremos los Forward Declarations en Curso...
+class Profesor;
+class Inscripcion;
+class Leccion;
+class Ejercicio;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Curso
@@ -33,5 +36,12 @@ public:
     string getNombre();
 
 };
+
+/* ---------------------------------------- Forward Declarations ---------------------------------------- */
+#include "Profesor.hh"
+#include "Inscripcion.hh"
+#include "Leccion.hh"
+#include "Ejercicio.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

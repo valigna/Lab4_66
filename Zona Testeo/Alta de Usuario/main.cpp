@@ -12,6 +12,12 @@
 #include "src/Idioma.cpp"
 
 #include "src/Inscripcion.cpp"
+
+// DataTypes
+#include "../../src/DataTypes/DataFecha.cpp"
+#include "../../src/DataTypes/DataUsuario.cpp"
+#include "../../src/DataTypes/DataEstudiante.cpp"
+#include "../../src/DataTypes/DataProfesor.cpp"
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include <iostream>
 using namespace std;
@@ -28,11 +34,9 @@ int main()
     string pass;
     string desc;
     // Estudiante
-    Estudiante* e = NULL;
     string pResidencia;
     DataFecha* Nacimiento;
     // Profesor
-    Profesor* p = NULL;
     string ins;
     string idi;
     set<string> idiomas;
@@ -41,14 +45,14 @@ int main()
 
     cout << "Todo usuario requiere de los siguientes campos:" << endl;
     cout << "Ingrese su nombre: " << endl;
-    cin >> name;
+    getline(cin,name);
     cout << "Ingrese el nickname por el cual quiere ser reconocido en la app: " << endl;
-    cin >> nick;
+    getline(cin,nick);
     cout << "Ingrese su contrasenia:" << endl;
     cout << "(Tener en cuenta que su contrasenia debe de contener al menos 6 caracteres...)" << endl;
-    cin >> pass;
+    getline(cin,pass);
     cout << "Ingrese una descripcion" << endl;
-    cin >> desc;
+    getline(cin,desc);
 
     cout << "Luego, indicar con un: (1) Estudiante / (2) Profesor" << endl;
     int eleccion = 0;
@@ -58,7 +62,7 @@ int main()
     {
         cout << "Al parecer elegiste el alta de un Estudiante, para ello le pediremos los siguientes datos: " << endl;
         cout << "Cual es su pais de residencia?" << endl;
-        cin >> pResidencia;
+        getline(cin,pResidencia);
         cout << "A continuacion viene su fecha de nacimiento, por favor ingresar dia, mes y anio (Uno a la vez)" << endl;
         int dia,mes,anio;
         dia = mes = anio = 0;
@@ -74,10 +78,10 @@ int main()
     {
         cout << "Al parecer elegiste el alta de un Profesor, para ello le pediremos los siguientes datos: " << endl;
         cout << "En que instituto trabaja?" << endl;
-        cin >> ins;
+        getline(cin,ins);
         cout << "En que idiomas se especializa? (Ingresar uno por uno los nombres, terminar con 'Termine'" << endl;
-        cin >> idi;
-        while (idi != "Termine")
+        getline(cin,idi);
+        while (idi != " ")
         {
             idiomas.insert(idi);
         }
@@ -94,13 +98,16 @@ int main()
     if (res == "Si")
     {
         cu->confirmarAltaUsuario();
+        Usuario* u = cu->darUsuario(nick);
         // Haber si puedo mostrar en pantalla los datos ingresados...
         cout << "Si todo salio bien... Usted ingreso:" << endl;
-        if (p != NULL)
+        if (eleccion == 2)
         {
+            Profesor* p = (Profesor*)u;
             cout << "El profesor: " << p->getNickname() << ' ' << p->getNombre() << ' ' << p->getPassword() << ' ' <<  p->getDescripcion() << ' ' << p->getInstituto() << endl;
         } else
         {
+            Estudiante* e = (Estudiante*)u;
             cout << "El estudiante: " << e->getNickname() << ' ' << e->getNombre() << ' ' << e->getPassword() << ' ' <<  e->getDescripcion() << ' ' << e->getPaisResidencia();
             DataFecha* aux = e->getNacimiento();
             cout << " Que nacio el: " << aux->getDia() << '/' << aux->getMes() << '/' << aux->getAnio() << endl;

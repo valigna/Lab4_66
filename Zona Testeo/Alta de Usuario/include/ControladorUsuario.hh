@@ -5,8 +5,6 @@
 #include "../../../include/Utils.hh"
 #include "Usuario.hh"
 #include "ControladorCurso.hh"
-// DataTypes
-#include "../../../include/DataTypes/DataUsuario.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario
@@ -33,10 +31,10 @@ public:
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
 
-    // Otros
-    set<string> getIdiomas(); // Tambien usado en : {Alta de Usuario}
+    Usuario* darUsuario(string nick);
+
     // Para el Caso de Uso : [Alta de Usuario]
-    void ingresarUsuario(DataUsuario *datos);
+    void ingresarUsuario(DataUsuario* datos);
     void ingresarIdiomas(set<string> seleccionados);
     bool confirmarAltaUsuario();
 };

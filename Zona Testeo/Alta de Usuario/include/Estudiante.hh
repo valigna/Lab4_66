@@ -7,6 +7,8 @@
 // DataTypes
 #include "../../../include/DataTypes/InfoCursoEst.hh"
 #include "../../../include/DataTypes/DataFecha.hh"
+// Forward Declaration
+class Inscripcion;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Estudiante: public Usuario
@@ -18,7 +20,8 @@ private:
     set<Inscripcion *> colInscripciones; 
 public:
     // Constructores
-    Estudiante(string nick,string name, string pass, string desc, DataEstudiante* est);
+    //Estudiante(string nick,string name, string pass, string desc, DataEstudiante* est);
+    Estudiante(DataUsuario* u);
     // Destructor
 
     // Getters y Setters
@@ -27,3 +30,7 @@ public:
 };
 
 #endif
+
+/* ---------------------------------------- Forward Declarations ---------------------------------------- */
+#include "Inscripcion.hh"
+/* ------------------------------------------------------------------------------------------------------ */

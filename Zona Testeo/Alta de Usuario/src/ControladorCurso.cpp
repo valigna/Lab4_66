@@ -10,8 +10,7 @@
 ControladorCurso* ControladorCurso::instancia = NULL;
 ControladorCurso::ControladorCurso()
 {
-    this->colIdiomas = new map<string,Idioma *>;
-    this->colCursos = new map<string,Curso *>;
+
 }
 
 ControladorCurso* ControladorCurso::getInstancia()
@@ -26,11 +25,10 @@ ControladorCurso* ControladorCurso::getInstancia()
 // Para el Caso de Uso : [Alta de Usuario]
 Idioma* ControladorCurso::obtenerIdioma(string nombre)
 {
-    Idioma* res;
-    res = this->colIdiomas.find(nombre);
-    if (res != this->colIdiomas.end())
+    map<string,Idioma *>::iterator it = this->colIdiomas.find(nombre);
+    if (it != this->colIdiomas.end())
     {
-        return res;
+        return it->second;
     } else
     {
         return NULL;

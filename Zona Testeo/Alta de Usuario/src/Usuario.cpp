@@ -22,10 +22,10 @@ Usuario::Usuario(DataUsuario* datos,set<string> seleccionados)
     DataEstudiante* est = dynamic_cast<DataEstudiante *>(datos);
     if (est != NULL)
     {
-        nuevo = new Estudiante(nick,name,pass,desc,est);
+        nuevo = new Estudiante(datos);
     } else
     {
-        DataProfesor* prof = dynamic_cast<DataProfesor *>(&datos);
+        DataProfesor* prof = dynamic_cast<DataProfesor *>(datos);
         nuevo = new Profesor(nick,name,pass,desc,prof,seleccionados);
     }
 }
