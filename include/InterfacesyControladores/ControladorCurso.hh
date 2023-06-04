@@ -10,6 +10,10 @@
 class ControladorCurso : public IGestionCurso
 {
 private:
+    // Implementacion del Patron de Disenio : Singleton
+    static ControladorCurso* instancia;
+    ControladorCurso();
+
     map<string,Idioma *> colIdiomas;
     map<string,Curso *> colCursos;
     string nombreCurso;
@@ -21,6 +25,9 @@ public:
 
     // Getters y Setters
     
+    // Implementacion del Patron de Disenio : Singleton
+    static ControladorCurso* getInstancia();
+
     // Otros
     set<string> darIdiomas();
     void ingresarDataCurso(string profesor,DTCurso curso);

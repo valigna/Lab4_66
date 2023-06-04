@@ -1,5 +1,28 @@
 #include "../../include/InterfacesyControladores/ControladorCurso.hh"
 
+// Constructores
+
+// Destructor
+
+// Getters y Setters
+
+// Implementacion del Patron de Disenio : Singleton
+ControladorCurso* ControladorCurso::instancia = NULL;
+ControladorCurso::ControladorCurso()
+{
+    this->colIdiomas = new map<string,Idioma *>;
+    this->colCursos = new map<string,Curso *>;
+}
+
+ControladorCurso* ControladorCurso::getInstancia()
+{
+    if (ControladorCurso::instancia == NULL)
+    {
+        ControladorCurso::instancia = new ControladorCurso();
+    }
+    return ControladorCurso::instancia;
+}
+
 //(no se si es op de sistema o no)
 set<string> darIdiomas(){
     for (auto& x: this->colIdiomas) {

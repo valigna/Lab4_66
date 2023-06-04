@@ -6,7 +6,7 @@
     // Podriamos simplemente agregar cada Leccion al final de una lista, quedando de esta forma con el orden pedido...
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
-#include "Utils.hh"
+#include "../../../include/Utils.hh"
 #include "Idioma.hh"
 #include "Profesor.hh"
 #include "Leccion.hh"
@@ -29,19 +29,8 @@ private:
 public:
     // Constructores
 
-    // Destructor
-    ~Curso();
-
     // Getters y Setters
     string getNombre();
-    // Otres
-    bool igualCurso(string curso);
-    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
-    string buscarLetraEnCurso(int ejercicio);
-    // Para el Caso de Uso : [Consultar Estadisticas]
-    int obtenerTotalEjercicios();
-    float darPromedio();
-    InformacionCurso* infoCurso();
 
 };
 

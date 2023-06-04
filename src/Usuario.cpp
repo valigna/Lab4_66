@@ -22,6 +22,17 @@ Usuario::Usuario(DataUsuario *datos,set<string> seleccionados)
     }
 }
 
+// Destructor
+
+
+// Getters y Setters
+string Usuario::getNickname() { return this->Nickname; }
+string Usuario::getNombre() { return this->Nombre; }
+string Usuario::getPassword() { return this->Password; }
+string Usuario::getDescripcion() { return this->Descripcion; }
+
+// Otres...
+
 // Para el Caso de Uso : [Consultar Estadisticas]
 bool Usuario::esEstudiante()
 {
@@ -34,16 +45,6 @@ bool Usuario::esEstudiante()
         return false;
     }
 }
-
-// Destructor
-
-
-// Getters y Setters
-string Usuario::getNickname() { return this->Nickname; }
-
-// Otres...
-
-
 
 //Funcion sin terminar
 set<string> Usuario::getCursosNoAprobados(){

@@ -2,11 +2,11 @@
 #define ESTUDIANTE
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
-#include "Utils.hh"
+#include "../../../include/Utils.hh"
 #include "Usuario.hh"
 // DataTypes
-#include "DataTypes/InfoCursoEst.hh"
-#include "DataTypes/DataFecha.hh"
+#include "../../../include/DataTypes/InfoCursoEst.hh"
+#include "../../../include/DataTypes/DataFecha.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Estudiante: public Usuario
@@ -24,13 +24,6 @@ public:
     // Getters y Setters
     string getPaisResidencia();
     DataFecha* getNacimiento();
-    // Otres
-    set<string> obtenerCursosNoAprobados();
-    set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
-    void eliminarLinkE(string nombreCurso);
-
-    // Para el Caso de Uso : [Consultar Estadisticas]
-    set<InfoCursoEst *> infCursosInscriptos();
 };
 
 #endif

@@ -6,6 +6,21 @@
 
 // Getters y Setters
 
+// Implementacion del Patron de Disenio : Singleton
+ControladorUsuario* ControladorUsuario::instancia = NULL;
+ControladorUsuario::ControladorUsuario()
+{
+    this->colUsuarios = new map<string,Usuario *>;
+}
+
+ControladorUsuario* ControladorUsuario::getInstancia()
+{
+    if (ControladorUsuario::instancia == NULL)
+    {
+        ControladorUsuario::instancia = new ControladorUsuario();
+    }
+    return ControladorUsuario::instancia;
+}
 // Otros
 
 // Set : Unordered set (STL)

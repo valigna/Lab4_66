@@ -2,11 +2,11 @@
 #define PROFESOR
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
-#include "Utils.hh"
+#include "../../../include/Utils.hh"
 #include "Usuario.hh"
 #include "Curso.hh"
 // DataTypes
-#include "DataTypes/InfoCursoProf.hh"
+#include "../../../include/DataTypes/InfoCursoProf.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Profesor : public Usuario
@@ -24,14 +24,6 @@ public:
 
     // Getters y Setters
     string getInstituto();
-    // Otres
-
-
-    // Para el caso de uso : [Eliminar Curso]
-    void eliminarLinkP(string nombreCurso);
-
-    // Para el Caso de Uso : [Consultar Estadisticas]
-    set<InfoCursoProf *> darInfoCursos();
 };
 
 #endif
