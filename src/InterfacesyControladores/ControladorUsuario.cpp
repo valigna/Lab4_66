@@ -35,11 +35,7 @@ set<string> ControladorUsuario::getIdiomas(){
     return idiomas;
 }
 
-// repetida
-set<string> ControladorUsuario::getCursosInscriptosNoAprobados(string nickname){
-    return this->colUsuarios[nickname]->getCursosNoAprobados();
-}
-
+// Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     return it->second->obtenerCursosNoAprobados();
@@ -53,8 +49,14 @@ set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
 string ControladorUsuario::getProblema(int ejercicio){
     ControladorCurso *cc;
     cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(string nomC, int ejercicio);
+    return cc->obtenerLetra(string nomC, int ejercicio); // Como se maneja la memoria en nomC?
 }
+
+void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    return it->second->hacerEjercicioT(ejercicio, sol);
+}
+//
 
 set<string> ControladorUsuario::idiomasNoSuscritos(string nickname) {
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);

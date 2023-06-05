@@ -49,6 +49,7 @@ void ControladorCurso::bajarCurso(){
     delete C; // Se llama al destructor de Curso
 }
 
+// Para el Caso de Uso : [Realizar Ejercicio]
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
     map<string,Curso *>::iterator it = this->colCursos.find(nomC);
     return it->buscarLetraEnCurso(int ejercicio);

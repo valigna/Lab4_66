@@ -15,7 +15,9 @@ private:
 
     // PseudoAtributos...
     set<Ejercicio *> colEjercicios;
-
+    set<Traduccion *> colEjerciciosT;
+    set<CompletarPalabras *> colEjerciciosCP;
+    
 public:
     // Constructores
 
@@ -23,10 +25,11 @@ public:
     ~Leccion();
     // Getters y Setters
 
-    // Otres
-
+    // Para el Caso de Uso : [Realizar Ejercicio]
     set<DataEjercicio *> ejerciciosNoAprobadosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
+    bool ejercicioEnLeccion(int ejercicio);
+    Ejercicio* buscarEjercicioEnLeccionT(int ejercicio, string sol);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     int totalEjercicios();

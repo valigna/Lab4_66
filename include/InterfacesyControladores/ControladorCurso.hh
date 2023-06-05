@@ -31,6 +31,8 @@ public:
     // Otros
     set<string> darIdiomas();
     void ingresarDataCurso(string profesor,DTCurso curso);
+
+    //Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(nomC string, int ejercicio);
 
     // Para el Caso de Uso : [Alta de Usuario]
@@ -44,6 +46,7 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNombreCursos();
     InformacionCurso* darInformacionCurso(string nombreCurso);
+
 };
 
 #endif

@@ -16,6 +16,7 @@ int Leccion::cantEjAprobados(){
     return this->colEjAprobados->size();
 }
 
+// Para el Caso de Uso : [Realizar Ejercicio]
 set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
     set<DataEjercicio *> res;
     for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
@@ -28,10 +29,25 @@ set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
     return res;
 }
 
+bool Leccion::ejercicioEnLeccion(int ejercicio){
+    bool res = false;
+    for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        if(it->getId() == ejercicio){
+            return true;
+        }
+    }
+    return res;
+}
+
 string Leccion::buscarLetraEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios->find(ejercicio);
-    if(it != NULL){
-        return it->gotDescripcion();
+    return it->second->getDescripcion();
+}
+
+Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
+    map<int,Traduccion *>::iterator it = this->colEjerciciosT->find(ejercicio);
+    if(it->second->comprobarSolucionT(sol)){
+        return it->second;
     }
     else{
         return NULL;

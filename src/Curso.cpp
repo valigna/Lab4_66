@@ -17,7 +17,7 @@ Curso::~Curso() {
 // Getters y Setters
 string Curso::getNombre(){return this->Nombre;}
 
-// Otres
+// Para el Caso de Uso : [Realizar Ejercicio]
 bool Curso::igualCurso(string curso){
     if(this->getNombre() == curso){
         return true;
@@ -32,16 +32,34 @@ set<DataEjercicio *> Curso::obtenerListaEjerciciosNoAprobadosCurso(){
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         set<DataEjercicio *> aux;
         aux = it->second->ejerciciosNoAprobadosLeccion();
-        res.insert(aux);
+        res.insert(aux.begin(), aux.end());
     }
     return res;
 }
 
 string Curso::buscarLetraEnCurso(int ejercicio){
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->buscarLetraEnLeccion(ejercicio) != NULL){
+        if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->buscarLetraEnLeccion(ejercicio);
         }
+    }
+}
+
+Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
+    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        if(it->second->ejercicioEnLeccion(ejercicio) == true){
+            return it->second->buscarEjercicioEnLeccionT(ejercicio, sol);
+        }
+    }
+}
+
+Leccion* Curso::comprobarUltimaLeccion(){
+    list<Leccion *>::iterator it = this->colLecciones.end();
+    if(it->){
+        return it;
+    }
+    else{
+        return NULL:
     }
 }
 

@@ -27,12 +27,15 @@ public:
 
     // Destructor
     ~Inscripcion();
-    // Getters y Setters
 
-    // Para el Caso de Uso : [Realizar Ejercicio]
+    // Getters y Setters
     bool getCursoAprobado();
     Curso* getCurso();
+    void setCursoAprobado(boolean curso);
+
+    // Para el Caso de Uso : [Realizar Ejercicio]
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
+    void revisarEjercicioT(int ejercicio, string sol);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();

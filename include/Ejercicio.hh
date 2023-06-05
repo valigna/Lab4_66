@@ -18,10 +18,9 @@ public:
     getDescripcion();
     getId();
 
-    // Otres
+    // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarEjercicio();
     DataEjercicio* obtenerDataEjercicio();
-    string getDescripcion();
 }
 
 #endif

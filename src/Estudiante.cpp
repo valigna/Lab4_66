@@ -13,13 +13,13 @@ Estudiante::Estudiante(string nick,string name, string pass, string desc, DataEs
 string Estudiante::getPaisResidencia(){ return this->PaisResidencia; }
 DataFecha* Estudiante::getNacimiento(){ return this->Nacimiento; }
 
-// Otres
+// Para el caso de Uso : [Realizar Ejercicio]
 
 set<string> Estudiante::obtenerCursosNoAprobados(){
     set<string> res;
-    for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        if(it->second->getCursoAprobado() == false){
-            string aux = it->second->darNombreCurso();
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        if(it->getCursoAprobado() == false){
+            string aux = it->darNombreCurso();
             res.insert(aux);
         }
     }
@@ -27,7 +27,7 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 }
 
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
-    for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso * aux = it->second->getCurso();
         if(aux->igualCurso(curso)){
             return it->second->obtenerListaEjerciciosNoAprobadosIns();
@@ -35,6 +35,16 @@ set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     }
 }
 
+void Estudiante::hacerEjercicioT(int ejercicio, string sol){
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        Curso * aux = it->getCurso();
+        if(aux->igualCurso(curso)){
+            return it->revisarEjercicioT(ejercicio, sol);
+        }
+    }
+}
+
+// Otres
 void Estudiante::eliminarLinkE(string nombreCurso){
     this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso
 }

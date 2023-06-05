@@ -34,10 +34,13 @@ public:
 
     // Getters y Setters
     string getNombre();
-    // Otres
+    // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
     string buscarLetraEnCurso(int ejercicio);
+    Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
+    Leccion* comprobarUltimaLeccion();
+
     // Para el Caso de Uso : [Consultar Estadisticas]
     int obtenerTotalEjercicios();
     float darPromedio();

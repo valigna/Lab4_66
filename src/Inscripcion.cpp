@@ -9,7 +9,10 @@ Inscripcion::~Inscripcion(){
 
 // Getters y Setters
 
-// 
+void Inscripcion::setCursoAprobado(boolean curso){
+    this->CursoAprobado = curso;
+}
+
 bool Inscripcion::getCursoAprobado(){
     if(this->CursoAprobado == true){
         return true;
@@ -23,8 +26,23 @@ Curso* getCurso(){
     return this->c;
 }
 
+// Para el Caso de Uso : [Realizar Ejercicio]
 set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
     return this->c->obtenerListaEjerciciosNoAprobadosCurso();
+}
+
+void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
+    Ejercicio* aux = buscarEjercicioEnCursoT(ejercicio, sol);
+    if(aux != NULL){
+        set<Ejercicio *> ejes = this->colEjAprobados;
+        ejes.insert(aux);
+        Leccion* lec = comprobarUltimaLeccion();
+        if(lec != NULL){
+            set<Leccion *> lecs = this->colLecAprobadas;
+            lecs.insert(lec);
+            it->setCursoAprobado(true);
+        }
+    }
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]

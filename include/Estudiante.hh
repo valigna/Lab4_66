@@ -24,9 +24,11 @@ public:
     // Getters y Setters
     string getPaisResidencia();
     DataFecha* getNacimiento();
-    // Otres
+    // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> obtenerCursosNoAprobados();
     set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
+    void hacerEjercicioT(int ejercicio, string sol);
+    // Otres
     void eliminarLinkE(string nombreCurso);
 
     // Para el Caso de Uso : [Consultar Estadisticas]

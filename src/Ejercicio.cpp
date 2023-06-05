@@ -2,7 +2,7 @@
 
 // Constructores
 
-// Destructor
+// Destructor 
 
 // Getters y Setters
 string getDescripcion(){
@@ -31,6 +31,7 @@ DataEjercicio* Ejercicio::obtenerDataEjercicio(){
     return DatosEjercicio(descripcion, id);
 }
 
+//
 string Ejercicio:getDescripcion(){
     return this->Descripcion;
 }

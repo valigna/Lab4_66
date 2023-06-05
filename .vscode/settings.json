@@ -6,6 +6,12 @@
         "list": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "memory": "cpp",
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "string_view": "cpp"
     }
 }
