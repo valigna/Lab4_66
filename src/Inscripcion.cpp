@@ -9,7 +9,7 @@ Inscripcion::~Inscripcion(){
 
 // Getters y Setters
 
-// Otres
+// 
 bool Inscripcion::getCursoAprobado(){
     if(this->CursoAprobado == true){
         return true;

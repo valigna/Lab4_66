@@ -32,15 +32,22 @@ public:
 
     // Getters y Setters
 
+
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
 
     // Otros
     set<string> getIdiomas(); // Tambien usado en : {Alta de Usuario}
+    
+    //Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
     string getProblema(int ejercicio);
 
+    // Para el Caso de Uso : [Alta de Curso]
+    Usuario findUsuario(string nickname);
+
+    
     // Para el Caso de Uso : [Alta de Usuario]
     void ingresarUsuario(DataUsuario *datos);
     void ingresarIdiomas(set<string> seleccionados);

@@ -46,8 +46,9 @@ bool Usuario::esEstudiante()
     }
 }
 
-//Funcion sin terminar
+// Para el caso de uso : [Realizar Ejercicio]
 set<string> Usuario::getCursosNoAprobados(){
+    set<string> res;
     for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
         if(verificarEstado(it)){
             string curso = it->

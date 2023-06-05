@@ -35,6 +35,7 @@ set<string> ControladorUsuario::getIdiomas(){
     return idiomas;
 }
 
+// repetida
 set<string> ControladorUsuario::getCursosInscriptosNoAprobados(string nickname){
     return this->colUsuarios[nickname]->getCursosNoAprobados();
 }
@@ -59,6 +60,12 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname) {
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     return it->second->darIdiomasNoSuscritos();
 }
+
+// Para el Caso de Uso : [Alta de Curso]
+Usuario ControladorUsuario::findUsuario(string nickname){
+    return colUsuarios.find(nickname)->second;
+}
+
 
 // Para el Caso de Uso : [Alta de Usuario]
 void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }

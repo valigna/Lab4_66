@@ -29,7 +29,7 @@ public:
     ~Inscripcion();
     // Getters y Setters
 
-    // Otres
+    // Para el Caso de Uso : [Realizar Ejercicio]
     bool getCursoAprobado();
     Curso* getCurso();
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();

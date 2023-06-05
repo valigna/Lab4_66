@@ -34,7 +34,7 @@ public:
     string getPassword();
     string getDescripcion();
 
-    // Otros
+    // Para el caso de uso : [Realizar Ejercicio]
     set<string> getCursosNoAprobados();
 
     // Para el caso de uso : [Suscribirse a notificaciones]
