@@ -32,15 +32,17 @@ set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
 }
 
 void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
-    Ejercicio* aux = buscarEjercicioEnCursoT(ejercicio, sol);
+    Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     if(aux != NULL){
         set<Ejercicio *> ejes = this->colEjAprobados;
         ejes.insert(aux);
-        Leccion* lec = comprobarUltimaLeccion();
+        Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
         if(lec != NULL){
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
-            it->setCursoAprobado(true);
+            if(this->colLecAprobadas()->size() == this->c->colLecciones()->size()){
+                this->setCursoAprobado(true);
+            }
         }
     }
 }

@@ -54,12 +54,15 @@ Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
 }
 
 Leccion* Curso::comprobarUltimaLeccion(){
-    list<Leccion *>::iterator it = this->colLecciones.end();
-    if(it->){
-        return it;
-    }
-    else{
-        return NULL:
+    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        if(it->second->ejercicioEnLeccion(ejercicio) == true){
+            if(it->second->ejerciciosNoAprobadosLeccion()->size() == 0){
+                return it->second;
+            }
+            else{
+                return NULL;
+            }
+        }
     }
 }
 

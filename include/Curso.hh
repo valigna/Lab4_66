@@ -39,7 +39,7 @@ public:
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
     string buscarLetraEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
-    Leccion* comprobarUltimaLeccion();
+    Leccion* comprobarUltimaLeccion(int ejercicio);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     int obtenerTotalEjercicios();
