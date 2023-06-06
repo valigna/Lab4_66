@@ -20,7 +20,7 @@ public:
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarEjercicio();
-    DataEjercicio* obtenerDataEjercicio();
+    DatosEjercicio* obtenerDataEjercicio();
 }
 
 #endif

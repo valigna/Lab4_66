@@ -17,11 +17,11 @@ int Leccion::cantEjAprobados(){
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
-    set<DataEjercicio *> res;
+set<DatosEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
+    set<DatosEjercicio *> res;
     for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
         if(it->comprobarEjercicio() == false){
-            DataEjercicio* aux;
+            DatosEjercicio* aux;
             aux = it->obtenerDataEjercicio();
             res.insert(aux);
         }
@@ -47,6 +47,16 @@ string Leccion::buscarLetraEnLeccion(int ejercicio){
 Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
     map<int,Traduccion *>::iterator it = this->colEjerciciosT->find(ejercicio);
     if(it->second->comprobarSolucionT(sol)){
+        return it->second;
+    }
+    else{
+        return NULL;
+    }
+}
+
+Ejercicio* Leccion::buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol){
+    map<int,CompletarPalabra *>::iterator it = this->colEjerciciosT->find(ejercicio);
+    if(it->second->comprobarSolucionCP(sol)){
         return it->second;
     }
     else{

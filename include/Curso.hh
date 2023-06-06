@@ -36,9 +36,10 @@ public:
     string getNombre();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
-    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
+    set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
     string buscarLetraEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
+    Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
     Leccion* comprobarUltimaLeccion(int ejercicio);
 
     // Para el Caso de Uso : [Consultar Estadisticas]

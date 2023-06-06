@@ -34,8 +34,9 @@ public:
     void setCursoAprobado(boolean curso);
 
     // Para el Caso de Uso : [Realizar Ejercicio]
-    set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
+    set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
     void revisarEjercicioT(int ejercicio, string sol);
+    void revisarEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();

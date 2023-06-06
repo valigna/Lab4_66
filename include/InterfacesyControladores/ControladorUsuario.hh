@@ -41,9 +41,10 @@ public:
     
     //Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
-    set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
+    set<DatosEjercicio *> getEjerciciosNoAprobados(string curso);
     string getProblema(int ejercicio);
     void resolverEjercicioT(int ejercicio, string sol);
+    void resolverEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Alta de Curso]
     Usuario findUsuario(string nickname);

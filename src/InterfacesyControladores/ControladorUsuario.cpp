@@ -41,7 +41,7 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
     return it->second->obtenerCursosNoAprobados();
 }
 
-set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+set<DatosEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     return it->second->obtenerEjerciciosNoAprobados(string curso);
 }
@@ -55,6 +55,11 @@ string ControladorUsuario::getProblema(int ejercicio){
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     return it->second->hacerEjercicioT(ejercicio, sol);
+}
+
+void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    return it->second->hacerEjercicioCP(ejercicio, sol);
 }
 //
 

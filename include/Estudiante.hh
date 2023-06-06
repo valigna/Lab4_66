@@ -26,8 +26,9 @@ public:
     DataFecha* getNacimiento();
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> obtenerCursosNoAprobados();
-    set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
+    set<DatosEjercicio *> obtenerEjerciciosNoAprobados(string curso);
     void hacerEjercicioT(int ejercicio, string sol);
+    void hacerEjercicioCP(int ejercicio, set<string> sol);
     // Otres
     void eliminarLinkE(string nombreCurso);
 

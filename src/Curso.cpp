@@ -27,10 +27,10 @@ bool Curso::igualCurso(string curso){
     }
 }
 
-set<DataEjercicio *> Curso::obtenerListaEjerciciosNoAprobadosCurso(){
+set<DatosEjercicio *> Curso::obtenerListaEjerciciosNoAprobadosCurso(){
     set<DataEjercicio *> res;
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        set<DataEjercicio *> aux;
+        set<DatosEjercicio *> aux;
         aux = it->second->ejerciciosNoAprobadosLeccion();
         res.insert(aux.begin(), aux.end());
     }
@@ -49,6 +49,14 @@ Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->second->buscarEjercicioEnLeccionT(ejercicio, sol);
+        }
+    }
+}
+
+Ejercicio* Curso::buscarEjercicioEnCursoCP(int ejercicio, set<string> sol){
+    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+        if(it->second->ejercicioEnLeccion(ejercicio) == true){
+            return it->second->buscarEjercicioEnLeccionCP(ejercicio, sol);
         }
     }
 }

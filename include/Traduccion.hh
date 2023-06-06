@@ -16,7 +16,7 @@ private:
     string solucion;
 public:
     // Getters y Setters
-    string getFrase();
+    string getFraseT();
     string getSolucionT();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarSolucionT(string sol);

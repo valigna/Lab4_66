@@ -1,4 +1,6 @@
 #include "../include/Ejercicio.hh"
+#include "..include/DataTypes/DatosEjercicio.hh"
+
 
 // Constructores
 
@@ -13,7 +15,7 @@ float getId(){
     return this->getId();
 }
 
-// Otres
+// Para el Caso de Uso : [Realizar Ejercicio]
 //No terminada...
 bool Ejercicio::comprobarEjercicio(){
     if(){
@@ -25,13 +27,8 @@ bool Ejercicio::comprobarEjercicio(){
 }
 
 //No terminada...
-DataEjercicio* Ejercicio::obtenerDataEjercicio(){
+DatosEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
     return DatosEjercicio(descripcion, id);
-}
-
-//
-string Ejercicio:getDescripcion(){
-    return this->Descripcion;
 }

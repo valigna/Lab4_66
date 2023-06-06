@@ -7,7 +7,9 @@ DatosEjercicio::DatosEjercicio(string descripcionEjercicio,float idEjercicio){
 }
 
 // Destructores
-DatosEjercicio::~DatosEjercicio(){ }
+DatosEjercicio::~DatosEjercicio(){
+
+}
 
 // Getters
 string DatosEjercicio::getDescripcionEjercicio(){

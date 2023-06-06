@@ -27,12 +27,28 @@ Curso* getCurso(){
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
+set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
     return this->c->obtenerListaEjerciciosNoAprobadosCurso();
 }
 
 void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
+    if(aux != NULL){
+        set<Ejercicio *> ejes = this->colEjAprobados;
+        ejes.insert(aux);
+        Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
+        if(lec != NULL){
+            set<Leccion *> lecs = this->colLecAprobadas;
+            lecs.insert(lec);
+            if(this->colLecAprobadas()->size() == this->c->colLecciones()->size()){
+                this->setCursoAprobado(true);
+            }
+        }
+    }
+}
+
+void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
+    Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
         set<Ejercicio *> ejes = this->colEjAprobados;
         ejes.insert(aux);

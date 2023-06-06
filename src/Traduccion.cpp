@@ -1,7 +1,7 @@
 #include "../include/Traduccion.hh"
 
 // Getters y Setters
-string Traduccion::getFrase(){
+string Traduccion::getFraseT(){
     return this->frase;
 }
 
