@@ -1,4 +1,5 @@
-/* Clases de la biblioteca STL utilizadas... */
+/* ---------------------------------------------- Includes ---------------------------------------------- */
+// Colecciones de la biblioteca STL utilizadas...
 #include <string>
 #include <set>
 #include <map>
@@ -8,11 +9,10 @@
 // Confirmar...
 #include <forward_list>
 
-using namespace std;
-/* --------------------------------------- */
-
 // Para entrada/salida
 #include <iostream>
+using namespace std;
+/* ------------------------------------------------------------------------------------------------------ */
 
 #ifndef UTILS
 #define UTILS

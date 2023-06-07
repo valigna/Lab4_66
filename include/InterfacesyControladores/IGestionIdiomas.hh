@@ -1,17 +1,16 @@
-#ifndef SUSCRIPCION
-#define SUSCRIPCION
+#ifndef I_GESTION_IDIOMAS
+#define I_GESTION_IDIOMAS
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-class Suscripcion
+class IGestionIdiomas
 {
-public:
-    virtual void notificarBaja(string nombreCurso) = 0;
-    virtual void notificarAlta(Idioma *i,Curso *c) = 0;
+    virtual bool altaIdioma(string nombre) = 0;
+    virtual set<string> getIdiomas() = 0;
 
-    virtual ~Suscripcion();
-}
+    virtual ~IGestionIdiomas();
+};
 
 #endif

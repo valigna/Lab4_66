@@ -6,6 +6,7 @@
 #include "Usuario.hh"
 #include "Curso.hh"
 // DataTypes
+#include "DataTypes/DataProfesor.hh"
 #include "DataTypes/InfoCursoProf.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
@@ -19,13 +20,11 @@ private:
     map<string,Idioma *> colIdiomas;
 public:
     // Constructores
-    Profesor(string nick,string name, string pass, string desc, DataProfesor* prof,set<string> seleccionados);
+    Profesor(DataUsuario* datos,set<string> seleccionados);
     // Destructor
 
     // Getters y Setters
     string getInstituto();
-    // Otres
-
 
     // Para el caso de uso : [Eliminar Curso]
     void eliminarLinkP(string nombreCurso);

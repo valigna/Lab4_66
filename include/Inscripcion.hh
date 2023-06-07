@@ -8,15 +8,16 @@
 #include "Estudiante.hh"
 #include "Curso.hh"
 // DataTypes
+#include "DataTypes/DataFecha.hh"
 #include "DataTypes/DataEjercicio.hh"
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Inscripcion
 {
 private:
-    Fecha FechaInscripcion;
+    DataFecha* FechaInscripcion;
     bool CursoAprobado;
-    
     // PseudoAtributos...
     Estudiante *e;
     Curso *c;

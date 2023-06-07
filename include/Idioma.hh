@@ -1,23 +1,27 @@
 #ifndef IDIOMA
 #define IDIOMA
 
-// includes...
+
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "InterfacesYControladores/Suscripcion"
+#include "InterfacesyControladores/Suscripcion"
+// DataTypes
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Idioma
 {
 private:
+    string Nombre;
     // Pseudoatibutos...
     vector<Suscripcion *> colSuscripciones;
-    string Nombre;
 public:
     // Constructores
-
+    Idioma(string nombre);
     // Destructor
-
+    ~Idioma();
     // Getters y Setters
     string getNombre();
+
     // Otros
     void cursoEliminado(string nombreCurso);
 }

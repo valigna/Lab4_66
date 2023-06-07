@@ -4,6 +4,7 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "InterfacesyControladores/Suscripcion.hh"
+#include "InterfacesyControladores/ControladorCurso.hh"
 #include "Notificacion.hh"
 // DataTypes
 #include "DataTypes/DataUsuario.hh"
@@ -24,10 +25,11 @@ private:
 
 public:
     // Constructores
-    Usuario(DataUsuario *datos,set<string> seleccionados);
+    Usuario(string nick, string name, string con, string desc);
+    // Usuario(DataUsuario *datos,set<string> seleccionados);
     
     // Destructor
-
+    virtual ~Usuario() = 0;
     // Getters y Setters : Tendra sentido definir los setters? Pq una vez creado no se vuelve a modificar...
     string getNickname();
     string getNombre();
@@ -49,5 +51,9 @@ public:
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Inscripcion.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

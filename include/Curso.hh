@@ -8,9 +8,12 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Idioma.hh"
-#include "Profesor.hh"
-#include "Leccion.hh"
-#include "Inscripcion.hh"
+
+// Como la mayoria de las referencias circulares incluyen a curso, haremos los Forward Declarations en Curso...
+class Profesor;
+class Inscripcion;
+class Leccion;
+class Ejercicio;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Curso
@@ -18,10 +21,12 @@ class Curso
 private:
     string Nombre;
     string Descricpion;
+    difficulty Dificultad;
+    bool Habilitado;
 
     // PseudoAtributos...
-    Profesor *profesor;
-    Idioma *idioma;
+    Profesor* Profesor;
+    Idioma* Idioma;
     list<Leccion *> colLecciones;
     set<Inscripcion *> colInscripciones;
     set<Curso *> colPrevios;
@@ -34,6 +39,14 @@ public:
 
     // Getters y Setters
     string getNombre();
+    string getDescripcion();
+    difficulty getDificultad();
+    bool getHabilitado();
+
+    void setHabilitado(bool hab);
+
+    // Para el Caso de Uso : [Habilitar Curso]
+    bool sePuedeHabilitar();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
     set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
@@ -48,5 +61,12 @@ public:
     InformacionCurso* infoCurso();
 
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Profesor.hh"
+#include "Inscripcion.hh"
+#include "Leccion.hh"
+#include "Ejercicio.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

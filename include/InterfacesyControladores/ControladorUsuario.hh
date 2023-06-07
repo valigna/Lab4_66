@@ -7,6 +7,9 @@
 #include "ControladorCurso.hh"
 // DataTypes
 #include "../DataTypes/DataUsuario.hh"
+#include "../DataTypes/DatosEstudiante.hh"
+#include "../DataTypes/DatosProfesor.hh"
+#include "../DataTypes/DatosCurso.hh" // FALTA IMPLEMENTAR
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
@@ -15,8 +18,6 @@ private:
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* instancia;
     ControladorUsuario();
-    // Simulando Memoria Del Sistema...
-    string nickname
 
     //Colecciones
     map<string,Usuario *> colUsuarios;
@@ -24,14 +25,13 @@ private:
     // Memoria para el Caso de Uso : [Alta de Usuario]
     DataUsuario* datos;
     set<string> seleccionados;
+    // Memoria para el Caso de Uso : [Suscribirse a Notificaciones]
+    string nickname;
+    // Creo que tambien se va a usar en otros casos de uso, no pasa nada que se repita | Eso si, aclaren en cuales se repitio si es el caso
 
 public:
-    // Constructores
-
     // Destructor
-
-    // Getters y Setters
-
+    ~ControladorUsuario();
 
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
@@ -39,6 +39,15 @@ public:
     // Otros
     set<string> getIdiomas(); // Tambien usado en : {Alta de Usuario}
     
+    // Para el Caso de Uso : [Alta de Usuario]
+    void ingresarUsuario(DataUsuario* datos);
+    void ingresarIdiomas(set<string> seleccionados);
+    bool confirmarAltaUsuario();
+
+    // Para el Caso de Uso : [Consulta de Usuario]
+    set<string> getNicksUsuarios();
+    DatosUsuario* getDatosUsuario(string nick);
+
     //Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
     set<DatosEjercicio *> getEjerciciosNoAprobados(string curso);
@@ -49,11 +58,6 @@ public:
     // Para el Caso de Uso : [Alta de Curso]
     Usuario findUsuario(string nickname);
 
-    
-    // Para el Caso de Uso : [Alta de Usuario]
-    void ingresarUsuario(DataUsuario *datos);
-    void ingresarIdiomas(set<string> seleccionados);
-    bool confirmarAltaUsuario();
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNicksEstudiantes();
     set<InfoCursoEst *> darInfoCursosEst(string nickEstudiante);
@@ -65,6 +69,9 @@ public:
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> idiomasSuscritos(string nickname);
+
+    // Para el caso de uso: [Inscribirse a curso]
+    set<DatosCurso> getCursosDisponibles(string nickname);
 };
 
 #endif

@@ -1,7 +1,6 @@
 #include "../include/Usuario.hh"
 
 // Constructores
-
 Usuario::Usuario(DataUsuario *datos,set<string> seleccionados)
 {
     Usuario* nuevo = NULL;
@@ -21,6 +20,7 @@ Usuario::Usuario(DataUsuario *datos,set<string> seleccionados)
         nuevo = new Profesor(nick,name,pass,desc,prof,seleccionados);
     }
 }
+// Este creo que no va, tendria que revisarlo... (MI)
 
 // Destructor
 
@@ -85,14 +85,18 @@ bool Usuario::esEstudiante()
 
 // Para el caso de uso : [Suscribirse a notificaciones]
 set<string> Usuario::darIdiomasNoSuscritos() {
-    set<string> res;
-
     // Obtengo la instancia de Controlador Curso y delego la operacion...
-    ControladorCurso *cu;
-    cu = ControladorCurso::getInstancia();
-    set<string> idiomas = cu->darIdiomas();
-    //Falta terminar
+    ControladorCurso* cu = ControladorCurso::getInstancia();
+    set<string> idiomas = cu->getIdiomas();
+    
+    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
+    {
+        string idi = (*it)->darIdioma();
+        set<string>::iterator iter = idiomas.find(idi);
+        if(iter != idiomas.end()){ idiomas.erase(idi); }
+    }
 
+    return idiomas;
 }
 
 

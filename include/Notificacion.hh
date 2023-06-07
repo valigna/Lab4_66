@@ -19,8 +19,8 @@ public:
     // Destructor
     ~Notificacion(); // Se usa el destructor por defecto, no?
     // Getters y Setters
-
-    // Otros
+   
+   // Otros
 
     // Para el caso de uso: [Eliminar Suscripciones]
     string darIdioma();

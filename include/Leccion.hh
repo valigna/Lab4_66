@@ -15,8 +15,8 @@ private:
 
     // PseudoAtributos...
     set<Ejercicio *> colEjercicios;
-    set<Traduccion *> colEjerciciosT;
-    set<CompletarPalabras *> colEjerciciosCP;
+    set<Traduccion *> colEjerciciosT; // ?) Acordarse de usar dynamic_cast
+    set<CompletarPalabras *> colEjerciciosCP; // Idem
     
 public:
     // Constructores

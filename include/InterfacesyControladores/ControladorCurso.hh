@@ -5,9 +5,12 @@
 #include "../Utils.hh"
 #include "../Idioma.hh"
 #include "../Curso.hh"
+// DataTypes
+#include "../DataTypes/DataTraduccion.hh"
+#include "../DataTypes/DataCompletarPalabras.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-class ControladorCurso : public IGestionCurso
+class ControladorCurso : public IGestionCurso, public IGestionIdiomas
 {
 private:
     // Implementacion del Patron de Disenio : Singleton
@@ -16,27 +19,35 @@ private:
 
     map<string,Idioma *> colIdiomas;
     map<string,Curso *> colCursos;
+    
+    // Para memoria de que caso de uso??
     string nombreCurso;
 
 public:
-    // Constructores
-
     // Destructor
-
+    ~ControladorCurso();
     // Getters y Setters
     
     // Implementacion del Patron de Disenio : Singleton
     static ControladorCurso* getInstancia();
 
     // Otros
-    set<string> darIdiomas();
+
     void ingresarDataCurso(string profesor,DTCurso curso);
+
+    // Para el Caso de Uso : [Alta de Usuario]
+    Idioma* obtenerIdioma(string nombre);
+
+    // Para el Caso de Uso : [Alta de idioma]
+    bool altaIdioma(string nombre);
+    set<string> getIdiomas();
+
+    // Para el Caso de Uso : [Habilitar Curso]
+    set<InformacionDeCurso *> getCursosNoHabilitados();
+    bool habilitarCurso(string seleccionado);
 
     //Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(nomC string, int ejercicio);
-
-    // Para el Caso de Uso : [Alta de Usuario]
-    Idioma* obtenerIdidioma(string nombre);
 
     // Operaciones de: [eliminar curso]
     set<string> getNombreCursos();

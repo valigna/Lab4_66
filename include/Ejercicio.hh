@@ -1,22 +1,24 @@
 #ifndef EJERCICIO
 #define EJERCICIO
 
-// includes ... (Parece no tener)
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+// DataTypes
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Ejercicio
 {
 private: 
-    string:Descripcion;
+    string Descripcion;
     int id;
 public:
     // Constructores
 
     // Destructor
-    ~Ejercicio(); // Destructor por defecto
+    virtual ~Ejercicio();
     // Getters y Setters
-    getDescripcion();
-    getId();
+    string getDescripcion();
+    int getId();
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarEjercicio();

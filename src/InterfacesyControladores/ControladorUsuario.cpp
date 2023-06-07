@@ -35,11 +35,81 @@ set<string> ControladorUsuario::getIdiomas(){
     return idiomas;
 }
 
+
+// Para el Caso de Uso : [Alta de Usuario]
+void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
+void ControladorUsuario::ingresarIdiomas(set<string> seleccionados){ this->seleccionados = seleccionados; }
+
+bool ControladorUsuario::confirmarAltaUsuario()
+{
+    bool altaExitosa = false;
+    string nickname = this->datos->getNickname();
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    if (it == this->colUsuarios.end()) // No exisita un usuario con 'nickname', por lo que se pasa a crear uno...
+    {
+        // Hacemos un casteo dinamico, para saber si se trata de un Estudiante o Profesor...
+        DataEstudiante* aux = dynamic_cast<DataEstudiante *>(this->datos);
+        if (aux != NULL) // Efectivamente se trata de un estudiante...
+        {
+            this->colUsuarios.emplace(nickname,new Estudiante(this->datos));
+        } else // Se trata de un profesor
+        {
+            this->colUsuarios.emplace(nickname, new Profesor(this->datos,this->seleccionados));
+        }
+        altaExitosa = true;
+    }
+    return altaExitosa;
+}
+
+// Para el Caso de Uso : [Consulta de Usuario]
+set<string> ControladorUsuario::getNicksUsuarios()
+{
+    set<string> res;
+    for(map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end(); ++it)
+    {
+        res.insert(it->first);
+    }
+    return res;
+}
+
+DatosUsuario* ControladorUsuario::getDatosUsuario(string nick)
+{
+    Usuario* u = this->colUsuarios.find(nick)->second;
+    
+    // Tendria que corroborar si se trata de un Estudiante o Profesor...
+    Estudiante* est = dynamic_cast<Estudiante *>(u);
+    if (est != NULL)
+    {
+        DatosUsuario* usuarioE = new DatosEstudiante(est->getNombre(),est->getDescripcion(),est->getPaisResidencia(),est->getNacimiento());
+        return usuarioE;
+    } else // Es un profesor...
+    {
+        Profesor* prof = (Profesor *)u;
+        set<string> especializa;
+        for(map<string,Idioma *>::iterator it = prof->colIdiomas.begin(); it != prof->colIdiomas.end(); ++it)
+        {
+            especializa.insert(it->first);
+        }
+        DatosUsuario* usuarioP = new DatosProfesor(prof->getNombre(),prof->getDescripcion(),prof->getInstituto(),especializa);
+        return usuarioP;
+    }
+}
+
 // Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    /*
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    if(est != NULL)
+    {
+
+    }
+
+    */
     return it->second->obtenerCursosNoAprobados();
 }
+
+
 
 set<DatosEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
@@ -73,24 +143,6 @@ Usuario ControladorUsuario::findUsuario(string nickname){
     return colUsuarios.find(nickname)->second;
 }
 
-
-// Para el Caso de Uso : [Alta de Usuario]
-void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
-void ControladorUsuario::ingresarIdiomas(set<string> seleccionados){ this->seleccionados = seleccionados; }
-
-bool ControladorUsuario::confirmarAltaUsuario()
-{
-    bool altaExitosa = false;
-    string nickname = this->datos->getNickname();
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
-    if (it == this->colUsuarios.end())
-    {
-        Usuario* nuevo = new Usuario(this->datos,this->seleccionados);
-        this->colUsuarios.insert(this->datos->getNickname,nuevo);
-        altaExitosa = true;
-    }
-    return res;
-}
 // Para el Caso de Uso : [Consultar Estadisticas]
 set<string> ControladorUsuario::darNicksEstudiantes()
 {
@@ -140,9 +192,35 @@ set<InfoCursoProf *> ControladorUsuario::darInfoCursosProf(string nickProfesor)
     return res;
 }
 
+// Para el caso de uso: [Inscribirse a curso]
+set<DatosCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
+    set<DatosCurso *> res;
+    this->nickname = nickname;
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname]);
+    if (est != NULL) {
+        res = est->darCursosDisponibles();
+    }
+    return res;
+}
+
+// Para el Caso de Uso : [Suscribirse a Notificaciones]
+set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
+{
+    set<string> res;
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    if(it != this->colUsuarios.end())
+    {
+        res = it->second->darIdiomasNoSuscritos();
+    }
+    return res;
+}
 
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> idiomasSuscritos(string nickname){
     this->nickname = nickname;
     return this->colUsuarios[nickname]->getIdiomasSuscritos();
 }
+
+
+
+//Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname])

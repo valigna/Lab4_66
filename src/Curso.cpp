@@ -17,6 +17,25 @@ Curso::~Curso() {
 // Getters y Setters
 string Curso::getNombre(){return this->Nombre;}
 
+void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
+
+
+// Para el Caso de Uso : [Habilitar Curso]
+bool Curso::sePuedeHabilitar()
+{
+    bool res = true;
+    if(this->colLecciones.size() >= 1)
+    {
+        for(list<Leccion *>::iterator it = this->colLeciones.begin(); it != this->colLecciones.end(); ++it)
+        {
+            if((*it)->colEjercicios.size() < 1) { res = false; }
+        }
+    } else
+    {
+        res = false;
+    }
+    return res;
+}
 // Para el Caso de Uso : [Realizar Ejercicio]
 bool Curso::igualCurso(string curso){
     if(this->getNombre() == curso){

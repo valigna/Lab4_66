@@ -3,7 +3,6 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
-
 // DataTypes
 #include "../DataTypes/InfoCursoEst.hh"
 #include "../DataTypes/InfoCursoProf.hh"
