@@ -25,7 +25,7 @@ set<string> Estudiante::obtenerCursosAprobados(){
     set<string> res;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
         if (it->getCursoAprobado()){
-            res.insert(it->darNombrCurso());
+            res.insert(it->darNombreCurso());
         }
     }
     return res;
@@ -34,7 +34,7 @@ set<string> Estudiante::obtenerCursosAprobados(){
 set<string> Estudiante::obtenerCursosInscriptos(){
     set<string> res;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        res.insert(it->darNombrCurso());
+        res.insert(it->darNombreCurso());
     }
     return res;
 }
@@ -102,11 +102,12 @@ set<InfoCursoEst *> Estudiante::infCursosInscriptos()
 // Para el caso de uso: [Inscribirse a curso]
 set<DatosCurso *> Estudiante::darCursosDisponibles();{
     set<DatosCurso *> res;
-    set<string> nombresCursosDisponibles;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
-    //Obtener instancia de controladorCurso
-    //Obtener lista de todos los cursos habilitados, sacarle los inscriptos y los que tengan previas sin aprobar
+    ControladorCurso* cc;
+    cc = ControladorCurso::getInstancia();
+    res = cc->darCursosHabilitadosDisponibles(nombresCursosAprobados, nombresCursosInscriptos);
+    
     //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
     return res;
 }

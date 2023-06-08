@@ -216,8 +216,8 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
 }
 
 void ControladorUsuario::suscribirse(set<string> idiomas){
-
-    Usuario *u = colUsuarios.find(nickname);
+    
+    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname])
     ControladorCurso* cc;
     cc = ControladorCurso::getInstancia();
     cc->agregarObservador(u,idiomas);

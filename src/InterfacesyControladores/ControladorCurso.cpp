@@ -182,7 +182,7 @@ InformacionCurso* ControladorCurso::darInformacionCurso(string nombreCurso)
 
 // Para el Caso de Uso : [Suscribirse a Notificaciones]
 
-void ControladorCurso::agregarObservador(Usuario u, set<string> idiomas){
+void ControladorCurso::agregarObservador(Suscripcion *u, set<string> idiomas){
     
     for(set<string *>::iterator iter = idiomas.begin(); iter != idiomas.end(); ++iter)
             {
@@ -192,6 +192,27 @@ void ControladorCurso::agregarObservador(Usuario u, set<string> idiomas){
 
 }
 
+// Para el caso de uso: [Inscribirse a curso]
+// Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
+set<DatosCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos){
+    set<DatosCurso *> res;
+    for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end();++it){
+        if (it->second->getHabilitado()){
+            string nombreCurso = it->second->getNombre();
+            if((set<string>::iterator it2 = nombresCursosInscriptos.find(nombreCurso)) == nombresCursosInscriptos.end()){
+                if(it->second->previosAprobados(nombresCursosAprobados)){
+                    string descripcion = it->second->getDescripcion();
+                    difficulty dificultad = it->second->getDificultad();
+                    //crear dataType y agregar al set
+                }
+            }
+        }    
+    }
+    //FALTA TERMINAR:
+    //implementar funciones qque se piden a curso
+    //terminar de construir el DT y agregarlo al set
+    //crear el .hh y .cpp del DT e implementarlos
+}
 
 /*
 CODIGO VIEJO / CPZ SIRVE

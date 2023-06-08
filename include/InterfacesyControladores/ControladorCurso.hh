@@ -72,8 +72,11 @@ public:
     InformacionCurso* darInformacionCurso(string nombreCurso);
 
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
-    void agregarObservador(Usuario u, set<string> idiomas)
+    void agregarObservador(Suscripcion *u, set<string> idiomas)
 
+    // Para el caso de uso: [Inscribirse a curso]
+    // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
+    set<DatosCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
 };
 
 #endif

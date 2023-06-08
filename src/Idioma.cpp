@@ -23,9 +23,8 @@ void Idioma::cursoEliminado(string nombreCurso){
 
 
 // Para el Caso de Uso : [Suscribirse a Notificaciones]
-   void Idioma::agregar(Usuario u){
-
-    
+   void Idioma::agregar(Suscripcion* u){
+    this->colSuscripciones.push_back(u);    
    }
 
 
