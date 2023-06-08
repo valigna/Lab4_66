@@ -22,6 +22,11 @@
 class ControladorEstadisticas : public IConsultarEstadisticas
 {
 public:
+    // Constructor
+    ControladorEstadisticas();
+    // Destructor
+    ~ControladorEstadisticas();
+    // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> getNicksEstudiantes();
     set<InfoCursoEst *> listarCursosEstudiante(string nickEstudiante);
     set<string> getNicksProfesores();

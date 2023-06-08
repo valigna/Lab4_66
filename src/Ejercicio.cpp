@@ -30,5 +30,6 @@ bool Ejercicio::comprobarEjercicio(){
 DatosEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
-    return DatosEjercicio(descripcion, id);
+    res = new DatosEjercicio(descripcion, id);
+    return res;
 }

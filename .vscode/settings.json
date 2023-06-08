@@ -12,6 +12,12 @@
         "memory": "cpp",
         "ostream": "cpp",
         "streambuf": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "__locale": "cpp",
+        "locale": "cpp",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__string": "cpp",
+        "unordered_map": "cpp"
     }
 }

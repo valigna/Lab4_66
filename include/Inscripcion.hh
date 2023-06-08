@@ -44,5 +44,6 @@ public:
     float darAvance();
     float darAvance(int cantEj);
     int cantEjAprobados();
-}
+};
+
 #endif

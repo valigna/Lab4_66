@@ -27,6 +27,6 @@ public:
 
    // Para el Caso de Uso : [Suscribirse a Notificaciones]
    void agregar(Suscripcion* u);
-}
+};
 
 #endif

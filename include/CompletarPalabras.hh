@@ -1,5 +1,5 @@
-#ifndef COMPLETARPALABRA
-#define COMPLETARPALABRA
+#ifndef COMPLETAR_PALABRA
+#define COMPLETAR_PALABRA
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"

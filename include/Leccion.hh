@@ -6,6 +6,7 @@
 #include "Ejercicio.hh"
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
+#include "DataTypes/DatosEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 
@@ -15,8 +16,6 @@ private:
 
     // PseudoAtributos...
     set<Ejercicio *> colEjercicios;
-    set<Traduccion *> colEjerciciosT; // ?) Acordarse de usar dynamic_cast
-    set<CompletarPalabras *> colEjerciciosCP; // Idem
     
 public:
     // Constructores

@@ -20,6 +20,6 @@ public:
     virtual void eliminarSuscripciones(set<string> seleccionados) = 0;
 
     virtual ~IGestionNotificaciones();
-}
+};
 
 #endif

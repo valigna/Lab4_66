@@ -12,6 +12,6 @@ public:
     virtual void notificarAlta(Idioma *i,Curso *c) = 0;
 
     virtual ~Suscripcion();
-}
+};
 
 #endif

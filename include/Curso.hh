@@ -33,7 +33,7 @@ private:
 
 public:
     // Constructores
-
+    
     // Destructor
     ~Curso();
 

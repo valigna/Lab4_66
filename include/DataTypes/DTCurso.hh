@@ -1,5 +1,5 @@
-#ifndef DT_Curso
-#define DT_Curso
+#ifndef DT_CURSO
+#define DT_CURSO
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"

@@ -12,7 +12,7 @@ Leccion::~Leccion(){
 
 // Otres
 
-int Leccion::cantEjAprobados(){
+int Leccion::cantEjAprobados(){ // No esta en el .hh
     return this->colEjAprobados->size();
 }
 
@@ -45,8 +45,9 @@ string Leccion::buscarLetraEnLeccion(int ejercicio){
 }
 
 Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
-    map<int,Traduccion *>::iterator it = this->colEjerciciosT->find(ejercicio);
-    if(it->second->comprobarSolucionT(sol)){
+    map<int,Ejercicio *>::iterator it = this->colEjerciciosT->find(ejercicio);
+    Traduccion* tra = dynamic_cast<Traduccion *>(it->second);
+    if(tra->comprobarSolucionT(sol)){
         return it->second;
     }
     else{
@@ -56,7 +57,8 @@ Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
 
 Ejercicio* Leccion::buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol){
     map<int,CompletarPalabra *>::iterator it = this->colEjerciciosT->find(ejercicio);
-    if(it->second->comprobarSolucionCP(sol)){
+    CompletarPalabras* cp = dynamic_cast<CompletarPalabras *>(it->second);
+    if(cp->comprobarSolucionCP(sol)){
         return it->second;
     }
     else{
