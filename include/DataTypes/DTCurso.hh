@@ -16,7 +16,7 @@ public:
     DTCurso(string Nombre, string Desc, difficulty Dificultad);
     // Destructor
     ~DTCurso();
-    // Getters
+    // Getters ?
     
 };
 

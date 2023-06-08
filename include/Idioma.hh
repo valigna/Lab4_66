@@ -24,6 +24,9 @@ public:
 
     // Otros
     void cursoEliminado(string nombreCurso);
+
+   // Para el Caso de Uso : [Suscribirse a Notificaciones]
+   void agregar(Usuario u);
 }
 
 #endif

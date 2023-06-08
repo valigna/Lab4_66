@@ -23,6 +23,13 @@ private:
     // Para memoria de que caso de uso??
     string nombreCurso;
 
+    //Memoria Para [Alta de Curso]
+    DTCurso curso;
+    Usuario profesor;
+    set<string> previos;
+    DTLeccion leccion;
+    DTEjercicio ejercicio;
+
 public:
     // Destructor
     ~ControladorCurso();
@@ -45,6 +52,8 @@ public:
     // Para el Caso de Uso : [Alta de Curso]
     void ingresarDataCurso(string profesor, DTCurso curso);
     void ingresarCursosPrevios(set<string> previos);
+    void ingresarLeccionParaAlta(DTLeccion leccion);
+    void ingresarEjercicioParaAlta(DTEjercicio ejercicio);
 
     // Para el Caso de Uso : [Habilitar Curso]
     set<InformacionDeCurso *> getCursosNoHabilitados();
@@ -61,6 +70,9 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNombreCursos();
     InformacionCurso* darInformacionCurso(string nombreCurso);
+
+    // Para el Caso de Uso : [Suscribirse a Notificaciones]
+    void agregarObservador(Usuario u, set<string> idiomas)
 
 };
 

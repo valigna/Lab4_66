@@ -83,19 +83,24 @@ set<string> ControladorCurso::getIdiomas()
 // Para el Caso de Uso : [Alta de Curso]
 
  void ControladorCurso::ingresarDataCurso(string profesor, DTCurso curso) {
-    this->Curso = curso;
+    this->curso = curso;
     ControladorUsuario * cu;
     cu = ControladorUsuario::getInstancia();
-    this->Profesor = cu->findUsuario(profesor);
+    this->profesor = cu->findUsuario(profesor);
  }
 
 void ControladorCurso::ingresarCursosPrevios(set<string> previos){
-    
-    map<string,Curso *> Pr;
-
-    this->Previos = Pr;
-
+    this->previos = previos;
 }
+
+void ControladorCurso::ingresarLeccionParaAlta(DTLeccion leccion){
+    this->leccion = leccion;
+}
+
+void ControladorCurso::ingresarEjercicioParaAlta(DTEjercicio ejercicio){
+    this->ejercicio = ejercicio;
+}
+
 
 // Para el Caso de Uso : [Habilitar Curso]
 set<InfromacionDeCurso *> ControladorCurso::getCursosNoHabilitados()
@@ -175,6 +180,17 @@ InformacionCurso* ControladorCurso::darInformacionCurso(string nombreCurso)
 }
 
 
+// Para el Caso de Uso : [Suscribirse a Notificaciones]
+
+void ControladorCurso::agregarObservador(Usuario u, set<string> idiomas){
+    
+    for(set<string *>::iterator iter = idiomas.begin(); iter != idiomas.end(); ++iter)
+            {
+                this->colIdiomas.find(iter)->second->agregar(u);
+            }
+
+
+}
 
 
 /*

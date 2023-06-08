@@ -215,6 +215,16 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
     return res;
 }
 
+void ControladorUsuario::suscribirse(set<string> idiomas){
+
+    Usuario *u = colUsuarios.find(nickname);
+    ControladorCurso* cc;
+    cc = ControladorCurso::getInstancia();
+    cc->agregarObservador(u,idiomas);
+}
+
+
+
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> idiomasSuscritos(string nickname){
     this->nickname = nickname;

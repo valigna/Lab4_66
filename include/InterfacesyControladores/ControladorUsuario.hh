@@ -66,6 +66,7 @@ public:
 
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
     set<string> idiomasNoSuscritos(string nickname);
+    void suscribirse(set<string> idiomas);
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> idiomasSuscritos(string nickname);
