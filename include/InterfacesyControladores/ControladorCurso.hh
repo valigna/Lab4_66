@@ -42,6 +42,10 @@ public:
     bool altaIdioma(string nombre);
     set<string> getIdiomas();
 
+    // Para el Caso de Uso : [Alta de Curso]
+    void ingresarDataCurso(string profesor, DTCurso curso);
+    void ingresarCursosPrevios(set<string> previos);
+
     // Para el Caso de Uso : [Habilitar Curso]
     set<InformacionDeCurso *> getCursosNoHabilitados();
     bool habilitarCurso(string seleccionado);
