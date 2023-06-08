@@ -37,7 +37,7 @@ public:
     string getDescripcion();
 
     // Para el caso de uso : [Realizar Ejercicio]
-    set<string> getCursosNoAprobados();
+    //set<string> getCursosNoAprobados();
 
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();
@@ -47,6 +47,7 @@ public:
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     bool esEstudiante();
+    // Pasar esto a virtual...
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();

@@ -1,5 +1,4 @@
 #include "../include/Ejercicio.hh"
-#include "..include/DataTypes/DatosEjercicio.hh"
 
 
 // Constructores
@@ -17,14 +16,14 @@ float getId(){
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 //No terminada...
-bool Ejercicio::comprobarEjercicio(){
-    if(){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
+//bool Ejercicio::comprobarEjercicio(){
+//    if(){
+//        return true;
+//    }
+//    else{
+//        return false;
+//    }
+//}
 
 //No terminada...
 DatosEjercicio* Ejercicio::obtenerDataEjercicio(){

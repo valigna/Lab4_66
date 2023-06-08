@@ -4,7 +4,7 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "InterfacesyControladores/Suscripcion"
+#include "InterfacesyControladores/Suscripcion.hh"
 // DataTypes
 /* ------------------------------------------------------------------------------------------------------ */
 

@@ -16,4 +16,7 @@
 #include "include/InterfacesyControladores/IConsultarEstadisticas.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-void 
+int main()
+{
+    return 1;
+}

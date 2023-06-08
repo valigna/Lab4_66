@@ -23,7 +23,9 @@ private:
     string Descricpion;
     difficulty Dificultad;
     bool Habilitado;
-
+    // Para llevar registro de los id's
+    int idLecciones;
+    int idEjercicios;
     // PseudoAtributos...
     Profesor* Profesor;
     Idioma* Idioma;

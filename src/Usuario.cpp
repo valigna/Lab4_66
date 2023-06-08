@@ -36,7 +36,7 @@ string Usuario::getDescripcion() { return this->Descripcion; }
 // Para el Caso de Uso : [Consultar Estadisticas]
 bool Usuario::esEstudiante()
 {
-    Estudiante* aux = dynamic_cast<Estudiante *>(&this);
+    Estudiante* aux = dynamic_cast<Estudiante *>(this);
     if (aux != NULL) 
     {
         return true;
@@ -47,14 +47,14 @@ bool Usuario::esEstudiante()
 }
 
 // Para el caso de uso : [Realizar Ejercicio]
-set<string> Usuario::getCursosNoAprobados(){
-    set<string> res;
-    for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
-        if(verificarEstado(it)){
-            string curso = it->
-        }
-    }
-}
+// set<string> Usuario::getCursosNoAprobados(){
+//     set<string> res;
+//     for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
+//         if(verificarEstado(it)){
+//             string curso = it->
+//         }
+//     }
+// }
 
 // Para el caso de uso : [Eliminar Curso]
 void Usuario::notificarBaja(string nombreCurso){

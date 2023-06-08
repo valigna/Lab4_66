@@ -22,7 +22,7 @@ private:
     Estudiante *e;
     Curso *c;
     set<Ejercicio *> colEjAprobados;
-    set<Leccion *> colLecAprobadas;
+    set<Leccion *> colLecAprobadas; // Cpz nos conviene cambiar a list...
 public:
     // Constructores
 
@@ -32,7 +32,7 @@ public:
     // Getters y Setters
     bool getCursoAprobado();
     Curso* getCurso();
-    void setCursoAprobado(boolean curso);
+    void setCursoAprobado(bool curso);
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
