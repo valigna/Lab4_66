@@ -1,5 +1,5 @@
 #include "../include/Ejercicio.hh"
-#include "..include/DataTypes/DatosEjercicio.hh"
+#include "../include/DataTypes/DatosEjercicio.hh"
 
 
 // Constructores
@@ -8,7 +8,7 @@
 
 // Getters y Setters
 string getDescripcion(){
-    return this->descripcion;
+    return this->descripcion; 
 }
 
 float getId(){
@@ -30,5 +30,8 @@ bool Ejercicio::comprobarEjercicio(){
 DatosEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
-    return DatosEjercicio(descripcion, id);
+    res = new DatosEjercicio(descripcion, id);
+    return res;
 }
+
+//

@@ -11,7 +11,7 @@ DatosEjercicio::~DatosEjercicio(){
 
 }
 
-// Getters
+// Getters y Setters
 string DatosEjercicio::getDescripcionEjercicio(){
     return this->descripcionEjercicio;
 }

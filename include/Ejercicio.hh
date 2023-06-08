@@ -3,7 +3,10 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+#include "Traduccion.hh"
+#include "CompletarPalabras.hh"
 // DataTypes
+#include "DataTypes/DatosEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Ejercicio

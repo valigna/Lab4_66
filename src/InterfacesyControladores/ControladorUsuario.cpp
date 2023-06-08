@@ -98,22 +98,14 @@ DatosUsuario* ControladorUsuario::getDatosUsuario(string nick)
 // Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
-    /*
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    if(est != NULL)
-    {
-
-    }
-
-    */
-    return it->second->obtenerCursosNoAprobados();
+    return est->obtenerCursosNoAprobados();
 }
-
-
 
 set<DatosEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->obtenerEjerciciosNoAprobados(string curso);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->obtenerEjerciciosNoAprobados(string curso);
 }
 
 string ControladorUsuario::getProblema(int ejercicio){
@@ -124,12 +116,14 @@ string ControladorUsuario::getProblema(int ejercicio){
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->hacerEjercicioT(ejercicio, sol);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->hacerEjercicioT(ejercicio, sol);
 }
 
 void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->hacerEjercicioCP(ejercicio, sol);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->hacerEjercicioCP(ejercicio, sol);
 }
 //
 

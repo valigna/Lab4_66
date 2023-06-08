@@ -38,6 +38,7 @@ set<string> Estudiante::obtenerCursosInscriptos(){
     }
     return res;
 }
+
 // Para el caso de Uso : [Realizar Ejercicio]
 
 set<string> Estudiante::obtenerCursosNoAprobados(){
