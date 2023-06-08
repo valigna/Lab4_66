@@ -80,6 +80,23 @@ set<string> ControladorCurso::getIdiomas()
     return res;
 }
 
+// Para el Caso de Uso : [Alta de Curso]
+
+ void ControladorCurso::ingresarDataCurso(string profesor, DTCurso curso) {
+    this->Curso = curso;
+    ControladorUsuario * cu;
+    cu = ControladorUsuario::getInstancia();
+    this->Profesor = cu->findUsuario(profesor);
+ }
+
+void ControladorCurso::ingresarCursosPrevios(set<string> previos){
+    
+    map<string,Curso *> Pr;
+
+    this->Previos = Pr;
+
+}
+
 // Para el Caso de Uso : [Habilitar Curso]
 set<InfromacionDeCurso *> ControladorCurso::getCursosNoHabilitados()
 {
