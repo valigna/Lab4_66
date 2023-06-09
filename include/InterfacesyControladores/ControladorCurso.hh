@@ -61,7 +61,10 @@ public:
     set<InformacionDeCurso *> getCursosNoHabilitados();
     bool habilitarCurso(string seleccionado);
 
-    //Para el Caso de Uso : [Realizar Ejercicio]
+    // Para el Caso de Uso : [Consulta de Curso]
+    DataCurso* obtenerDataCursoSeleccionado(string curso);
+    
+    // Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(nomC string, int ejercicio);
 
     // Operaciones de: [eliminar curso]

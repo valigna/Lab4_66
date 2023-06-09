@@ -95,6 +95,19 @@ DatosUsuario* ControladorUsuario::getDatosUsuario(string nick)
     }
 }
 
+// Para el Casod De Uso : [Consulta de Curso]
+set<string> ControladorUsuario::obtenerCursos(){
+    ControladorCurso *cc;
+    cc = ControladorCurso::getInstancia();
+    return cc->darNombreCursos();
+}
+
+DataCurso* ControladorUsuario::seleccionarCurso(string curso){
+    ControladorCurso *cc;
+    cc = ControladorCurso::getInstancia();
+    return cc->obtenerDataCursoSeleccionado();
+}
+
 // Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);

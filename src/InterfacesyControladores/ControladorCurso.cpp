@@ -150,7 +150,11 @@ bool ControladorCurso::habilitarCurso(string seleccionado)
     return pudoHabilitarse;
 }
 
-
+// Para el Caso de Uso : [Consulta de Curso]
+DataCurso* ControladorCurso::obtenerDataCursoSeleccionado(string curso){
+    map<string,Curso *>::iterator it = this->colCursos.find(curso);
+    return it->getDataCurso();
+}
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){

@@ -48,7 +48,11 @@ public:
     set<string> getNicksUsuarios();
     DatosUsuario* getDatosUsuario(string nick);
 
-    //Para el Caso de Uso : [Realizar Ejercicio]
+    // Para el Caso de Uso : [Consulta de Curso]
+    set<string> obtenerCursos();
+    DataCurso* seleccionarCurso(string curso);
+
+    // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
     string getProblema(int ejercicio);
