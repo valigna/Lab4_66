@@ -52,7 +52,7 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
     return res;
 }
 
-set<DatosEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
+set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso * aux = it->getCurso();
         if(aux->igualCurso(curso)){

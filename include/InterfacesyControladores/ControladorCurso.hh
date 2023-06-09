@@ -8,6 +8,8 @@
 // DataTypes
 #include "../DataTypes/DataTraduccion.hh"
 #include "../DataTypes/DataCompletarPalabras.hh"
+#include "IGestionCurso.hh"
+#include "IGestionIdiomas.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorCurso : public IGestionCurso, public IGestionIdiomas

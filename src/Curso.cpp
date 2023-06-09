@@ -46,20 +46,20 @@ bool Curso::igualCurso(string curso){
     }
 }
 
-set<string> Curso::obtenerListaEjerciciosCurso(){
-    set<string> res;
+set<int> Curso::obtenerListaEjerciciosCurso(){
+    set<int> res;
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        set<string> aux;
+        set<int> aux;
         aux = it->second->listaEjerciciosLeccion();
         res.insert(aux.begin(), aux.end());
     }
     return res;
 }
 
-DataEjercicio* Curso::buscarEjercicioEnCurso(string ejercicio){
+DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
     for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            return it->buscarEjercicioEnLeccion(ejercicio);
+            return it->second->buscarEjercicioEnLeccion(ejercicio);
         }
     }
 }

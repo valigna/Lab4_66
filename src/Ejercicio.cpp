@@ -16,9 +16,9 @@ float getId(){
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 
-DatosEjercicio* Ejercicio::obtenerDataEjercicio(){
+DataEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
-    DatosEjercicio* res = new DatosEjercicio(descripcion, id);
+    DataEjercicio* res = new DataEjercicio(descripcion, id);
     return res;
 }

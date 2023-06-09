@@ -18,10 +18,10 @@ int Leccion::cantEjAprobados(){ // No esta en el .hh
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<string> Leccion::listaEjerciciosLeccion(){
-    set<string> res;
+set<int> Leccion::listaEjerciciosLeccion(){
+    set<int> res;
     for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        string aux = it->getDescripcion();
+        int aux = it->getId();
         res.insert(aux);
     }
     return res;
@@ -35,6 +35,11 @@ bool Leccion::ejercicioEnLeccion(int ejercicio){
         }
     }
     return res;
+}
+
+DataEjercicio* Leccion::buscarEjercicioEnLeccion(string ejercicio){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios->find(ejercicio);
+    return it->second->obtenerDataEjercicio();
 }
 
 string Leccion::buscarLetraEnLeccion(int ejercicio){

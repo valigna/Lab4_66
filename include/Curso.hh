@@ -8,6 +8,9 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Idioma.hh"
+#include "DataTypes/DataCurso.hh"
+#include "DataTypes/InformacionCurso.hh"
+#include "DataTypes/DTCurso.hh"
 
 // Como la mayoria de las referencias circulares incluyen a curso, haremos los Forward Declarations en Curso...
 class Profesor;
@@ -66,7 +69,7 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
     set<int> obtenerListaEjerciciosCurso();
-    DataEjercicio* buscarEjercicioEnCurso(string ejercicio);
+    DataEjercicio* buscarEjercicioEnCurso(int ejercicio);
     string buscarLetraEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);

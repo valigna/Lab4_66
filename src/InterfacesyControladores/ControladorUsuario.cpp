@@ -102,7 +102,7 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
     return est->obtenerCursosNoAprobados();
 }
 
-set<DatosEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->obtenerEjerciciosNoAprobados(curso);

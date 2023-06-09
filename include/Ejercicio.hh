@@ -6,7 +6,7 @@
 #include "Traduccion.hh"
 #include "CompletarPalabras.hh"
 // DataTypes
-#include "DataTypes/DatosEjercicio.hh"
+#include "DataTypes/DataEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Ejercicio
@@ -24,8 +24,7 @@ public:
     int getId();
 
     // Para el Caso de Uso : [Realizar Ejercicio]
-    bool comprobarEjercicio();
-    DatosEjercicio* obtenerDataEjercicio();
+    DataEjercicio* obtenerDataEjercicio();
 };
 
 #endif

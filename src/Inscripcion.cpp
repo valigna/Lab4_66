@@ -22,17 +22,17 @@ bool Inscripcion::getCursoAprobado(){
     }
 }
 
-Curso* getCurso(){
+Curso* Inscripcion::getCurso(){
     return this->c;
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<DatosEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
-    set<DatosEjercicio *> res;
+set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
+    set<DataEjercicio *> res;
     set<int> aux = this->c->obtenerListaEjerciciosCurso();
     for(set<int>::iterator it = aux.begin(); it != aux.end();++it){
         if(this->noAprobado(aux)){
-            DatosEjercicio* eje = this->c->buscarEjercicioEnCurso(aux);
+            DataEjercicio* eje = this->c->buscarEjercicioEnCurso(aux);
             res.insert(eje);
         }
     }
@@ -46,6 +46,7 @@ bool Inscripcion::noAprobado(int ejercicio){
         if(it->getId() == ejercicio){
             return false;
         }
+        it++;
     }
     return aux;
 }

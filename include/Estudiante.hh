@@ -34,7 +34,7 @@ public:
     set<string> obtenerCursosInscriptos();
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> obtenerCursosNoAprobados();
-    set<DatosEjercicio *> obtenerEjerciciosNoAprobados(string curso);
+    set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
     void hacerEjercicioT(int ejercicio, string sol);
     void hacerEjercicioCP(int ejercicio, set<string> sol);
     // Otres
