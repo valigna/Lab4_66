@@ -13,7 +13,7 @@ private:
     string Nombre;
     string Descripcion;
     difficulty Dificultad;
-    string Ensenia;
+    string Ensenia;  // idioma
     DataProfesor* CreadoPor;
     set<string> Previos;
     int cantLecciones;
@@ -27,9 +27,9 @@ public:
     string getNombre();
     string getDescripcion();
     difficulty getDificultad();
+    set<string> getPrevios();
     string getEnsenia();
     DataProfesor* getCreadoPor();
-    set<string> getPrevios();
     int getcantLecciones();
     int getcantEjercicios();
 };

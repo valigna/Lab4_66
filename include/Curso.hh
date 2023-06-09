@@ -45,7 +45,21 @@ public:
     difficulty getDificultad();
     bool getHabilitado();
 
+
+    // DataTypes
+    DataCurso* getDataCurso(); // Cambiar 'previos' a un set<string>
+
+    InformacionCurso* getInformacionCurso();
+    InformacionCurso* getInfoCursoSinPromedio();
+    InformacionCurso* getDatosCurso();
+
+    InscripcionCurso* getInscripcionCurso(); // Es el DataTCurso...
+
+    DTCurso* getDTCurso();
+
     void setHabilitado(bool hab);
+
+
 
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
@@ -62,6 +76,12 @@ public:
     int obtenerTotalEjercicios();
     float darPromedio();
     InformacionCurso* infoCurso();
+
+
+    // Para el caso de uso: [Inscribirse a curso]
+    bool previosAprobados(set<string> nombresCursosAprobados);
+    string getNombreIdioma();
+    int obtenerTotalLecciones();
 
 };
 

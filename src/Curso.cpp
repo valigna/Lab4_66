@@ -180,3 +180,16 @@ InformacionCurso* Curso::infoCurso()
 
 }
 
+
+// Para el caso de uso: [Inscribirse a curso]
+bool previosAprobados(set<string> nombresCursosAprobados){
+    bool b = true;
+    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
+        if (nombresCursosAprobados.find(it) == nombresCursosAprobados.end()){
+            b = false;
+        }
+    }
+    return b;
+}
+string getNombreIdioma();
+int obtenerTotalLecciones();

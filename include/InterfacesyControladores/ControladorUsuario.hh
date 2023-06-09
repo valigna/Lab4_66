@@ -72,7 +72,7 @@ public:
     set<string> idiomasSuscritos(string nickname);
 
     // Para el caso de uso: [Inscribirse a curso]
-    set<DatosCurso> getCursosDisponibles(string nickname);
+    set<DatosCurso *> getCursosDisponibles(string nickname);
 };
 
 #endif

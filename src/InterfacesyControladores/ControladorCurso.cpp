@@ -201,8 +201,13 @@ set<DatosCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprob
             string nombreCurso = it->second->getNombre();
             if((set<string>::iterator it2 = nombresCursosInscriptos.find(nombreCurso)) == nombresCursosInscriptos.end()){
                 if(it->second->previosAprobados(nombresCursosAprobados)){
-                    string descripcion = it->second->getDescripcion();
-                    difficulty dificultad = it->second->getDificultad();
+                    //Llamar al constructor del datatype en el curso
+                    //Cambiar el tipo de retorno a informacionCurso
+                            /* string descripcion = it->second->getDescripcion();
+                            difficulty dificultad = it->second->getDificultad();
+                            string idioma = it->second->getNombreIdioma();
+                            int cantLecciones = it->second->obtenerTotalLecciones();
+                            int cantEjercicios = it->second->obtenerTotalEjercicios(); */
                     //crear dataType y agregar al set
                 }
             }
@@ -211,7 +216,7 @@ set<DatosCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprob
     //FALTA TERMINAR:
     //implementar funciones qque se piden a curso
     //terminar de construir el DT y agregarlo al set
-    //crear el .hh y .cpp del DT e implementarlos
+    //POSIBLE MODIFICACION: USAR INFORMACIONCURSO EN VEZ DE DATOSCURSO
 }
 
 /*
