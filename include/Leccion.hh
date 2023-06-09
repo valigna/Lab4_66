@@ -25,7 +25,7 @@ public:
     // Getters y Setters
 
     // Para el Caso de Uso : [Realizar Ejercicio]
-    set<DatosEjercicio *> ejerciciosNoAprobadosLeccion();
+    set<string> listaEjerciciosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
     bool ejercicioEnLeccion(int ejercicio);
     Ejercicio* buscarEjercicioEnLeccionT(int ejercicio, string sol);

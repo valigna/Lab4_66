@@ -36,6 +36,7 @@ public:
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
+    bool noAprobado(int curso);
     void revisarEjercicioT(int ejercicio, string sol);
     void revisarEjercicioCP(int ejercicio, set<string> sol);
 

@@ -27,8 +27,27 @@ Curso* getCurso(){
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosIns(){
-    return this->c->obtenerListaEjerciciosNoAprobadosCurso();
+set<DatosEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
+    set<DatosEjercicio *> res;
+    set<int> aux = this->c->obtenerListaEjerciciosCurso();
+    for(set<int>::iterator it = aux.begin(); it != aux.end();++it){
+        if(this->noAprobado(aux)){
+            DatosEjercicio* eje = this->c->buscarEjercicioEnCurso(aux);
+            res.insert(eje);
+        }
+    }
+    return res;
+}
+
+bool Inscripcion::noAprobado(int ejercicio){
+    set<Ejercicio *>::iterator it = this->colEjAprobados().begin();
+    bool aux = true;
+    while(it != this->colEjAprobados().end() && aux != false){
+        if(it->getId() == ejercicio){
+            return false;
+        }
+    }
+    return aux;
 }
 
 void Inscripcion::revisarEjercicioT(int ejercicio, string sol){

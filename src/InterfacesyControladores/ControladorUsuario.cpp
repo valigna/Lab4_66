@@ -105,13 +105,14 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
 set<DatosEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->obtenerEjerciciosNoAprobados(string curso);
+    return est->obtenerEjerciciosNoAprobados(curso);
 }
 
 string ControladorUsuario::getProblema(int ejercicio){
+    string nomC;
     ControladorCurso *cc;
     cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(string nomC, int ejercicio); // Como se maneja la memoria en nomC?
+    return cc->obtenerLetra(nomC,ejercicio); // Como se maneja la memoria en nomC?
 }
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){

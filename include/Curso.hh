@@ -51,7 +51,8 @@ public:
     bool sePuedeHabilitar();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
-    set<DatosEjercicio *> obtenerListaEjerciciosNoAprobadosCurso();
+    set<int> obtenerListaEjerciciosCurso();
+    DataEjercicio* buscarEjercicioEnCurso(string ejercicio);
     string buscarLetraEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);

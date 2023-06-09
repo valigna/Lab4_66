@@ -13,18 +13,16 @@ Leccion::~Leccion(){
 // Otres
 
 int Leccion::cantEjAprobados(){ // No esta en el .hh
-    return this->colEjAprobados->size();
+    return 0;
+    //return this->colEjAprobados->size();
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
-set<DatosEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
-    set<DatosEjercicio *> res;
+set<string> Leccion::listaEjerciciosLeccion(){
+    set<string> res;
     for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        if(it->comprobarEjercicio() == false){
-            DatosEjercicio* aux;
-            aux = it->obtenerDataEjercicio();
-            res.insert(aux);
-        }
+        string aux = it->getDescripcion();
+        res.insert(aux);
     }
     return res;
 }
