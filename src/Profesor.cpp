@@ -23,8 +23,7 @@ Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos
     this->Instituto = aux->getInstituto();
 
     // Obtengo la instancia de ControladorCurso para recorrer la coleccion de idiomas del sistema
-    ControladorCurso* cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
 
     for(set<string>::iterator it = seleccionados.begin(); it != seleccionados.end(); ++it)
     {

@@ -16,7 +16,7 @@ public:
     // Constructores
     DataUsuario(string nick, string name, string con, string desc);
     // Destructor
-    virtual ~DataUsuario();
+    ~DataUsuario();
     // Getters
     string getNickname();
     string getNombre();

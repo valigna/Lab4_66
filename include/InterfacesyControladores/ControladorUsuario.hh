@@ -6,9 +6,8 @@
 #include "../Usuario.hh"
 #include "ControladorCurso.hh"
 // DataTypes
-#include "../DataTypes/DataUsuario.hh"
-#include "../DataTypes/DatosEstudiante.hh"
-#include "../DataTypes/DatosProfesor.hh"
+#include "../ReduciendoDataTypes/DataEstudiante.hh"
+#include "../ReduciendoDataTypes/DataProfesor.hh"
 #include"../ReduciendoDataTypes/InfoCurso.hh"
 #include "../DataTypes/DatosCurso.hh" // FALTA IMPLEMENTAR
 /* ------------------------------------------------------------------------------------------------------ */
