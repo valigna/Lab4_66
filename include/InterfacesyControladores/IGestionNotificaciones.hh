@@ -18,7 +18,7 @@ public:
     // Operaciones De Sistema De : [Eliminar Suscripciones]
     virtual set<string> idiomasSuscritos(string nickname) = 0;
     virtual void eliminarSuscripciones(set<string> seleccionados) = 0;
-
+    //
     virtual ~IGestionNotificaciones();
 };
 

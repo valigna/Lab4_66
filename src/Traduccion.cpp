@@ -1,5 +1,12 @@
 #include "../include/Traduccion.hh"
 
+// Constructor
+Traduccion::Traduccion(string fra, string sol):Ejercicio(){
+    this->frase = fra;
+    this->solucion = sol;
+} 
+// Destructor
+
 // Getters y Setters
 string Traduccion::getFraseT(){
     return this->frase;

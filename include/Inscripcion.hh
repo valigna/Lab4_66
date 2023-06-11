@@ -3,10 +3,11 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "Leccion.hh"
-#include "Ejercicio.hh"
-#include "Estudiante.hh"
-#include "Curso.hh"
+// Conceptos del Modelo de Dominio
+class Leccion;
+class Ejercicio;
+class Estudiante;
+class Curso;
 // DataTypes
 #include "DataTypes/DataFecha.hh"
 #include "DataTypes/DataEjercicio.hh"
@@ -18,7 +19,7 @@ class Inscripcion
 private:
     DataFecha* FechaInscripcion;
     bool CursoAprobado;
-    // PseudoAtributos...
+    // PseudoAtributos... 
     Estudiante *e;
     Curso *c;
     set<Ejercicio *> colEjAprobados;
@@ -46,5 +47,12 @@ public:
     float darAvance(int cantEj);
     int cantEjAprobados();
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Leccion.hh"
+#include "Ejercicio.hh"
+#include "Estudiante.hh"
+#include "Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

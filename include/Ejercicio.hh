@@ -3,8 +3,7 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "Traduccion.hh"
-#include "CompletarPalabras.hh"
+
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
@@ -26,5 +25,6 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     DataEjercicio* obtenerDataEjercicio();
 };
+
 
 #endif

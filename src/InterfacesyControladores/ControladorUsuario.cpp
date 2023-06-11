@@ -22,7 +22,7 @@ set<string> ControladorUsuario::getIdiomas(){
     ControladorCurso* cc = ControladorCurso::getInstancia();
     // Paso 2:
     set<string> idiomas;
-    idiomas = cc->darIdiomas();
+    idiomas = cc->getIdiomas();
     
     return idiomas;
 }
@@ -94,10 +94,10 @@ set<string> ControladorUsuario::obtenerCursos(){
     return cc->darNombreCursos();
 }
 
-DataCurso* ControladorUsuario::seleccionarCurso(string curso){
+DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
     ControladorCurso *cc;
     cc = ControladorCurso::getInstancia();
-    return cc->obtenerDataCursoSeleccionado();
+    return cc->obtenerDataCursoSeleccionado(curso);
 }
 
 // Para el caso de uso : [Realizar Ejercicio]
@@ -171,7 +171,7 @@ set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
 {
     set<InfoCurso *> res;
     
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickUsuario);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickUsuario);
     if(it != this->colUsuarios.end()) {res = it->second->getInfoCursos();}
     
     return res;
@@ -180,8 +180,8 @@ set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
 
 
 // Para el caso de uso: [Inscribirse a curso]
-set<DatosCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
-    set<DatosCurso *> res;
+set<InformacionCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
+    set<InformacionCurso *> res;
     this->nickname = nickname;
     Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname]);
     if (est != NULL) {
@@ -204,16 +204,15 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
 
 void ControladorUsuario::suscribirse(set<string> idiomas){
     
-    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname])
-    ControladorCurso* cc;
-    cc = ControladorCurso::getInstancia();
+    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname]);
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     cc->agregarObservador(u,idiomas);
 }
 
 
 
 // Para el caso de uso: [Eliminar Suscripciones]
-set<string> idiomasSuscritos(string nickname){
+set<string> ControladorUsuario::idiomasSuscritos(string nickname){
     this->nickname = nickname;
     return this->colUsuarios[nickname]->getIdiomasSuscritos();
 }

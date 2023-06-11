@@ -13,6 +13,15 @@ InformacionCurso::InformacionCurso(string name, string desc, difficulty difi, se
     this->Promedio = prom;
 }
 
+InformacionCurso::InformacionCurso(string name, string desc, difficulty difi, string idi, int cLec, int cEj){
+    this->Nombre = name;
+    this->Descripcion = desc;
+    this->Dificultad = difi;
+    this->Idioma = idi;
+    this->cantLecciones = cLec;
+    this->cantEjercicios = cEj;
+}
+
 // Destructor
 InformacionCurso::~InformacionCurso(){ }
 

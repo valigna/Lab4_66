@@ -3,10 +3,11 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "InterfacesyControladores/Suscripcion.hh"
 #include "InterfacesyControladores/ControladorCurso.hh"
-#include "Curso.hh"
-#include "Notificacion.hh"
+// Conceptos del Modelo de Dominio
+class Curso;
+class Notificacion;
+#include "InterfacesyControladores/Suscripcion.hh"
 // DataTypes
 #include "DataTypes/DataEstudiante.hh"
 #include "DataTypes/DataProfesor.hh"
@@ -64,7 +65,8 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "Inscripcion.hh"
+#include "Curso.hh"
+#include "Notificacion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 #endif

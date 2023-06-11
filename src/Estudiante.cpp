@@ -38,8 +38,8 @@ bool esProfesor(){ return false; }
 set<string> Estudiante::obtenerCursosAprobados(){
     set<string> res;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        if (it->getCursoAprobado()){
-            res.insert(it->darNombreCurso());
+        if ((*it)->getCursoAprobado()){
+            res.insert((*it)->darNombreCurso());
         }
     }
     return res;
@@ -48,7 +48,7 @@ set<string> Estudiante::obtenerCursosAprobados(){
 set<string> Estudiante::obtenerCursosInscriptos(){
     set<string> res;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        res.insert(it->darNombreCurso());
+        res.insert((*it)->darNombreCurso());
     }
     return res;
 }
@@ -115,8 +115,8 @@ set<InfoCurso *> Estudiante::getInfoCursos()
 }
 
 // Para el caso de uso: [Inscribirse a curso]
-set<DatosCurso *> Estudiante::darCursosDisponibles();{
-    set<DatosCurso *> res;
+set<InformacionCurso *> Estudiante::darCursosDisponibles();{
+    set<InformacionCurso *> res;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
     ControladorCurso* cc;

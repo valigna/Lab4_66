@@ -1,0 +1,26 @@
+IDIR = include/InterfacesyControladores
+CPPDIR   = src
+ODIR     = obj
+
+CC = g++
+
+dummyMain: obj/dummyMain.o obj/dummy.o
+	$(CC) -g $^ -o dummyMain
+	./dummyMain
+
+$(ODIR)/dummyMain.o: dummyMain.cpp
+	$(CC) -std=c++11 -g -c $< -o $@
+
+$(ODIR)/dummy.o: $(CPPDIR)/dummy.cpp $(IDIR)/dummy.hh
+	$(CC) -std=c++11 -g -c $< -o $@
+
+clean:
+	rm $(ODIR)/*.o dummyMain
+
+
+
+#Repasando
+#target: dependencies (Quiero volver a compilar esto cuando "dependencies" cambien)
+#	action
+
+#$^

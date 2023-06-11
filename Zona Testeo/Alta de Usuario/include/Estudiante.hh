@@ -5,7 +5,7 @@
 #include "../../../include/Utils.hh"
 #include "Usuario.hh"
 // DataTypes
-#include "../../../include/DataTypes/InfoCursoEst.hh"
+#include "../../../include/DataTypes/InfoCurso.hh"
 #include "../../../include/DataTypes/DataFecha.hh"
 // Forward Declaration
 class Inscripcion;

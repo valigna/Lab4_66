@@ -7,9 +7,11 @@
 
 class IGestionIdiomas
 {
+    // Operaciones Para El Caso de Uso : [Alta de Idioma]
     virtual bool altaIdioma(string nombre) = 0;
+    // Operaciones Para El Caso de Uso : [Consultar Idiomas]
     virtual set<string> getIdiomas() = 0;
-
+    //
     virtual ~IGestionIdiomas();
 };
 

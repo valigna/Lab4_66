@@ -11,7 +11,7 @@ private:
     int id;
 public:
     // Constructores
-
+    Ejercicio(string desc, int id);
     // Destructor
     ~Ejercicio(); // Destructor por defecto
     // Getters y Setters

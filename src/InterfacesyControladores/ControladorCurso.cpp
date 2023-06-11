@@ -88,11 +88,11 @@ void ControladorCurso::ingresarCursosPrevios(set<string> previos){
 }
 
 void ControladorCurso::ingresarLeccionParaAlta(DTLeccion leccion){
-    this->leccion = leccion;
+    this->Leccion = leccion;
 }
 
 void ControladorCurso::ingresarEjercicioParaAlta(DTEjercicio ejercicio){
-    this->ejercicio = ejercicio;
+    this->Ejercicio = ejercicio;
 }
 
 
@@ -145,9 +145,9 @@ bool ControladorCurso::habilitarCurso(string seleccionado)
 }
 
 // Para el Caso de Uso : [Consulta de Curso]
-DataCurso* ControladorCurso::obtenerDataCursoSeleccionado(string curso){
+DataConsultaCurso* ControladorCurso::obtenerDataCursoSeleccionado(string curso){
     map<string,Curso *>::iterator it = this->colCursos.find(curso);
-    return it->getDataCurso();
+    return it->second->getDataConsultaCurso();
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
@@ -156,7 +156,7 @@ string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
     return it->buscarLetraEnCurso(int ejercicio);
 }
 
-// Para el Caso de Uso : [Consultar Estadisticas]
+// Para el Caso de Uso : [Consultar Estadisticas] 
 
 //Igual a getNombreCusos?
 set<string> ControladorCurso::darNombreCursos()
@@ -192,29 +192,23 @@ void ControladorCurso::agregarObservador(Suscripcion *u, set<string> idiomas){
 
 // Para el caso de uso: [Inscribirse a curso]
 // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
-set<DatosCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos){
-    set<DatosCurso *> res;
+set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos){
+    set<InformacionCurso *> res;
+    // Para cada curso...
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end();++it){
+         // Si esta habilitado
         if (it->second->getHabilitado()){
             string nombreCurso = it->second->getNombre();
+             // Si no esta inscipto
             if((set<string>::iterator it2 = nombresCursosInscriptos.find(nombreCurso)) == nombresCursosInscriptos.end()){
+                // Si no tiene previas sin aprobar
                 if(it->second->previosAprobados(nombresCursosAprobados)){
-                    //Llamar al constructor del datatype en el curso
-                    //Cambiar el tipo de retorno a informacionCurso
-                            /* string descripcion = it->second->getDescripcion();
-                            difficulty dificultad = it->second->getDificultad();
-                            string idioma = it->second->getNombreIdioma();
-                            int cantLecciones = it->second->obtenerTotalLecciones();
-                            int cantEjercicios = it->second->obtenerTotalEjercicios(); */
-                    //crear dataType y agregar al set
+                    // Se agrega al set resultado
+                    res.insert(it->second->getDatosCurso());
                 }
             }
         }    
     }
-    //FALTA TERMINAR:
-    //implementar funciones qque se piden a curso
-    //terminar de construir el DT y agregarlo al set
-    //POSIBLE MODIFICACION: USAR INFORMACIONCURSO EN VEZ DE DATOSCURSO
 }
 
 /*

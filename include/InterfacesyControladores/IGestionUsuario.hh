@@ -5,7 +5,7 @@
 #include "../Utils.hh"
 // Data Types
 #include "../DataTypes/DataUsuario.hh"
-#include "../DataTypes/DatosEjercicio.hh"
+#include "../DataTypes/DataEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class IGestionUsuario
@@ -21,11 +21,11 @@ public:
     virtual DataUsuario* getDatosUsuario(string nick) = 0;
     // Para el Caso de Uso : [Realizar Ejercicio]
     virtual set<string> getCursosInscriptosNoAporbados(string nickname) = 0;
-    virtual set<DatosEjercicio *> getEjerciciosNoAprobados(string curso) = 0;
+    virtual set<DataEjercicio *> getEjerciciosNoAprobados(string curso) = 0;
     virtual string getProblema(int ejercicio) = 0;
     virtual void resolverEjercicioT(int ejercicio, string sol) = 0;
     virtual void resolverEjercicioCP(int ejercicio, set<string> sol) = 0;
-
+    //
     virtual ~IGestionUsuario();
 };
 

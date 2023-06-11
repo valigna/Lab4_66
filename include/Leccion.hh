@@ -3,10 +3,12 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "Ejercicio.hh"
+// Conceptos del Modelo de Dominio
+class Ejercicio;
+class CompletarPalabras;
+class Traduccion;
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
-#include "DataTypes/DatosEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 
@@ -36,5 +38,11 @@ public:
     int totalEjercicios();
 
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Ejercicio.hh"
+#include "CompletarPalabras.hh"
+#include "Traduccion.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

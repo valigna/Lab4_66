@@ -20,6 +20,7 @@ private:
 public:
     // Constructores
     InformacionCurso(string name, string desc, difficulty difi, set<string> previos, string idi, string prof, int cLec, int cEj, float prom);
+    InformacionCurso(string name, string desc, difficulty difi, string idi, int cLec, int cEj);
     // Destructor
     ~InformacionCurso();
     // Getters

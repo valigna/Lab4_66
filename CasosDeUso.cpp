@@ -9,14 +9,15 @@
 #include "include/InterfacesyControladores/distribuidorInterfaces.hh"
 
 // Interfaces
-#include "include/InterfacesyControladores/IGestionUsuario.hh"
-#include "include/InterfacesyControladores/IGestionNotificaciones.hh"
-#include "include/InterfacesyControladores/IGestionCurso.hh"
-#include "include/InterfacesyControladores/IGestionIdiomas.hh"
-#include "include/InterfacesyControladores/IConsultarEstadisticas.hh"
+//#include "include/InterfacesyControladores/IGestionUsuario.hh"
+//#include "include/InterfacesyControladores/IGestionNotificaciones.hh"
+//#include "include/InterfacesyControladores/IGestionCurso.hh"
+//#include "include/InterfacesyControladores/IGestionIdiomas.hh"
+//#include "include/InterfacesyControladores/IConsultarEstadisticas.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 int main()
 {
+    cout << "Funciono...";
     return 1;
 }

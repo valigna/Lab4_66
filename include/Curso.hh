@@ -7,19 +7,18 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "Idioma.hh"
-
 // DataTypes
 #include "DataTypes/DataCurso.hh"
 #include "DataTypes/InformacionCurso.hh"
 #include "DataTypes/InscripcionCurso.hh"
 #include "DataTypes/DTCurso.hh"
-
-// Como la mayoria de las referencias circulares incluyen a curso, haremos los Forward Declarations en Curso...
+#include "DataTypes/DataConsultaCurso.hh"
+// Conceptos Del Modelo De Dominio
 class Profesor;
 class Inscripcion;
 class Leccion;
 class Ejercicio;
+class Idioma;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Curso
@@ -51,9 +50,14 @@ public:
     difficulty getDificultad();
     bool getHabilitado();
 
+    // Auxiliares
+    string getNombreIdioma();
+    int obtenerTotalLecciones();
+
 
     // DataTypes
     DataCurso* getDataCurso(); // Cambiar 'previos' a un set<string>
+    DataConsultaCurso* getDataConsultaCurso();
 
     InformacionCurso* getInformacionCurso(bool conPromedio);
     InformacionCurso* getDatosCurso();
@@ -63,8 +67,6 @@ public:
     DTCurso* getDTCurso();
 
     void setHabilitado(bool hab);
-
-
 
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
@@ -85,12 +87,11 @@ public:
 
     // Para el caso de uso: [Inscribirse a curso]
     bool previosAprobados(set<string> nombresCursosAprobados);
-    string getNombreIdioma();
-    int obtenerTotalLecciones();
 
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Idioma.hh"
 #include "Profesor.hh"
 #include "Inscripcion.hh"
 #include "Leccion.hh"

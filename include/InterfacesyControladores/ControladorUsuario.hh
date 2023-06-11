@@ -3,11 +3,12 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
-#include "../Usuario.hh"
 #include "ControladorCurso.hh"
 // Interfaces
-#include "InterfacesyControladores/IGestionUsuario.hh"
-#include "InterfacesyControladores/IGestionNotificaciones.hh"
+#include "IGestionUsuario.hh"
+#include "IGestionNotificaciones.hh"
+// Conceptos Del Modelo De Dominio
+class Usuario;
 // DataTypes
 #include "../DataTypes/DataEstudiante.hh"
 #include "../DataTypes/DataProfesor.hh"
@@ -38,11 +39,9 @@ public:
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
 
-    // Otros
-    set<string> getIdiomas(); // Tambien usado en : {Alta de Usuario}
-    
     // Para el Caso de Uso : [Alta de Usuario]
     void ingresarUsuario(DataUsuario* datos);
+    set<string> getIdiomas();
     void ingresarIdiomas(set<string> seleccionados);
     bool confirmarAltaUsuario();
 
@@ -52,11 +51,11 @@ public:
 
     // Para el Caso de Uso : [Consulta de Curso]
     set<string> obtenerCursos();
-    DataCurso* seleccionarCurso(string curso);
+    DataConsultaCurso* seleccionarCurso(string curso);  
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
-    set<DatosEjercicio *> getEjerciciosNoAprobados(string curso); // Aca estaba como DATA, confirmar...
+    set<DataEjercicio *> getEjerciciosNoAprobados(string curso); // Aca estaba como DATA, confirmar...
     string getProblema(int ejercicio);
     void resolverEjercicioT(int ejercicio, string sol);
     void resolverEjercicioCP(int ejercicio, set<string> sol);
@@ -84,5 +83,9 @@ public:
     void eliminarSuscripciones(set<string> seleccionados);
 
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "../Usuario.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

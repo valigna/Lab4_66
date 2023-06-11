@@ -2,6 +2,10 @@
 
 
 // Constructores
+Ejercicio:Ejercicio(string desc, int id){
+    this->Descripcion = desc;
+    this->id = id;
+}
 
 // Destructor 
 

@@ -3,8 +3,9 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "Idioma.hh"
-#include "Curso.hh"
+// Conceptos del Modelo de Dominio
+class Idioma;
+class Curso;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Notificacion
@@ -29,5 +30,10 @@ public:
     // Para el Caso De Uso : [Eliminar Curso]
     bool presentaCurso(string nombreCurso);
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Idioma.hh"
+#include "Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

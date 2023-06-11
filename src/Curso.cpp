@@ -4,8 +4,8 @@
 
 // Destructor
 Curso::~Curso() {
-    this->idioma->cursoEliminado(this->Nombre);
-    this->profesor->eliminarLink(this->Nombre);
+    this->Idioma->cursoEliminado(this->Nombre);
+    this->Profesor->eliminarLinkP(this->Nombre);
     for(set<Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
         delete it; // Se llama el destructor de cada inscripcion
     }
@@ -19,12 +19,22 @@ string Curso::getNombre(){return this->Nombre;}
 
 void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
 
+
+
+// Auxiliares
+string Curso::getNombreIdioma(){
+    return this->Idioma->getNombre();
+};
+int Curso::obtenerTotalLecciones(){
+    return this->colLecciones.size();
+};
+
 // DataTypes
 InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
 {
     string nom = this->getNombre();
     string desc = this->getDescripcion();
-    difficulty dificultad = this->getDifficulty();
+    difficulty dificultad = this->getDificultad();
 
     // Obtengo los nombres de los cursos previos...
     set<string> previos;
@@ -33,12 +43,13 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
         previos.insert(nomP);
     }
 
-    string idi = this->idioma->getNombre();
-    string prof = this->profesor->getNombre();
+    string idi = this->Idioma->getNombre();
+    string prof = this->Profesor->getNombre();
     
     int cantLec = this->colLecciones.size();
     int cantEj = 0;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
+        int cEj;
         cEj = (*it)->totalEjercicios();
         cantEj += cEj;
     }
@@ -48,7 +59,7 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     {
     // Obtengo el avance del curso...
     float avances = 0;
-    int totalInscriptos = this->colInscripciones->size();
+    int totalInscriptos = this->colInscripciones.size();
 
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) {
         float av = (*it)->darAvance(cantEj);
@@ -60,6 +71,28 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
 
     // Construyo el DataType...
     return new InformacionCurso(nom,desc,dificultad,previos,idi,prof,cantLec,cantEj,prom);
+}
+
+InformacionCurso* Curso::getDatosCurso(){
+    string nom = this->getNombre();
+    string desc = this->getDescripcion();
+    difficulty dificultad = this->getDificultad();
+    string idi = getNombreIdioma();
+    int cantL = obtenerTotalLecciones();
+    int cantE = obtenerTotalEjercicios();
+
+    // Construyo el DataType...
+    return new InformacionCurso(nom, desc, dificultad, idi, cantL, cantE);
+}
+
+DataConsultaCurso* Curso::getDataConsultaCurso(){
+    string nom = this->getNombre();
+    string desc = this->getDescripcion();
+    difficulty diff = this->getDificultad();
+    string idi = this->getNombreIdioma();
+    string prof = this->Profesor->getNombre();
+    bool habil = this->getHabilitado();
+    return new DataConsultaCurso(nom,desc,diff,idi,prof,habil);
 }
 
 // Para el Caso de Uso : [Habilitar Curso]
@@ -90,7 +123,7 @@ bool Curso::igualCurso(string curso){
 
 set<int> Curso::obtenerListaEjerciciosCurso(){
     set<int> res;
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         set<int> aux;
         aux = it->second->listaEjerciciosLeccion();
         res.insert(aux.begin(), aux.end());
@@ -99,7 +132,7 @@ set<int> Curso::obtenerListaEjerciciosCurso(){
 }
 
 DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->second->buscarEjercicioEnLeccion(ejercicio);
         }
@@ -107,7 +140,7 @@ DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
 }
 
 string Curso::buscarLetraEnCurso(int ejercicio){
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->buscarLetraEnLeccion(ejercicio);
         }
@@ -115,7 +148,7 @@ string Curso::buscarLetraEnCurso(int ejercicio){
 }
 
 Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->second->buscarEjercicioEnLeccionT(ejercicio, sol);
         }
@@ -123,17 +156,17 @@ Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
 }
 
 Ejercicio* Curso::buscarEjercicioEnCursoCP(int ejercicio, set<string> sol){
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
             return it->second->buscarEjercicioEnLeccionCP(ejercicio, sol);
         }
     }
 }
 
-Leccion* Curso::comprobarUltimaLeccion(){
-    for(map<string,Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
+Leccion* Curso::comprobarUltimaLeccion(int ejercicio){ 
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            if(it->second->ejerciciosNoAprobadosLeccion()->size() == 0){
+            if(it->second->totalEjercicios() == ejercicio){
                 return it->second;
             }
             else{
@@ -182,7 +215,7 @@ float Curso::darPromedio()
 
 
 // Para el caso de uso: [Inscribirse a curso]
-bool previosAprobados(set<string> nombresCursosAprobados){
+bool Curso::previosAprobados(set<string> nombresCursosAprobados){
     bool b = true;
     for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
         if (nombresCursosAprobados.find(it) == nombresCursosAprobados.end()){
@@ -191,5 +224,3 @@ bool previosAprobados(set<string> nombresCursosAprobados){
     }
     return b;
 }
-string getNombreIdioma();
-int obtenerTotalLecciones();

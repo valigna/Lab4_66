@@ -3,8 +3,10 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+// Conceptos del Modelo de Dominio
 #include "Usuario.hh"
-#include "Curso.hh"
+class Curso;
+
 // DataTypes
 #include "DataTypes/DataProfesor.hh"
 #include "DataTypes/InfoCurso.hh"
@@ -40,5 +42,9 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<InfoCurso *> getInfoCursos();
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

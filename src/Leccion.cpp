@@ -59,7 +59,7 @@ Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
 }
 
 Ejercicio* Leccion::buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol){
-    map<int,CompletarPalabra *>::iterator it = this->colEjerciciosT->find(ejercicio);
+    map<int,Ejercicio *>::iterator it = this->colEjerciciosT->find(ejercicio);
     CompletarPalabras* cp = dynamic_cast<CompletarPalabras *>(it->second);
     if(cp->comprobarSolucionCP(sol)){
         return it->second;
