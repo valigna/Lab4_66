@@ -9,15 +9,15 @@ class InfoCurso
 {
 private:
     string NombreCurso;
-    float Promedio;
+    float Dato;
 public:
     // Constructores
-    InfoCurso(string nomC,float prom);
+    InfoCurso(string nomC,float dato);
     // Destructor
     ~InfoCurso();
     // Getters
     string getNombreCurso();
-    float getPromedio();
+    float getDato();
 };
 
 #endif

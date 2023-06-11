@@ -1,26 +1,23 @@
-#ifndef DT_CURSO
-#define DT_CURSO
+#ifndef DATOS_EJERCICIO
+#define DATOS_EJERCICIO
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-class DTCurso
+class DatosEjercicio
 {
 private:
-    string Nombre;
-    string Desc;
-    difficulty Dificultad;
+    string Descripcion;
+    int Id;
 public:
-    // Constructores
-    DTCurso(string Nombre, string Desc, difficulty Dificultad);
+    // Constructor
+    DatosEjercicio(string desc, int id);
     // Destructor
-    ~DTCurso();
-    // Getters 
-    string getNombre();
+    ~DatosEjercicio();
+    // Getters
     string getDescripcion();
-    difficulty getDifificulty();
-    
+    int getId();
 };
 
 #endif

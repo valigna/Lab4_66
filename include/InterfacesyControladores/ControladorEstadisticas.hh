@@ -14,8 +14,7 @@
 #include "../Utils.hh"
 #include "IConsultarEstadisticas.hh"
 // DataTypes
-#include "../DataTypes/InfoCursoEst.hh"
-#include "../DataTypes/InfoCursoProf.hh"
+#include "../DataTypes/InfoCurso.hh"
 #include "../DataTypes/InformacionCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
@@ -28,9 +27,9 @@ public:
     ~ControladorEstadisticas();
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> getNicksEstudiantes();
-    set<InfoCursoEst *> listarCursosEstudiante(string nickEstudiante);
+    set<InfoCurso *> listarCursosEstudiante(string nickEstudiante);
     set<string> getNicksProfesores();
-    set<InfoCursoProf *> listarCursosPropuestos(string nickProfesor);
+    set<InfoCurso *> listarCursosPropuestos(string nickProfesor);
     set<string> getNombresCursos();
     set<InformacionCurso *> infoCurso(string nombreCurso);
 };

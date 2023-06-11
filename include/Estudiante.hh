@@ -5,9 +5,9 @@
 #include "Utils.hh"
 #include "Usuario.hh"
 // DataTypes
-#include "DataTypes/DataEstudiante.hh"
-#include "DataTypes/InfoCursoEst.hh"
 #include "DataTypes/DataFecha.hh"
+#include "DataTypes/DataEstudiante.hh"
+#include "DataTypes/InfoCurso.hh"
 
 // Forward Declaration
 class Inscripcion;
@@ -49,7 +49,11 @@ public:
     set<InfoCurso *> getInfoCursos();
 
     // Para el caso de uso: [Inscribirse a curso]
-    set<DatosCurso *> darCursosDisponibles();
+    set<InformacionCurso *> darCursosDisponibles();
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+#include "Inscripcion.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

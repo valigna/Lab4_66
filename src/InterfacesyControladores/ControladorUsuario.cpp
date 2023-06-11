@@ -4,10 +4,7 @@
 
 // Implementacion del Patron de Disenio : Singleton
 ControladorUsuario* ControladorUsuario::instancia = NULL;
-ControladorUsuario::ControladorUsuario()
-{
-    this->colUsuarios = new map<string,Usuario *>;
-}
+ControladorUsuario::ControladorUsuario(){ }
 
 ControladorUsuario* ControladorUsuario::getInstancia()
 {
@@ -111,7 +108,7 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
 }
 
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->obtenerEjerciciosNoAprobados(curso);
 }
@@ -124,13 +121,13 @@ string ControladorUsuario::getProblema(int ejercicio){
 }
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioT(ejercicio, sol);
 }
 
 void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioCP(ejercicio, sol);
 }

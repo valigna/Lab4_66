@@ -5,12 +5,12 @@
 #include "Utils.hh"
 #include "InterfacesyControladores/Suscripcion.hh"
 #include "InterfacesyControladores/ControladorCurso.hh"
+#include "Curso.hh"
 #include "Notificacion.hh"
 // DataTypes
-#include "ReduciendoDataTypes/DataUsuario.hh"
-#include "ReduciendoDataTypes/DataEstudiante.hh"
-#include "ReduciendoDataTypes/DataProfesor.hh"
-#include "ReduciendoDataTypes/InfoCurso.hh"
+#include "DataTypes/DataEstudiante.hh"
+#include "DataTypes/DataProfesor.hh"
+#include "DataTypes/InfoCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Usuario : public Suscripcion
@@ -38,8 +38,8 @@ public:
     string getDescripcion();
 
     // DataTypes
-    DataUsuario* virtual getDataUsuario(); // Prof sin idiomas
-    DataUsuario* virtual getDatosUsuario(); // Este no tiene nick y password / Prof con idiomas
+    virtual DataUsuario* getDataUsuario(); // Prof sin idiomas
+    virtual DataUsuario* getDatosUsuario(); // Este no tiene nick y password / Prof con idiomas
 
     // Auxiliares
     // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno

@@ -8,8 +8,11 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Idioma.hh"
+
+// DataTypes
 #include "DataTypes/DataCurso.hh"
 #include "DataTypes/InformacionCurso.hh"
+#include "DataTypes/InscripcionCurso.hh"
 #include "DataTypes/DTCurso.hh"
 
 // Como la mayoria de las referencias circulares incluyen a curso, haremos los Forward Declarations en Curso...

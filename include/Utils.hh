@@ -6,9 +6,6 @@
 #include <vector>
 #include <list>
 
-// Confirmar...
-#include <forward_list>
-
 // Para entrada/salida
 #include <iostream>
 using namespace std;

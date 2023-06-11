@@ -5,11 +5,13 @@
 #include "../Utils.hh"
 #include "../Usuario.hh"
 #include "ControladorCurso.hh"
+// Interfaces
+#include "InterfacesyControladores/IGestionUsuario.hh"
+#include "InterfacesyControladores/IGestionNotificaciones.hh"
 // DataTypes
-#include "../ReduciendoDataTypes/DataEstudiante.hh"
-#include "../ReduciendoDataTypes/DataProfesor.hh"
-#include"../ReduciendoDataTypes/InfoCurso.hh"
-#include "../DataTypes/DatosCurso.hh" // FALTA IMPLEMENTAR
+#include "../DataTypes/DataEstudiante.hh"
+#include "../DataTypes/DataProfesor.hh"
+#include"../DataTypes/InfoCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
@@ -46,7 +48,7 @@ public:
 
     // Para el Caso de Uso : [Consulta de Usuario]
     set<string> getNicksUsuarios();
-    DatosUsuario* getDatosUsuario(string nick);
+    DataUsuario* getDatosUsuario(string nick);
 
     // Para el Caso de Uso : [Consulta de Curso]
     set<string> obtenerCursos();
@@ -54,13 +56,16 @@ public:
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> getCursosInscriptosNoAporbados(string nickname);
-    set<DataEjercicio *> getEjerciciosNoAprobados(string curso);
+    set<DatosEjercicio *> getEjerciciosNoAprobados(string curso); // Aca estaba como DATA, confirmar...
     string getProblema(int ejercicio);
     void resolverEjercicioT(int ejercicio, string sol);
     void resolverEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Alta de Curso]
     Usuario findUsuario(string nickname);
+
+    // Para el caso de uso: [Inscribirse a curso]
+    set<InformacionCurso *> getCursosDisponibles(string nickname);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNicksEstudiantes();
@@ -71,11 +76,13 @@ public:
     set<string> idiomasNoSuscritos(string nickname);
     void suscribirse(set<string> idiomas);
 
+    // Para el Caso de Uso : [Consulta de Notificaciones]
+    set<DataNotificacion *> obtenerNotificaciones(string nickname);
+
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> idiomasSuscritos(string nickname);
+    void eliminarSuscripciones(set<string> seleccionados);
 
-    // Para el caso de uso: [Inscribirse a curso]
-    set<DatosCurso *> getCursosDisponibles(string nickname);
 };
 
 #endif

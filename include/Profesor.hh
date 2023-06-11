@@ -7,7 +7,7 @@
 #include "Curso.hh"
 // DataTypes
 #include "DataTypes/DataProfesor.hh"
-#include "DataTypes/InfoCursoProf.hh"
+#include "DataTypes/InfoCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Profesor : public Usuario

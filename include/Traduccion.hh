@@ -4,9 +4,6 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 #include "Ejercicio.hh"
-// DataTypes
-#include "DataTypes/InfoCursoEst.hh"
-#include "DataTypes/DataFecha.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Traduccion: public Ejercicio

@@ -8,11 +8,7 @@
 
 // Implementacion del Patron de Disenio : Singleton
 ControladorCurso* ControladorCurso::instancia = NULL;
-ControladorCurso::ControladorCurso()
-{
-    this->colIdiomas = new map<string,Idioma *>;
-    this->colCursos = new map<string,Curso *>;
-}
+ControladorCurso::ControladorCurso(){ }
 
 ControladorCurso* ControladorCurso::getInstancia()
 {
@@ -82,11 +78,9 @@ set<string> ControladorCurso::getIdiomas()
 
 // Para el Caso de Uso : [Alta de Curso]
 
- void ControladorCurso::ingresarDataCurso(string profesor, DTCurso curso) {
-    this->curso = curso;
-    ControladorUsuario * cu;
-    cu = ControladorUsuario::getInstancia();
-    this->profesor = cu->findUsuario(profesor);
+ void ControladorCurso::ingresarDataCurso(string profesor, DTCurso* curso) {
+    this->Curso = curso;
+    this->Profesor = profesor;
  }
 
 void ControladorCurso::ingresarCursosPrevios(set<string> previos){
