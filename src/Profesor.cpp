@@ -40,21 +40,41 @@ Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos
 // Getters y Setters
 string Profesor::getInstituto(){ return this->Instituto; }
 
-// Otres
+// DataTypes
+DataUsuario* Profesor::getDataUsuario()
+{
+    set<string> sinIdiomas;
+    return (new DataProfesor(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescripcion(),this->getInstituto(),sinIdiomas));
+}
+
+DataUsuario* Profesor::getDatosUsuario()
+{
+    set<string> conIdiomas;
+    for(map<string,Idioma *>::iterator it = this->colIdiomas.begin(); it != this->colIdiomas.end(); ++it)
+    {
+        conIdiomas.insert(it->first);
+    }
+    return (new DataProfesor(' ',this->getNombre(),' ',this->getDescripcion(),this->getInstituto(),conIdiomas));
+}
+
+// Auxiliares
+
+bool esEstudiante(){ return false; }
+bool esProfesor(){ return true; }
 
 void Profesor::eliminarLinkP(string nombreCurso){
     this->colCursos.erase(nombreCurso);
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
-set<InfoCursoProf *> Profesor::darInfoCursos()
+set<InfoCurso *> Profesor::getInfoCursos()
 {
-    set<InfoCursoProf *> res; 
+    set<InfoCurso *> res; 
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it) {
         string nomC = it->first;
-        float prom = it->second->darPromedio();
+        float proedio = it->second->darPromedio();
 
-        InfoCursoProf *elem = new InfoCursoProf(nomC,prom);
+        InfoCurso* elem = new InfoCurso(nomC,promedio);
         res.insert(elem);
     }
     return res;

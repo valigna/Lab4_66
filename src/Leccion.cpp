@@ -70,7 +70,4 @@ Ejercicio* Leccion::buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol){
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
-int Leccion::totalEjercicios()
-{
-    return this->colEjercicios->size();
-}
+int Leccion::totalEjercicios(){ return this->colEjercicios.size(); }

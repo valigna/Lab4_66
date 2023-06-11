@@ -20,7 +20,21 @@ Estudiante::Estudiante(DataUsuario* datos) : Usuario(datos->getNickname(),datos-
 string Estudiante::getPaisResidencia(){ return this->PaisResidencia; }
 DataFecha* Estudiante::getNacimiento(){ return this->Nacimiento; }
 
+// DataTypes
+DataUsuario* Estudiante::getDataUsuario()
+{
+    return (new DataEstudiante(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescricpion(),this->getPaisResidencia(),this->getNacimiento()));
+}
+
+DataUsuario* Estudiante::getDatosUsuario()
+{
+    return (new DataEstudiante(' ',this->getNombre(),' ',this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
+}
+
 //Auxiliares
+bool esEstudiante(){ return true; }
+bool esProfesor(){ return false; }
+
 set<string> Estudiante::obtenerCursosAprobados(){
     set<string> res;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
@@ -85,15 +99,15 @@ void Estudiante::eliminarLinkE(string nombreCurso){
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
-set<InfoCursoEst *> Estudiante::infCursosInscriptos()
+set<InfoCurso *> Estudiante::getInfoCursos()
 {
-    set<InfoCursoEst *> res;
+    set<InfoCurso *> res;
 
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        string nomC = it->second->darNombreCurso();
-        float av = it->second->darAvance();
+        string nomC = (*it)->darNombreCurso();
+        float avance = (*it)->darAvance();
 
-        InfoCursoEst elem = new InfoCursoEst(nomC,av);
+        InfoCurso *elem = new InfoCurso(nomC,avance);
         res.insert(elem);
     }
 

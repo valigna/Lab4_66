@@ -9,6 +9,7 @@
 #include "../DataTypes/DataUsuario.hh"
 #include "../DataTypes/DatosEstudiante.hh"
 #include "../DataTypes/DatosProfesor.hh"
+#include"../ReduciendoDataTypes/InfoCurso.hh"
 #include "../DataTypes/DatosCurso.hh" // FALTA IMPLEMENTAR
 /* ------------------------------------------------------------------------------------------------------ */
 
@@ -64,9 +65,8 @@ public:
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNicksEstudiantes();
-    set<InfoCursoEst *> darInfoCursosEst(string nickEstudiante);
     set<string> darNicksProfesores();
-    set<InfoCursoProf *> darInfoCursoProf(string nickProfesor);
+    set<InfoCurso *> darInfoCursos(string nickUsuario);
 
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
     set<string> idiomasNoSuscritos(string nickname);

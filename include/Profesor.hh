@@ -26,11 +26,19 @@ public:
     // Getters y Setters
     string getInstituto();
 
+    // DataTypes
+    DataUsuario* getDataUsuario();
+    DataUsuario* getDatosUsuario();
+
+    // Auxiliares
+    bool esEstudiante();
+    bool esProfesor();
+
     // Para el caso de uso : [Eliminar Curso]
     void eliminarLinkP(string nombreCurso);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
-    set<InfoCursoProf *> darInfoCursos();
+    set<InfoCurso *> getInfoCursos();
 };
 
 #endif

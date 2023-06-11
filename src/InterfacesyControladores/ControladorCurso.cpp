@@ -178,11 +178,11 @@ set<string> ControladorCurso::darNombreCursos()
 
 InformacionCurso* ControladorCurso::darInformacionCurso(string nombreCurso)
 {
-    InformacionCurso *res = NULL;
+    InformacionCurso* res = NULL;
     map<string,Curso *>::iterator it = this->colCursos.find(nombreCurso);
-    if(it != this->colCursos.end()) { res = it->second->infoCurso(); }
+    if(it != this->colCursos.end()) { res = it->second->getInformacionCurso(true); }
+    return res;
 }
-
 
 // Para el Caso de Uso : [Suscribirse a Notificaciones]
 

@@ -31,21 +31,6 @@ string Usuario::getNombre() { return this->Nombre; }
 string Usuario::getPassword() { return this->Password; }
 string Usuario::getDescripcion() { return this->Descripcion; }
 
-// Otres...
-
-// Para el Caso de Uso : [Consultar Estadisticas]
-bool Usuario::esEstudiante()
-{
-    Estudiante* aux = dynamic_cast<Estudiante *>(this);
-    if (aux != NULL) 
-    {
-        return true;
-    } else 
-    {
-        return false;
-    }
-}
-
 // Para el caso de uso : [Realizar Ejercicio]
 // set<string> Usuario::getCursosNoAprobados(){
 //     set<string> res;
@@ -68,19 +53,6 @@ void Usuario::notificarBaja(string nombreCurso){
     }
     
     
-}
-
-// Para el Caso de Uso : [Consultar Estadisticas]
-bool Usuario::esEstudiante()
-{
-    Estudiante* aux = dynamic_cast<Estudiante *>(&this);
-    if (aux != NULL) 
-    {
-        return true;
-    } else 
-    {
-        return false;
-    }
 }
 
 // Para el caso de uso : [Suscribirse a notificaciones]

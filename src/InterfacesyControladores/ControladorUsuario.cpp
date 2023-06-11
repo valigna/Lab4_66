@@ -1,10 +1,6 @@
 #include "../../include/InterfacesyControladores/ControladorUsuario.hh"
 
-// Constructores
-
 // Destructor
-
-// Getters y Setters
 
 // Implementacion del Patron de Disenio : Singleton
 ControladorUsuario* ControladorUsuario::instancia = NULL;
@@ -161,16 +157,6 @@ set<string> ControladorUsuario::darNicksEstudiantes()
     return res;
 }
 
-set<InfoCursoEst *> ControladorUsuario::darInfoCursosEst(string nickEstudiante)
-{
-    set<InfoCursoEst *> res;
-    
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickEstudiante);
-    if((it != this->colUsuarios.end()) && (it->second->esEstudiante())) {res = it->second->infCursosInscriptos();}
-    
-    return res;
-}
-
 set<string> ControladorUsuario::darNicksProfesores()
 {
     set<string> res;
@@ -178,22 +164,24 @@ set<string> ControladorUsuario::darNicksProfesores()
     // Recorremos la coleccion de Usuarios del Sistema
     for (map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end();++it)
     {
-        bool profesor = !(it->second->esEstudiante());
+        bool profesor = (it->second->esProfesor());
         if (profesor) {res.insert(it->second->getNickname());}
     }
     
     return res;
 }
 
-set<InfoCursoProf *> ControladorUsuario::darInfoCursosProf(string nickProfesor)
+set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
 {
-    set<InfoCursoProf *> res;
+    set<InfoCurso *> res;
     
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickProfesor);
-    if((it != this->colUsuarios.end()) && !(it->second->esEstudiante()))res = it->second->darInfoCursos();
+    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickUsuario);
+    if(it != this->colUsuarios.end()) {res = it->second->getInfoCursos();}
     
     return res;
 }
+
+
 
 // Para el caso de uso: [Inscribirse a curso]
 set<DatosCurso *> ControladorUsuario::getCursosDisponibles(string nickname){

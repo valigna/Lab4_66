@@ -7,9 +7,10 @@
 #include "InterfacesyControladores/ControladorCurso.hh"
 #include "Notificacion.hh"
 // DataTypes
-#include "DataTypes/DataUsuario.hh"
-#include "DataTypes/DataEstudiante.hh"
-#include "DataTypes/DataProfesor.hh"
+#include "ReduciendoDataTypes/DataUsuario.hh"
+#include "ReduciendoDataTypes/DataEstudiante.hh"
+#include "ReduciendoDataTypes/DataProfesor.hh"
+#include "ReduciendoDataTypes/InfoCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Usuario : public Suscripcion
@@ -29,12 +30,22 @@ public:
     // Usuario(DataUsuario *datos,set<string> seleccionados);
     
     // Destructor
-    virtual ~Usuario() = 0;
+    ~Usuario();
     // Getters y Setters : Tendra sentido definir los setters? Pq una vez creado no se vuelve a modificar...
     string getNickname();
     string getNombre();
     string getPassword();
     string getDescripcion();
+
+    // DataTypes
+    DataUsuario* virtual getDataUsuario(); // Prof sin idiomas
+    DataUsuario* virtual getDatosUsuario(); // Este no tiene nick y password / Prof con idiomas
+
+    // Auxiliares
+    // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
+    // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
+    virtual bool esEstudiante() = 0;
+    virtual bool esProfesor() = 0;
 
     // Para el caso de uso : [Realizar Ejercicio]
     //set<string> getCursosNoAprobados();
@@ -46,8 +57,7 @@ public:
     void notificarBaja(string nombreCurso);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
-    bool esEstudiante();
-    // Pasar esto a virtual...
+    virtual set<InfoCurso *> getInfoCursos() = 0;
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();

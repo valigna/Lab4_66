@@ -84,20 +84,14 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
-int Inscripcion::cantEjAprobados()
-{
-    return this->colEjAprobados.size();
-}
+int Inscripcion::cantEjAprobados(){ return this->colEjAprobados.size(); }
 
-string Inscripcion::darNombreCurso()
-{
-    return this->c->getNombre();
-}
+string Inscripcion::darNombreCurso(){ return this->c->getNombre(); }
 
 float Inscripcion::darAvance(){
     float res;
 
-    int aprobados = this->colEjAprobados->size();
+    int aprobados = this->colEjAprobados.size();
     int total = this->c->obtenerTotalEjercicios();
 
     return ((aprobados/total) * 100);

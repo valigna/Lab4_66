@@ -52,8 +52,7 @@ public:
     // DataTypes
     DataCurso* getDataCurso(); // Cambiar 'previos' a un set<string>
 
-    InformacionCurso* getInformacionCurso();
-    InformacionCurso* getInfoCursoSinPromedio();
+    InformacionCurso* getInformacionCurso(bool conPromedio);
     InformacionCurso* getDatosCurso();
 
     InscripcionCurso* getInscripcionCurso(); // Es el DataTCurso...

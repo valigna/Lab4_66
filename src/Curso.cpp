@@ -19,6 +19,48 @@ string Curso::getNombre(){return this->Nombre;}
 
 void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
 
+// DataTypes
+InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
+{
+    string nom = this->getNombre();
+    string desc = this->getDescripcion();
+    difficulty dificultad = this->getDifficulty();
+
+    // Obtengo los nombres de los cursos previos...
+    set<string> previos;
+    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
+        string nomP = (*it)->getNombre();
+        previos.insert(nomP);
+    }
+
+    string idi = this->idioma->getNombre();
+    string prof = this->profesor->getNombre();
+    
+    int cantLec = this->colLecciones.size();
+    int cantEj = 0;
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
+        cEj = (*it)->totalEjercicios();
+        cantEj += cEj;
+    }
+
+    float prom = 0;
+    if(conPromedio)
+    {
+    // Obtengo el avance del curso...
+    float avances = 0;
+    int totalInscriptos = this->colInscripciones->size();
+
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) {
+        float av = (*it)->darAvance(cantEj);
+        avances += av;
+    }
+
+    prom = avances/totalInscriptos;
+    }
+
+    // Construyo el DataType...
+    return new InformacionCurso(nom,desc,dificultad,previos,idi,prof,cantLec,cantEj,prom);
+}
 
 // Para el Caso de Uso : [Habilitar Curso]
 bool Curso::sePuedeHabilitar()
@@ -121,13 +163,13 @@ float Curso::darPromedio()
 
     // Itero sobre mis lecciones...
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
-        int cEj (*it)->totalEjercicios();
+        int cEj = (*it)->totalEjercicios();
         cantEj += cEj;
     }
 
     // Itero sobre mis inscripciones...
     for(set<Inscricpion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        int cAp = it->cantEjAprobados();
+        int cAp = (*it)->cantEjAprobados();
         float avance = (cAp/cantEj) * 100;
 
         sumAvance += avance;
@@ -135,48 +177,6 @@ float Curso::darPromedio()
 
     res = sumAvance/totalInscriptos;
     return res;
-
-}
-
-InformacionCurso* Curso::infoCurso()
-{
-    InformacionCurso *res = NULL;
-
-    string nom = this->getNombre();
-    string desc = this->getDescripcion();
-    difficulty dificultad = this->getDifficulty();
-
-    // Obtengo los nombres de los cursos previos...
-    set<string> previos;
-    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
-        string nomP = (*it)->getNombre();
-        previos.insert(nomP);
-    }
-
-    string idi = this->idioma->getNombre();
-    string prof = this->profesor->getNombre();
-    
-    int cantLec = this->colLecciones.size();
-    int cantEj = 0;
-    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
-        cEj = (*it)->totalEjercicios();
-        cantEj += cEj;
-    }
-
-    // Obtengo el avance del curso...
-    float prom = 0;
-    float avances = 0;
-    int totalInscriptos = this->colInscripciones->size();
-
-    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) {
-        float av = (*it)->darAvance(cantEj);
-        avances += av;
-    }
-
-    prom = avances/totalInscriptos;
-
-    // Construyo el DataType...
-    res = new InformacionCurso(nom,desc,dificultad,previos,idi,prof,cantLec,cantEj,prom);
 
 }
 

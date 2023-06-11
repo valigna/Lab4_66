@@ -29,7 +29,12 @@ public:
     // Getters y Setters
     string getPaisResidencia();
     DataFecha* getNacimiento();
+    // DataTypes
+    DataUsuario* getDataUsuario();
+    DataUsuario* getDatosUsuario();
     // Auxiliares
+    bool esEstudiante();
+    bool esProfesor();
     set<string> obtenerCursosAprobados();
     set<string> obtenerCursosInscriptos();
     // Para el Caso de Uso : [Realizar Ejercicio]
@@ -41,7 +46,7 @@ public:
     void eliminarLinkE(string nombreCurso);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
-    set<InfoCursoEst *> infCursosInscriptos();
+    set<InfoCurso *> getInfoCursos();
 
     // Para el caso de uso: [Inscribirse a curso]
     set<DatosCurso *> darCursosDisponibles();
