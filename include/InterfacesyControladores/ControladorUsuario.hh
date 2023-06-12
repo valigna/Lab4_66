@@ -28,7 +28,7 @@ private:
     // Memoria para el Caso de Uso : [Alta de Usuario]
     DataUsuario* datos;
     set<string> seleccionados;
-    // Memoria para el Caso de Uso : [Suscribirse a Notificaciones]
+    // Memoria para el Caso de Uso : [Suscribirse a Notificaciones], [Inscribirse a Curso]
     string nickname;
     // Creo que tambien se va a usar en otros casos de uso, no pasa nada que se repita | Eso si, aclaren en cuales se repitio si es el caso
 
@@ -61,10 +61,11 @@ public:
     void resolverEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Alta de Curso]
-    Usuario findUsuario(string nickname);
+    Usuario* findUsuario(string nickname);
 
     // Para el caso de uso: [Inscribirse a curso]
     set<InformacionCurso *> getCursosDisponibles(string nickname);
+    void inscribirseACurso(string curso);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNicksEstudiantes();

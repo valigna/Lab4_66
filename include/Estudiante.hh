@@ -49,6 +49,8 @@ public:
 
     // Para el caso de uso: [Inscribirse a curso]
     set<InformacionCurso *> darCursosDisponibles();
+    void realizarInscripcion(string curso);
+
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

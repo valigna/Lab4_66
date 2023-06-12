@@ -75,7 +75,7 @@ public:
     DataConsultaCurso* obtenerDataCursoSeleccionado(string curso);
     // Para el caso de uso: [Inscribirse a curso]
     set<InscripcionCurso *> getCursosDisponibles(string nickname);
-    void inscribirseACurso(string nickname, string curso);
+    Curso *encontrarCurso(string curso); // No entiendo el error
     // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
     set<InformacionCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
     // Para el Caso de Uso : [Realizar Ejercicio]

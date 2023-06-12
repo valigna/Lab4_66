@@ -1,6 +1,18 @@
 #include "../include/Inscripcion.hh"
 
 // Constructores
+Inscripcion::Inscripcion(Estudiante *est, string curso){
+    //Atributos...
+    this->CursoAprobado = false;
+    //FALTA FECHA
+
+    //PseudoAtributos...
+    this->e = est;
+    ControladorCurso *cc = ControladorCurso::getInstancia();
+    Curso *C = cc->encontrarCurso(curso);
+    this->c = C;
+    C->crearLinkConInsc(this);
+}
 
 // Destructor
 Inscripcion::~Inscripcion(){

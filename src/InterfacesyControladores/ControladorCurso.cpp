@@ -211,6 +211,10 @@ set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<st
     }
 }
 
+Curso *ControladorCurso::encontrarCurso(string curso){
+    return this->colCursos[curso];
+}
+
 /*
 CODIGO VIEJO / CPZ SIRVE
 

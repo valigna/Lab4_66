@@ -134,7 +134,7 @@ void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
 //
 
 // Para el Caso de Uso : [Alta de Curso]
-Usuario ControladorUsuario::findUsuario(string nickname){
+Usuario* ControladorUsuario::findUsuario(string nickname){
     return colUsuarios.find(nickname)->second;
 }
 
@@ -188,6 +188,15 @@ set<InformacionCurso *> ControladorUsuario::getCursosDisponibles(string nickname
         res = est->darCursosDisponibles();
     }
     return res;
+}
+
+void ControladorUsuario::inscribirseACurso(string curso){
+    // Se busca al estudiante en la coleccion de usuarios usando el nickname recordado
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[this->nickname]);
+    // Se corrobora que el usuario sea un estudiante
+    if (est != NULL) {
+        est->realizarInscripcion(curso);
+    }
 }
 
 // Para el Caso de Uso : [Suscribirse a Notificaciones]

@@ -87,7 +87,7 @@ public:
 
     // Para el caso de uso: [Inscribirse a curso]
     bool previosAprobados(set<string> nombresCursosAprobados);
-
+    void crearLinkConInsc(Inscripcion *I);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

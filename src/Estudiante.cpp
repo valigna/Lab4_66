@@ -115,7 +115,7 @@ set<InfoCurso *> Estudiante::getInfoCursos()
 }
 
 // Para el caso de uso: [Inscribirse a curso]
-set<InformacionCurso *> Estudiante::darCursosDisponibles();{
+set<InformacionCurso *> Estudiante::darCursosDisponibles(){
     set<InformacionCurso *> res;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
@@ -125,4 +125,9 @@ set<InformacionCurso *> Estudiante::darCursosDisponibles();{
     
     //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
     return res;
+}
+
+void Estudiante::realizarInscripcion(string curso){
+    Inscripcion *I = new Inscripcion(this, curso);
+    this->colInscripciones.insert(I);
 }

@@ -26,7 +26,7 @@ private:
     set<Leccion *> colLecAprobadas; // Cpz nos conviene cambiar a list...
 public:
     // Constructores
-
+    Inscripcion(Estudiante *est, string curso);
     // Destructor
     ~Inscripcion();
 

@@ -224,3 +224,6 @@ bool Curso::previosAprobados(set<string> nombresCursosAprobados){
     }
     return b;
 }
+void Curso::crearLinkConInsc(Inscripcion *I){
+    this->colInscripciones.insert(I);
+}
