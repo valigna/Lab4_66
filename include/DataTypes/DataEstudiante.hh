@@ -20,6 +20,9 @@ public:
     // Getters
     string getPaisResidencia();
     DataFecha* getNacimiento();
+    // Para distinguir entre las distintas sub-clases
+    bool esEstudiante();
+    bool esProfesor();
 };
 
 #endif

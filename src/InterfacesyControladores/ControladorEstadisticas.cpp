@@ -17,14 +17,14 @@ set<string> ControladorEstadisticas::getNicksEstudiantes()
     return res;
 }
 
-set<InfoCursoEst *> ControladorEstadisticas::listarCursosEstudiante(string nickEstudiante) 
+set<InfoCurso *> ControladorEstadisticas::listarCursosEstudiante(string nickEstudiante) 
 {
-    set<InfoCursoEst *> res;
+    set<InfoCurso *> res;
 
     // Obtengo la instancia de Controlador Usuario
-    ControladorUsuario* cu = ControladoUsuario::getInstancia();
-    
-    res = cu->darInfoCursosEst(nickEstudiante);
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    res = cu->darInfoCursos(nickEstudiante);
+
     return res;
 
 }
@@ -39,14 +39,15 @@ set<string> ControladorEstadisticas::getNicksProfesores(){
     return res;
 }
 
-set<InfoCursoProf *> ControladorEstadisticas::listarCursosPropuestos(string nickProfesor)
+set<InfoCurso *> ControladorEstadisticas::listarCursosPropuestos(string nickProfesor)
 {
-    set<InfoCursoProf *> res;
+    set<InfoCurso *> res;
 
     // Obtengo la instancia de Controlador Usuario
-    ControladorUsuario *cu;
-    cu = ControladorUsuario::getInstancia();
-    res = cu->darInfoCursosProf(nickProfesor);
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    res = cu->darInfoCursos(nickProfesor);
+
+    return res;
 }
 
 set<string> ControladorEstadisticas::getNombresCursos(){
@@ -59,12 +60,11 @@ set<string> ControladorEstadisticas::getNombresCursos(){
     return res;
 }
 
-set<InformacionCurso *> ControladorEstadisticas::infoCurso(string nombreCurso){
-    set<InformacionCurso *> res;
-
+InformacionCurso* ControladorEstadisticas::infoCurso(string nombreCurso)
+{
     // Obtengo la instancia de Controlador Curso y le delego la operacion...
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    res = cc->darInformacionCurso(nombreCurso);
+    InformacionCurso* res = cc->darInformacionCurso(nombreCurso);
 
     return res;
 }

@@ -24,8 +24,12 @@ public:
     // Otros
     void cursoEliminado(string nombreCurso);
 
-   // Para el Caso de Uso : [Suscribirse a Notificaciones]
-   void agregar(Suscripcion* u);
+    // Para el Caso de Uso : [Suscribirse a Notificaciones]
+    void agregar(Suscripcion* u);
 };
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

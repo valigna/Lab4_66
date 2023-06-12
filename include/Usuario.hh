@@ -3,11 +3,10 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
-#include "InterfacesyControladores/ControladorCurso.hh"
-// Conceptos del Modelo de Dominio
-class Curso;
-class Notificacion;
+class ControladorCurso;
 #include "InterfacesyControladores/Suscripcion.hh"
+// Conceptos del Modelo de Dominio
+class Notificacion;
 // DataTypes
 #include "DataTypes/DataEstudiante.hh"
 #include "DataTypes/DataProfesor.hh"
@@ -42,11 +41,11 @@ public:
     virtual DataUsuario* getDataUsuario(); // Prof sin idiomas
     virtual DataUsuario* getDatosUsuario(); // Este no tiene nick y password / Prof con idiomas
 
-    // Auxiliares
-    // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
-    // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
+    // Para distinguir entre las distintas sub-clases
     virtual bool esEstudiante() = 0;
     virtual bool esProfesor() = 0;
+    // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
+    // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
 
     // Para el caso de uso : [Realizar Ejercicio]
     //set<string> getCursosNoAprobados();
@@ -62,10 +61,13 @@ public:
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();
+
+    // Supongo que para cuando se haga alta de curso...
+    void notificarAlta(Idioma *i,Curso *c);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "Curso.hh"
+#include "InterfacesyControladores/ControladorCurso.hh"
 #include "Notificacion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 

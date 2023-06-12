@@ -16,9 +16,9 @@ public:
     virtual set<string> getNicksProfesores() = 0;
     virtual set<InfoCurso *> listarCursosPropuestos(string nickProfesor) = 0;
     virtual set<string> getNombresCursos() = 0;
-    virtual set<InformacionCurso *> infoCurso(string nombreCurso) = 0;
+    virtual InformacionCurso* infoCurso(string nombreCurso) = 0;
 
-    virtual ~IConsultarEstadisticas();
+    virtual ~IConsultarEstadisticas(){};
 };
 
 #endif

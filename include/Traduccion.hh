@@ -19,6 +19,9 @@ public:
     // Getters y Setters
     string getFraseT();
     string getSolucionT();
+    // Para distinguir entre las distintas sub-clases
+    bool esCompletarPalabras();
+    bool esTraduccion();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarSolucionT(string sol);
 };

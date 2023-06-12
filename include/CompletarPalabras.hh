@@ -1,5 +1,5 @@
-#ifndef COMPLETAR_PALABRA
-#define COMPLETAR_PALABRA
+#ifndef COMPLETAR_PALABRAS
+#define COMPLETAR_PALABRAS
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
@@ -7,7 +7,7 @@
 #include "Ejercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
-class CompletarPalabra: public Ejercicio
+class CompletarPalabras: public Ejercicio
 {
 private:
     string frase;
@@ -15,7 +15,10 @@ private:
 public:
     // Getters y Setters
     string getFraseCP();
-    string getSolucionCP();
+    set<string> getSolucionCP();
+    // Para distinguir entre las distintas sub-clases
+    bool esCompletarPalabras();
+    bool esTraduccion();
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool comprobarSolucionCP(set<string> sol);
 };

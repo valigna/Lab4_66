@@ -14,10 +14,13 @@ public:
     // Constructor
     DataEjercicio(string desc,int id);
     // Destructor
-    virtual ~DataEjercicio();
+    ~DataEjercicio();
     // Getters
     string getDescripcion();
     int getId();
+    // Para distinguir entre las distintas sub-clases
+    virtual bool esCompletarPalabras() = 0;
+    virtual bool esTraduccion() = 0;
 };
 
 #endif

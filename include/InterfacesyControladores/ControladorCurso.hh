@@ -6,9 +6,9 @@
 // Interfaces
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
-#include "Suscripcion.hh"
+class Suscripcion;
 // Conceptos Del Modelo De Dominio
-class Idioma;
+#include "../Idioma.hh"
 class Curso;
 // DataTypes
 #include "../DataTypes/DataTraduccion.hh"
@@ -29,7 +29,7 @@ private:
     // Para memoria de que caso de uso??
     string nombreCurso;
     //Memoria Para : [Alta de Curso]
-    DTCurso* Curso;
+    DTCurso* seleccionado;
     string Profesor;
     set<string> previos;
     DataLeccion* Leccion;
@@ -40,8 +40,10 @@ public:
     ~ControladorCurso();
     // Implementacion del Patron de Disenio : Singleton
     static ControladorCurso* getInstancia();
+    // Getters
+    Idioma* darIdiomaEnColeccion(string nombre);
     // Para el Caso de Uso : [Alta de Usuario]
-    Idioma* obtenerIdioma(string nombre);\
+    Idioma* obtenerIdioma(string nombre);
     // Para el Caso de Uso : [Alta de idioma]
     bool altaIdioma(string nombre);
     // Para el Caso de Uso : [Consultar Idiomas]
@@ -57,7 +59,7 @@ public:
     void ingresarEjercicioParaAlta(DataEjercicio* ejercicio);
     void confirmarAltaCurso();
     // Para El Caso de Uso : [Agregar Leccion]
-    void ingresarDatosLeccecion(string cursoSeleccionado,string tema, string objetivo);
+    void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo);
     void ingresarEjercicio(DataEjercicio* ejercicio);
     void altaLeccion();
     // Para El Caso de Uso : [Agregar Ejercicio]
@@ -75,7 +77,8 @@ public:
     DataConsultaCurso* obtenerDataCursoSeleccionado(string curso);
     // Para el caso de uso: [Inscribirse a curso]
     set<InscripcionCurso *> getCursosDisponibles(string nickname);
-    Curso *encontrarCurso(string curso); // No entiendo el error
+    Curso* encontrarCurso(string curso); // No entiendo el error : (Tenian un atributo llamado Curso, generando un conflicto...)
+    void inscribirseACurso(string nickname, string curso);
     // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
     set<InformacionCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
     // Para el Caso de Uso : [Realizar Ejercicio]
@@ -88,9 +91,9 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "../Idioma.hh"
+#include "Suscripcion.hh"
 #include "../Curso.hh"
-#include"Suscripcion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
+
 
 #endif

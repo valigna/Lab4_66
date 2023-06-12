@@ -23,15 +23,15 @@ DataFecha* Estudiante::getNacimiento(){ return this->Nacimiento; }
 // DataTypes
 DataUsuario* Estudiante::getDataUsuario()
 {
-    return (new DataEstudiante(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescricpion(),this->getPaisResidencia(),this->getNacimiento()));
+    return (new DataEstudiante(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
 }
 
 DataUsuario* Estudiante::getDatosUsuario()
 {
-    return (new DataEstudiante(' ',this->getNombre(),' ',this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
+    return (new DataEstudiante(" ",this->getNombre()," ",this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
 }
 
-//Auxiliares
+// Para distinguir entre las distintas sub-clases
 bool esEstudiante(){ return true; }
 bool esProfesor(){ return false; }
 
@@ -58,8 +58,8 @@ set<string> Estudiante::obtenerCursosInscriptos(){
 set<string> Estudiante::obtenerCursosNoAprobados(){
     set<string> res;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        if(it->getCursoAprobado() == false){
-            string aux = it->darNombreCurso();
+        if((*it)->getCursoAprobado() == false){
+            string aux = (*it)->darNombreCurso();
             res.insert(aux);
         }
     }
@@ -67,35 +67,37 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 }
 
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
+    set<DataEjercicio *> res;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = it->getCurso();
+        Curso * aux = (*it)->getCurso();
         if(aux->igualCurso(curso)){
-            return it->obtenerListaEjerciciosNoAprobadosIns();
+            res = (*it)->obtenerListaEjerciciosNoAprobadosIns();
         }
     }
+    return res;
 }
 
 void Estudiante::hacerEjercicioT(int ejercicio, string sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = it->getCurso();
-        if(aux->igualCurso(curso)){
-            return it->revisarEjercicioT(ejercicio, sol);
+        Curso* aux = (*it)->getCurso();
+        if(aux->igualCurso(aux->getNombre())){
+            return (*it)->revisarEjercicioT(ejercicio, sol);
         }
     }
 }
 
 void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = it->getCurso();
-        if(aux->igualCurso(curso)){
-            return it->revisarEjercicioCP(ejercicio, sol);
+        Curso * aux = (*it)->getCurso();
+        if(aux->igualCurso(aux->getNombre())){
+            return (*it)->revisarEjercicioCP(ejercicio, sol);
         }
     }
 }
 
 // Otres
 void Estudiante::eliminarLinkE(string nombreCurso){
-    this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso
+    /* this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso */
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]

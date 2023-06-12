@@ -4,9 +4,9 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 // Conceptos del Modelo de Dominio
-class Ejercicio;
-class CompletarPalabras;
-class Traduccion;
+#include "Ejercicio.hh"
+#include "CompletarPalabras.hh"
+#include "Traduccion.hh"
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
@@ -17,7 +17,7 @@ class Leccion
 private:
 
     // PseudoAtributos...
-    set<Ejercicio *> colEjercicios;
+    map<int,Ejercicio *> colEjercicios;
     
 public:
     // Constructores
@@ -30,7 +30,7 @@ public:
     set<int> listaEjerciciosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
     bool ejercicioEnLeccion(int ejercicio);
-    DataEjercicio* buscarEjercicioEnLeccion(string ejercicio);
+    DataEjercicio* buscarEjercicioEnLeccion(int ejercicio);
     Ejercicio* buscarEjercicioEnLeccionT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol);
 
@@ -40,9 +40,7 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "Ejercicio.hh"
-#include "CompletarPalabras.hh"
-#include "Traduccion.hh"
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 #endif

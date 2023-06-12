@@ -3,12 +3,13 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
-#include "ControladorCurso.hh"
 // Interfaces
 #include "IGestionUsuario.hh"
 #include "IGestionNotificaciones.hh"
+//
+#include "ControladorCurso.hh"
 // Conceptos Del Modelo De Dominio
-class Usuario;
+#include "../Usuario.hh"
 // DataTypes
 #include "../DataTypes/DataEstudiante.hh"
 #include "../DataTypes/DataProfesor.hh"
@@ -86,7 +87,7 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "../Usuario.hh"
+
 /* ------------------------------------------------------------------------------------------------------ */
 
 #endif

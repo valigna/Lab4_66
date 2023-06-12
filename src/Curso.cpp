@@ -6,11 +6,11 @@
 Curso::~Curso() {
     this->Idioma->cursoEliminado(this->Nombre);
     this->Profesor->eliminarLinkP(this->Nombre);
-    for(set<Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
-        delete it; // Se llama el destructor de cada inscripcion
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
+        delete (*it); // Se llama el destructor de cada inscripcion
     }
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        delete it; // Se llama el destructor de cada leccion
+        delete (*it); // Se llama el destructor de cada leccion
     }
 }
 
@@ -18,7 +18,6 @@ Curso::~Curso() {
 string Curso::getNombre(){return this->Nombre;}
 
 void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
-
 
 
 // Auxiliares
@@ -96,12 +95,12 @@ DataConsultaCurso* Curso::getDataConsultaCurso(){
 }
 
 // Para el Caso de Uso : [Habilitar Curso]
-bool Curso::sePuedeHabilitar()
+/* bool Curso::sePuedeHabilitar()
 {
     bool res = true;
     if(this->colLecciones.size() >= 1)
     {
-        for(list<Leccion *>::iterator it = this->colLeciones.begin(); it != this->colLecciones.end(); ++it)
+        for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it)
         {
             if((*it)->colEjercicios.size() < 1) { res = false; }
         }
@@ -110,6 +109,10 @@ bool Curso::sePuedeHabilitar()
         res = false;
     }
     return res;
+} */
+bool Curso::sePuedeHabilitar()
+{
+    return true;
 }
 // Para el Caso de Uso : [Realizar Ejercicio]
 bool Curso::igualCurso(string curso){
@@ -125,55 +128,66 @@ set<int> Curso::obtenerListaEjerciciosCurso(){
     set<int> res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         set<int> aux;
-        aux = it->second->listaEjerciciosLeccion();
+        aux = (*it)->listaEjerciciosLeccion();
         res.insert(aux.begin(), aux.end());
     }
     return res;
 }
 
 DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
+    DataEjercicio* res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            return it->second->buscarEjercicioEnLeccion(ejercicio);
+        if((*it)->ejercicioEnLeccion(ejercicio) == true)
+        {
+            res = (*it)->buscarEjercicioEnLeccion(ejercicio);
         }
     }
+    return res;
 }
 
 string Curso::buscarLetraEnCurso(int ejercicio){
+    string res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            return it->buscarLetraEnLeccion(ejercicio);
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            res = (*it)->buscarLetraEnLeccion(ejercicio);
         }
     }
+    return res;
 }
 
 Ejercicio* Curso::buscarEjercicioEnCursoT(int ejercicio, string sol){
+    Ejercicio* res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            return it->second->buscarEjercicioEnLeccionT(ejercicio, sol);
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            res = (*it)->buscarEjercicioEnLeccionT(ejercicio, sol);
         }
     }
+    return res;
 }
 
 Ejercicio* Curso::buscarEjercicioEnCursoCP(int ejercicio, set<string> sol){
+    Ejercicio* res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            return it->second->buscarEjercicioEnLeccionCP(ejercicio, sol);
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            res = (*it)->buscarEjercicioEnLeccionCP(ejercicio, sol);
         }
     }
+    return res;
 }
 
 Leccion* Curso::comprobarUltimaLeccion(int ejercicio){ 
+    Leccion* res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
-        if(it->second->ejercicioEnLeccion(ejercicio) == true){
-            if(it->second->totalEjercicios() == ejercicio){
-                return it->second;
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            if((*it)->totalEjercicios() == ejercicio){
+                res = (*it);
             }
             else{
-                return NULL;
+                res = NULL;
             }
         }
     }
+    return res;
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
@@ -201,7 +215,7 @@ float Curso::darPromedio()
     }
 
     // Itero sobre mis inscripciones...
-    for(set<Inscricpion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         int cAp = (*it)->cantEjAprobados();
         float avance = (cAp/cantEj) * 100;
 
@@ -215,7 +229,7 @@ float Curso::darPromedio()
 
 
 // Para el caso de uso: [Inscribirse a curso]
-bool Curso::previosAprobados(set<string> nombresCursosAprobados){
+/* bool Curso::previosAprobados(set<string> nombresCursosAprobados){
     bool b = true;
     for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
         if (nombresCursosAprobados.find(it) == nombresCursosAprobados.end()){
@@ -223,7 +237,12 @@ bool Curso::previosAprobados(set<string> nombresCursosAprobados){
         }
     }
     return b;
+} */
+bool Curso::previosAprobados(set<string> nombresCursosAprobados)
+{
+    return true;
 }
-void Curso::crearLinkConInsc(Inscripcion *I){
+void Curso::crearLinkConInsc(Inscripcion *I)
+{
     this->colInscripciones.insert(I);
 }

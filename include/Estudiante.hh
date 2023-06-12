@@ -31,9 +31,10 @@ public:
     // DataTypes
     DataUsuario* getDataUsuario();
     DataUsuario* getDatosUsuario();
-    // Auxiliares
+    // Para distinguir entre las distintas sub-clases
     bool esEstudiante();
     bool esProfesor();
+    //
     set<string> obtenerCursosAprobados();
     set<string> obtenerCursosInscriptos();
     // Para el Caso de Uso : [Realizar Ejercicio]
@@ -55,7 +56,6 @@ public:
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
 #include "Inscripcion.hh"
-#include "Usuario.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 #endif

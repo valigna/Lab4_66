@@ -19,6 +19,9 @@ public:
     // Getters
     string getInstituto();
     set<string> getIdiomas();
+    // Para distinguir entre las distintas sub-clases
+    bool esEstudiante();
+    bool esProfesor();
 };
 
 #endif

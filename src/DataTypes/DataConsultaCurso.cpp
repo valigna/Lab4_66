@@ -21,15 +21,15 @@ string DataConsultaCurso::getNombre(){
 string DataConsultaCurso::getDescripcion(){ 
     return this->Descricpion; 
 }
-difficulty DataConsultCurso::getDifificulty(){ 
+difficulty DataConsultaCurso::getDifificulty(){ 
     return this->Dificultad; 
 }
 string DataConsultaCurso::getIdioma(){ 
     return this->Idioma; 
 }
 string DataConsultaCurso::getProfesor(){ 
-    return this->Creo; 
+    return this->profesor; 
 }
-set<string> DataConsultaCurso::getHabilitado(){ 
+bool DataConsultaCurso::getHabilitado(){ 
     return this->habilitado; 
 }

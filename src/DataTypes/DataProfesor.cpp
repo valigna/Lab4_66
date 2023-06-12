@@ -13,3 +13,7 @@ DataProfesor::~DataProfesor(){ }
 // Getters
 string DataProfesor::getInstituto(){ return this->Instituto; }
 set<string> DataProfesor::getIdiomas(){ return this->Idiomas; }
+
+// Para distinguir entre las distintas sub-clases
+bool DataProfesor::esEstudiante(){ return false; }
+bool DataProfesor::esProfesor(){ return true; }

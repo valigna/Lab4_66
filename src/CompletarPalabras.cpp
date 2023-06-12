@@ -1,7 +1,7 @@
 #include "../include/CompletarPalabras.hh"
 
 // Getters y Setters
-string CompletarPalabras::getFrase(){
+string CompletarPalabras::getFraseCP(){
     return this->frase;
 }
 
@@ -9,12 +9,16 @@ set<string> CompletarPalabras::getSolucionCP(){
     return this->solucion;
 }
 
+// Para distinguir entre las distintas sub-clases
+bool CompletarPalabras::esCompletarPalabras(){ return true; }
+bool CompletarPalabras::esTraduccion(){ return false; }
+
 // Para el Caso de Uso : [Realizar Ejercicio]
 bool CompletarPalabras::comprobarSolucionCP(set<string> sol){
     bool res = true;
-    set<string>::iterator aux = sol;
+    set<string>::iterator aux = sol.begin();
     for(set<string>::iterator it = this->solucion.begin(); it != this->solucion.end(); ++it){
-        if(it == aux){
+        if((*it) != (*aux)){
             return false;
         }
         aux++;

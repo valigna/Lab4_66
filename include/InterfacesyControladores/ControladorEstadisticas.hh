@@ -31,7 +31,7 @@ public:
     set<string> getNicksProfesores();
     set<InfoCurso *> listarCursosPropuestos(string nickProfesor);
     set<string> getNombresCursos();
-    set<InformacionCurso *> infoCurso(string nombreCurso);
+    InformacionCurso* infoCurso(string nombreCurso);
 };
 
 #endif

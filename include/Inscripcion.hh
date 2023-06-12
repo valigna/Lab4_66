@@ -4,14 +4,13 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
 // Conceptos del Modelo de Dominio
-class Leccion;
-class Ejercicio;
-class Estudiante;
+#include "Leccion.hh"
+#include "Ejercicio.hh"
 class Curso;
+class Estudiante;
 // DataTypes
 #include "DataTypes/DataFecha.hh"
 #include "DataTypes/DataEjercicio.hh"
-
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Inscripcion
@@ -49,8 +48,6 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "Leccion.hh"
-#include "Ejercicio.hh"
 #include "Estudiante.hh"
 #include "Curso.hh"
 /* ------------------------------------------------------------------------------------------------------ */

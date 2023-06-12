@@ -14,11 +14,11 @@
 #include "DataTypes/DTCurso.hh"
 #include "DataTypes/DataConsultaCurso.hh"
 // Conceptos Del Modelo De Dominio
+#include "Leccion.hh"
+#include "Ejercicio.hh"
+#include "Idioma.hh"
 class Profesor;
 class Inscripcion;
-class Leccion;
-class Ejercicio;
-class Idioma;
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Curso
@@ -91,11 +91,8 @@ public:
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "Idioma.hh"
 #include "Profesor.hh"
 #include "Inscripcion.hh"
-#include "Leccion.hh"
-#include "Ejercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 #endif

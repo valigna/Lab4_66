@@ -1,6 +1,7 @@
 #include "../../include/InterfacesyControladores/ControladorUsuario.hh"
 
 // Destructor
+ControladorUsuario::~ControladorUsuario(){ }
 
 // Implementacion del Patron de Disenio : Singleton
 ControladorUsuario* ControladorUsuario::instancia = NULL;
@@ -14,22 +15,17 @@ ControladorUsuario* ControladorUsuario::getInstancia()
     }
     return ControladorUsuario::instancia;
 }
-// Otros
-
-// Set : Unordered set (STL)
-set<string> ControladorUsuario::getIdiomas(){
-    // Paso 1:
-    ControladorCurso* cc = ControladorCurso::getInstancia();
-    // Paso 2:
-    set<string> idiomas;
-    idiomas = cc->getIdiomas();
-    
-    return idiomas;
-}
-
 
 // Para el Caso de Uso : [Alta de Usuario]
 void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
+
+set<string> ControladorUsuario::getIdiomas()
+{
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    set<string> idiomas = cc->getIdiomas();
+    return idiomas;
+}
+
 void ControladorUsuario::ingresarIdiomas(set<string> seleccionados){ this->seleccionados = seleccionados; }
 
 bool ControladorUsuario::confirmarAltaUsuario()
@@ -39,9 +35,8 @@ bool ControladorUsuario::confirmarAltaUsuario()
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     if (it == this->colUsuarios.end()) // No exisita un usuario con 'nickname', por lo que se pasa a crear uno...
     {
-        // Hacemos un casteo dinamico, para saber si se trata de un Estudiante o Profesor...
-        DataEstudiante* aux = dynamic_cast<DataEstudiante *>(this->datos);
-        if (aux != NULL) // Efectivamente se trata de un estudiante...
+        bool estudiante = this->datos->esEstudiante();
+        if (estudiante) // Efectivamente se trata de un estudiante...
         {
             this->colUsuarios.emplace(nickname,new Estudiante(this->datos));
         } else // Se trata de un profesor
@@ -64,39 +59,20 @@ set<string> ControladorUsuario::getNicksUsuarios()
     return res;
 }
 
-DatosUsuario* ControladorUsuario::getDatosUsuario(string nick)
+DataUsuario* ControladorUsuario::getDatosUsuario(string nick)
 {
     Usuario* u = this->colUsuarios.find(nick)->second;
-    
-    // Tendria que corroborar si se trata de un Estudiante o Profesor...
-    Estudiante* est = dynamic_cast<Estudiante *>(u);
-    if (est != NULL)
-    {
-        DatosUsuario* usuarioE = new DatosEstudiante(est->getNombre(),est->getDescripcion(),est->getPaisResidencia(),est->getNacimiento());
-        return usuarioE;
-    } else // Es un profesor...
-    {
-        Profesor* prof = (Profesor *)u;
-        set<string> especializa;
-        for(map<string,Idioma *>::iterator it = prof->colIdiomas.begin(); it != prof->colIdiomas.end(); ++it)
-        {
-            especializa.insert(it->first);
-        }
-        DatosUsuario* usuarioP = new DatosProfesor(prof->getNombre(),prof->getDescripcion(),prof->getInstituto(),especializa);
-        return usuarioP;
-    }
+    return u->getDatosUsuario();   
 }
 
 // Para el Casod De Uso : [Consulta de Curso]
 set<string> ControladorUsuario::obtenerCursos(){
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     return cc->darNombreCursos();
 }
 
 DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     return cc->obtenerDataCursoSeleccionado(curso);
 }
 
@@ -115,8 +91,7 @@ set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
 
 string ControladorUsuario::getProblema(int ejercicio){
     string nomC;
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     return cc->obtenerLetra(nomC,ejercicio); // Como se maneja la memoria en nomC?
 }
 
@@ -223,5 +198,5 @@ void ControladorUsuario::suscribirse(set<string> idiomas){
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> ControladorUsuario::idiomasSuscritos(string nickname){
     this->nickname = nickname;
-    return this->colUsuarios[nickname]->getIdiomasSuscritos();
+    return this->colUsuarios[nickname]->darIdiomasSuscritos();
 }

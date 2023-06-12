@@ -2,27 +2,32 @@
 
 
 // Constructores
-Ejercicio:Ejercicio(string desc, int id){
+/* Ejercicio::Ejercicio(string desc, int id){
     this->Descripcion = desc;
     this->id = id;
-}
+} */
 
 // Destructor 
 
 // Getters y Setters
-string getDescripcion(){
-    return this->descripcion;
+string Ejercicio::getDescripcion(){
+    return this->Descripcion;
 }
 
-float getId(){
+int Ejercicio::getId(){
     return this->getId();
 }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 
-DataEjercicio* Ejercicio::obtenerDataEjercicio(){
+/* DataEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
     DataEjercicio* res = new DataEjercicio(descripcion, id);
     return res;
+} */
+
+DataEjercicio* Ejercicio::obtenerDataEjercicio()
+{
+    return NULL;
 }

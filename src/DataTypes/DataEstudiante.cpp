@@ -16,3 +16,7 @@ DataEstudiante::~DataEstudiante()
 // Getters
 string DataEstudiante::getPaisResidencia(){ return this->PaisResidencia; }
 DataFecha* DataEstudiante::getNacimiento(){ return this->Nacimiento; }
+
+// Para distinguir entre las distintas sub-clases
+bool DataEstudiante::esEstudiante(){ return true; }
+bool DataEstudiante::esProfesor(){ return false; }

@@ -26,7 +26,7 @@ public:
     virtual void resolverEjercicioT(int ejercicio, string sol) = 0;
     virtual void resolverEjercicioCP(int ejercicio, set<string> sol) = 0;
     //
-    virtual ~IGestionUsuario();
+    virtual ~IGestionUsuario(){};
 };
 
 #endif

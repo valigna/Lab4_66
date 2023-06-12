@@ -14,12 +14,7 @@ public:
     virtual void notificarBaja(string nombreCurso) = 0;
     virtual void notificarAlta(Idioma *i,Curso *c) = 0;
 
-    virtual ~Suscripcion();
+    virtual ~Suscripcion(){};
 };
-
-/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
-#include "../Idioma.hh"
-#include "../Curso.hh"
-/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

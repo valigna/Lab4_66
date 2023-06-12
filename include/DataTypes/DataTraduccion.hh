@@ -20,6 +20,9 @@ public:
     // Getters
     string getFrase();
     string getTraduccion();
+    // Para distinguir entre las distintas sub-clases
+    bool esCompletarPalabras();
+    bool esTraduccion();
 };
 
 #endif

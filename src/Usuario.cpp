@@ -1,5 +1,6 @@
 #include "../include/Usuario.hh"
 
+
 // Constructores
 Usuario::Usuario(string nick, string name, string con, string desc){
     this->Nickname = nick;
@@ -27,7 +28,13 @@ string Usuario::getDescripcion() { return this->Descripcion; }
 // }
 
 // Para el caso de uso : [Eliminar Curso]
-void Usuario::notificarBaja(string nombreCurso){
+// Falta Implementar...
+void Usuario::notificarBaja(string nombreCurso)
+{
+
+}
+
+/* void Usuario::notificarBaja(string nombreCurso){
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
         if (it->presentaCurso(nombreCurso)) {
             vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
@@ -36,9 +43,8 @@ void Usuario::notificarBaja(string nombreCurso){
             break;
         }
     }
-    
-    
-}
+ 
+} */
 
 // Para el caso de uso : [Suscribirse a notificaciones]
 set<string> Usuario::darIdiomasNoSuscritos() {
@@ -61,7 +67,7 @@ set<string> Usuario::darIdiomasNoSuscritos() {
 set<string> Usuario::darIdiomasSuscritos(){
     set<string> res;
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it) {
-        string idioma = it->darIdioma();
+        string idioma = (*it)->darIdioma();
         res.insert(idioma);
     }
     return res;

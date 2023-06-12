@@ -1,5 +1,4 @@
 #include "../include/Profesor.hh"
-#include "../include/InterfacesyControladores/ControladorCurso.hh"
 
 // Constructores
 /* Profesor::Profesor(string nick,string name, string pass, string desc, DataProfesor* prof,set<string> seleccionados) : Usuario(nick,name,pass,desc)
@@ -22,17 +21,15 @@ Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos
     DataProfesor* aux = (DataProfesor *)datos;
     this->Instituto = aux->getInstituto();
 
-    // Obtengo la instancia de ControladorCurso para recorrer la coleccion de idiomas del sistema
+    // Obtengo la instancia de ControladorCurso
     ControladorCurso* cc = ControladorCurso::getInstancia();
+    map<string,Idioma *> idiomas;
 
     for(set<string>::iterator it = seleccionados.begin(); it != seleccionados.end(); ++it)
     {
-        if(cc->colIdiomas.find(*it) != cc->colIdiomas.end()) 
-        {
-            this->colIdiomas.emplace((*it),cc->colIdiomas[*it]);
-        }
+        idiomas.emplace((*it),cc->darIdiomaEnColeccion((*it)));
     }
-
+    this->colIdiomas = idiomas;
 }
 // Destructor
 
@@ -53,10 +50,10 @@ DataUsuario* Profesor::getDatosUsuario()
     {
         conIdiomas.insert(it->first);
     }
-    return (new DataProfesor(' ',this->getNombre(),' ',this->getDescripcion(),this->getInstituto(),conIdiomas));
+    return (new DataProfesor(" ",this->getNombre()," ",this->getDescripcion(),this->getInstituto(),conIdiomas));
 }
 
-// Auxiliares
+// Para distinguir entre las distintas sub-clases
 
 bool esEstudiante(){ return false; }
 bool esProfesor(){ return true; }
@@ -71,7 +68,7 @@ set<InfoCurso *> Profesor::getInfoCursos()
     set<InfoCurso *> res; 
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it) {
         string nomC = it->first;
-        float proedio = it->second->darPromedio();
+        float promedio = it->second->darPromedio();
 
         InfoCurso* elem = new InfoCurso(nomC,promedio);
         res.insert(elem);

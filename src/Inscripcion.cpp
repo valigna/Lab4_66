@@ -16,12 +16,12 @@ Inscripcion::Inscripcion(Estudiante *est, string curso){
 
 // Destructor
 Inscripcion::~Inscripcion(){
-    this->e->eliminarLinkE(this->darNombreCurso);
+    this->e->eliminarLinkE(this->darNombreCurso());
 }
 
 // Getters y Setters
 
-void Inscripcion::setCursoAprobado(boolean curso){
+void Inscripcion::setCursoAprobado(bool curso){
     this->CursoAprobado = curso;
 }
 
@@ -43,8 +43,8 @@ set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
     set<DataEjercicio *> res;
     set<int> aux = this->c->obtenerListaEjerciciosCurso();
     for(set<int>::iterator it = aux.begin(); it != aux.end();++it){
-        if(this->noAprobado(aux)){
-            DataEjercicio* eje = this->c->buscarEjercicioEnCurso(aux);
+        if(this->noAprobado((*it))){
+            DataEjercicio* eje = this->c->buscarEjercicioEnCurso((*it));
             res.insert(eje);
         }
     }
@@ -52,10 +52,10 @@ set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
 }
 
 bool Inscripcion::noAprobado(int ejercicio){
-    set<Ejercicio *>::iterator it = this->colEjAprobados().begin();
+    set<Ejercicio *>::iterator it = this->colEjAprobados.begin();
     bool aux = true;
-    while(it != this->colEjAprobados().end() && aux != false){
-        if(it->getId() == ejercicio){
+    while(it != this->colEjAprobados.end() && aux != false){
+        if((*it)->getId() == ejercicio){
             return false;
         }
         it++;
@@ -72,9 +72,9 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
         if(lec != NULL){
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
-            if(this->colLecAprobadas()->size() == this->c->colLecciones()->size()){
+            /* if(this->colLecAprobadas.size() == this->c->colLecciones.size()){
                 this->setCursoAprobado(true);
-            }
+            } */
         }
     }
 }
@@ -88,9 +88,9 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
         if(lec != NULL){
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
-            if(this->colLecAprobadas()->size() == this->c->colLecciones()->size()){
+/*             if(this->colLecAprobadas.size() == this->c->colLecciones.size()){
                 this->setCursoAprobado(true);
-            }
+            } */
         }
     }
 }

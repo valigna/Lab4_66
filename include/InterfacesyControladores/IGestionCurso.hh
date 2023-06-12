@@ -28,7 +28,7 @@ public:
     virtual void confirmarAltaCurso() = 0;
     // Operaciones Para El Caso de Uso : [Agregar Leccion]
     // virtual set<DataCurso *> getCursosNoHabilitados
-    virtual void ingresarDatosLeccecion(string cursoSeleccionado,string tema, string objetivo) = 0;
+    virtual void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo) = 0;
     virtual void ingresarEjercicio(DataEjercicio* ejercicio) = 0;
     virtual void altaLeccion();
     // Operaciones Para El Caso de Uso : [Agregar Ejercicio]
@@ -48,7 +48,7 @@ public:
     virtual set<InscripcionCurso *> getCursosDisponibles(string nickname) = 0;
     virtual void inscribirseACurso(string nickname, string curso) = 0;
     //
-    virtual ~IGestionCurso();
+    virtual ~IGestionCurso(){};
 };
 
 #endif

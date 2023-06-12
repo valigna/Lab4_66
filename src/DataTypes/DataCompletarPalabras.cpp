@@ -13,3 +13,7 @@ DataCompletarPalabras::~DataCompletarPalabras(){ }
 // Getters
 string DataCompletarPalabras::getFrase(){ return this->Frase; }
 set<string> DataCompletarPalabras::getSolucion(){ return this->Solucion; }
+
+// Para distinguir entre las distintas sub-clases
+bool DataCompletarPalabras::esCompletarPalabras(){ return true; }
+bool DataCompletarPalabras::esTraduccion(){ return false; }
