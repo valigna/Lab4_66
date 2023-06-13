@@ -52,6 +52,8 @@ public:
     int getIdEjercicios();
     //Profesor* getProfesor();
     //Idioma* getIdioma();
+
+    void setHabilitado(bool hab);
     // Implementar en caso de ser necesario...
     // list<Leccion *> getcolLecciones();
     // set<Inscripcion *> getcolInscripciones();
@@ -72,8 +74,8 @@ public:
 
     DTCurso* getDTCurso();
 
-    void setHabilitado(bool hab);
 
+    set<DataLeccion *> darDataLecciones(bool conId);
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
     // Para el Caso de Uso : [Realizar Ejercicio]
@@ -85,6 +87,9 @@ public:
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
     Leccion* comprobarUltimaLeccion(int ejercicio);
 
+    // Para el Caso de Uso : [Agregar Ejercicio]
+    void agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio);
+    
     // Para el Caso de Uso : [Consultar Estadisticas]
     int obtenerTotalEjercicios();
     float darPromedio();

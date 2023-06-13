@@ -12,8 +12,13 @@ CompletarPalabras::~CompletarPalabras(){ }
 
 // Getters y Setters
 string CompletarPalabras::getFraseCP(){ return this->frase; }
-
 set<string> CompletarPalabras::getSolucionCP(){ return this->solucion; }
+
+// DataTypes
+DataEjercicio* CompletarPalabras::getDataEjercicio()
+{
+    return (new DataCompletarPalabras(this->getDescripcion(),this->getId(),this->frase,this->solucion));
+}
 
 // Para distinguir entre las distintas sub-clases
 bool CompletarPalabras::esCompletarPalabras(){ return true; }

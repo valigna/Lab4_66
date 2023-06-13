@@ -20,12 +20,37 @@ Leccion::~Leccion(){
 }
 // Getters y Setters
 
+// DataTypes
+DataLeccion* Leccion::getDataLeccion(bool conId)
+{
+    DataLeccion* res;
+    set<DataEjercicio *> ejercicios;
+    for(map<int,Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it)
+    {
+        ejercicios.insert(it->second->getDataEjercicio());
+    }
+    if(conId)
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,this->Id,ejercicios);
+    } else
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,ejercicios);
+    }
+    return res;
+}
+
 // Otres
 
 /* int Leccion::cantEjAprobados(){ // No esta en el .hh
     return 0;
     //return this->colEjAprobados->size();
 } */
+
+// Para el Caso de Uso : [Agregar Ejercicio]
+void agregarEjercicio(DataEjercicio* ejercicio)
+{
+
+}// Me olvide de ir pasandole como parametro la nueva id de ejercicio a Asignar...
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<int> Leccion::listaEjerciciosLeccion(){

@@ -5,6 +5,7 @@
 #include "Utils.hh"
 // Conceptos del Modelo de Dominio
 #include "Ejercicio.hh"
+#include "DataTypes/DataTraduccion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Traduccion: public Ejercicio
@@ -20,6 +21,8 @@ public:
     // Getters y Setters
     string getFraseT();
     string getSolucionT();
+    // DataTypes
+    DataEjercicio* getDataEjercicio();
     // Para distinguir entre las distintas sub-clases
     bool esCompletarPalabras();
     bool esTraduccion();

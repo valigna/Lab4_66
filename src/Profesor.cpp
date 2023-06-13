@@ -27,7 +27,8 @@ Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos
 
     for(set<string>::iterator it = seleccionados.begin(); it != seleccionados.end(); ++it)
     {
-        idiomas.emplace((*it),cc->darIdiomaEnColeccion((*it)));
+        Idioma* idi = cc->darIdiomaEnColeccion((*it));
+        if(idi != NULL){ idiomas.emplace((*it),idi); }
     }
     this->colIdiomas = idiomas;
 }

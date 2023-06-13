@@ -96,8 +96,8 @@ void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
 }
 
 // Otres
-void Estudiante::eliminarLinkE(string nombreCurso){
-    /* this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso */
+void Estudiante::eliminarLinkE(Inscripcion *I){
+    this->colInscripciones.erase(I); // Se elimina la inscripcion con nombreCurso
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]

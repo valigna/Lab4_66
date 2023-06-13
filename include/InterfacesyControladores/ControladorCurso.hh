@@ -7,6 +7,7 @@
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
 class Suscripcion;
+class ControladorUsuario;
 // Conceptos Del Modelo De Dominio
 #include "../Idioma.hh"
 class Curso;
@@ -26,14 +27,14 @@ private:
     // Colecciones
     map<string,Idioma *> colIdiomas;
     map<string,Curso *> colCursos;
-    // Para memoria de que caso de uso??
-    string nombreCurso;
     //Memoria Para : [Alta de Curso]
     DTCurso* seleccionado;
-    string Profesor;
+    string nickProfesor;
     set<string> previos;
     DataLeccion* Leccion;
     DataEjercicio* Ejercicio;
+    // Memoria Para : [Agregar Ejercicio]
+    string nombreCurso;
 
 public:
     // Destructor
@@ -93,6 +94,7 @@ public:
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
 #include "Suscripcion.hh"
 #include "../Curso.hh"
+#include "ControladorUsuario.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 

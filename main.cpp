@@ -35,9 +35,11 @@ int main()
             break;
 
         case 1: // Alta de Usuario
+            altaUsuario();
             break;
 
         case 2: // Consulta de Usuario
+            consultaUsuario();
             break;
         
         case 3: // Alta de Idioma

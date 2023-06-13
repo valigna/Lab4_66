@@ -78,8 +78,8 @@ set<string> ControladorCurso::getIdiomas()
 // Falta Implementar...
 set<string> ControladorCurso::getNicknamesProfesores()
 {
-    set<string> res;
-
+    ControladorUsuario *cu = ControladorUsuario::getInstancia();
+    set<string> res = cu->darNicksProfesores();
     return res;
 }
 
@@ -91,8 +91,10 @@ set<string> ControladorCurso::getNicknamesProfesores()
 // Falta Implementar...
 set<string> ControladorCurso::getIdiomasProfesor()
 {
-    set<string> res;
-
+    string nickP = this->nickProfesor;
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    DataUsuario* p = cu->getDatosUsuario(nickP);
+    set<string> res = p->;
     return res;
 }
 
@@ -139,10 +141,17 @@ void ControladorCurso::altaLeccion()
 }
 
 // Para el Caso de Uso : [Agregar Ejercicio]
-// Falta Implementar...
 set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
 {
+    // Recordamos el nombre del curso...
+    this->nombreCurso = cursoSeleccionado;
+
     set<DataLeccion *> res;
+    map<string,Curso *>::iterator it = this->colCursos.find(cursoSeleccionado);
+    if (it != this->colCursos.end())
+    {
+        res = it->second->darDataLecciones(true);
+    }
 
     return res;
 }
@@ -150,7 +159,8 @@ set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
 // Falta Implementar...
 void ControladorCurso::agregarEjercicio(int leccionSeleccionada, DataEjercicio* ejercicio)
 {
-
+    map<string,Curso *>::iterator it = this->colCursos.find(this->nombreCurso);
+    it->second->agregarEjercicio(leccionSeleccionada,ejercicio);
 }
 
 // Para el Caso de Uso : [Habilitar Curso]
@@ -158,39 +168,16 @@ void ControladorCurso::agregarEjercicio(int leccionSeleccionada, DataEjercicio* 
 set<InformacionCurso *> ControladorCurso::getCursosNoHabilitados()
 {
     set<InformacionCurso *> res;
-
-    return res;
-}
-
-// No compila...
-/* set<InformacionCurso *> ControladorCurso::getCursosNoHabilitados()
-{
-    set<InformacionCurso *> res;
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it)
     {
         Curso* actual = it->second;
         if(!(actual->getHabilitado()))
         {
-            // Obtengo el nombre del Idioma que se ensenia...
-            string nombreIdi = actual->Idioma->getNombre();
-            // Obtengo el profesor que creo este curso...
-            DataProfesor* creo = new DataProfesor(actual->Profesor->getNickname(),actual->Profesor->getNombre(),actual->Profesor->getPassword(),actual->Profesor->getDescripcion(),actual->Profesor->getInstituto());
-            // Obtengo los nombres de los cursos previos...
-            set<string> previos;
-            for(set<Curso *>::iterator iter = actual->colPrevios.begin(); iter != actual->colPrevios.end(); ++iter)
-            {
-                previos.insert((*iter)->getNombre());
-            }
-            int cEjs = 0;
-            for(list<Leccion *>::iterator iter2 = actual->colLecciones.begin(); iter2 != actual->colLecciones.end(); ++iter2)
-            {
-                cEjs += (*iter2)->colEjercicios.size();
-            }
-            res.insert(new InformacionDeCurso(actual->getNombre(),actual->getDescripcion(),actual->getDificultad(),nombreIdi,creo,actual->colLecciones.size(),cEjs));
+            res.insert(actual->getInformacionCurso(false)); // Pide un informacion curso sin promedio...
         }
     }
     return res;
-} */
+}
 
 bool ControladorCurso::habilitarCurso(string seleccionado) 
 {
@@ -210,14 +197,7 @@ bool ControladorCurso::habilitarCurso(string seleccionado)
     return pudoHabilitarse;
 }
 
-// Para el Caso de Uso : [Eliminar Curso] -> Ambas funciones ya estan definidas mas arriba en 'Operaciones del sistema'
-// Falta Implementar...
-//set<string> ControladorCurso::getNombreCursos()
-//{
-//    set<string> res;
-//
-//    return res;
-//}
+// Para el Caso de Uso : [Eliminar Curso]
 
 set<string> ControladorCurso::getNombreCursos(){
     set<string> res;
@@ -227,28 +207,16 @@ set<string> ControladorCurso::getNombreCursos(){
     return res;
 }
 
-// Falta Implementar...
-//void ControladorCurso::seleccionarCurso(string nombreCurso)
-//{
-//
-//}
+void ControladorCurso::seleccionarCurso(string nombreCurso){ this->nombreCurso = nombreCurso; }
 
 
-void ControladorCurso::seleccionarCurso(string nombreCurso){
-    this->nombreCurso = nombreCurso;
-}
-
-// Falta Implementar...
 void ControladorCurso::bajarCurso()
 {
-
-}
-
-/* void ControladorCurso::bajarCurso(){
     Curso *C = this->colCursos[this->nombreCurso];
     this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
     delete C; // Se llama al destructor de Curso
-} */
+}
+
 
 // Para el Caso de Uso : [Consulta de Curso]
 DataConsultaCurso* ControladorCurso::obtenerDataCursoSeleccionado(string curso){

@@ -9,12 +9,14 @@ Traduccion::Traduccion(string fra, string sol):Ejercicio(){
 Traduccion::~Traduccion(){ }
 
 // Getters y Setters
-string Traduccion::getFraseT(){
-    return this->frase;
-}
+string Traduccion::getFraseT(){ return this->frase; }
 
-string Traduccion::getSolucionT(){
-    return this->solucion;
+string Traduccion::getSolucionT(){ return this->solucion; }
+
+// DataTypes
+DataEjercicio* Traduccion::getDataEjercicio()
+{
+    return (new DataTraduccion(this->getDescripcion(),this->getId(),this->frase,this->solucion));
 }
 
 // Para distinguir entre las distintas sub-clases

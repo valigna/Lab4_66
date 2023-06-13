@@ -16,8 +16,9 @@ Inscripcion::Inscripcion(Estudiante *est, string curso){
 
 // Destructor
 Inscripcion::~Inscripcion(){
-    this->e->eliminarLinkE(this->darNombreCurso());
+    this->e->eliminarLinkE(this);
 }
+
 
 // Getters y Setters
 

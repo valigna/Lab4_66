@@ -18,7 +18,7 @@ public:
     // Constructores
 
     // Destructor
-    ~Notificacion(); // Se usa el destructor por defecto, no?
+    ~Notificacion();
     // Getters y Setters
    
    // Otros

@@ -21,6 +21,8 @@ public:
     // Getters y Setters
     string getDescripcion();
     int getId();
+    // DataTypes
+    virtual DataEjercicio* getDataEjercicio() = 0;
     // Para distinguir entre las distintas sub-clases
     virtual bool esCompletarPalabras() = 0;
     virtual bool esTraduccion() = 0;
