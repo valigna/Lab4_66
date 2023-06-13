@@ -16,13 +16,16 @@
 //#include "include/InterfacesyControladores/IGestionIdiomas.hh"
 //#include "include/InterfacesyControladores/IConsultarEstadisticas.hh"
 /* ------------------------------------------------------------------------------------------------------ */
+
+
+// Obtengo las instancias de los Controladores
+ControladorCurso* cc = ControladorCurso::getInstancia();
+ControladorUsuario* cu = ControladorUsuario::getInstancia();
+
+
 /* 
 int main()
 {
-    // Probando [Alta de Usuario]
-    // Obtengo las instancias de los Controladores
-    ControladorCurso* cc = ControladorCurso::getInstancia();
-    ControladorUsuario* cu = ControladorUsuario::getInstancia();
 
     // Declaro las variables necesarios para crear un Usuario
     string name;
@@ -114,3 +117,30 @@ int main()
 
     return 1;
 } */
+
+void altaIdioma()
+{
+    // Para el Caso de Uso : [Alta de Idioma]
+    cout << "Ingrese el nombre del idioma que quiere dar de alta en el sistema" << endl;
+    string nombre;
+    getline(cin,nombre);
+    bool altaExitosa = cc->altaIdioma(nombre);
+    if (altaExitosa)
+    {
+        cout << "Se creo el idioma " << nombre << endl;
+    } else
+    {
+        cout << "Error: El idioma ya se encuentra creado en el sistema" << endl;
+    }
+}
+
+void consultarIdiomas()
+{
+    // Para el Caso de Uso : [Consultar Idiomas]
+    set<string> idiomas = cc->getIdiomas();
+    cout << "Los idiomas creados en el sistema son: " << endl;
+    for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
+}
