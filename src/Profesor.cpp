@@ -14,7 +14,7 @@
         Idioma* i = cc->obtenerIdioma();
         if(i != NULL) this->colIdiomas.insert(i->getNombre(),i);
     }
-
+ 
 } */
 Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos->getNickname(),datos->getNombre(),datos->getContrasenia(),datos->getDescripcion())
 {
@@ -55,8 +55,8 @@ DataUsuario* Profesor::getDatosUsuario()
 
 // Para distinguir entre las distintas sub-clases
 
-bool esEstudiante(){ return false; }
-bool esProfesor(){ return true; }
+bool Profesor::esEstudiante(){ return false; }
+bool Profesor::esProfesor(){ return true; }
 
 void Profesor::eliminarLinkP(string nombreCurso){
     this->colCursos.erase(nombreCurso);

@@ -5,7 +5,17 @@
 // Destructor
 Leccion::~Leccion(){
     for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        delete it->second;
+        //delete it->second;
+        bool esTraduccion = it->second->esTraduccion();
+        if (esTraduccion)
+        {
+            Traduccion* t = (Traduccion*) it->second;
+            delete t;
+        } else
+        {
+            CompletarPalabras* cp = (CompletarPalabras*) it->second;
+            delete cp;
+        }
     }
 }
 // Getters y Setters

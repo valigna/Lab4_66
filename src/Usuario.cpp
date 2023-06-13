@@ -10,22 +10,15 @@ Usuario::Usuario(string nick, string name, string con, string desc){
 }
 // Destructor
 
+Usuario::~Usuario(){
+
+}
 
 // Getters y Setters
 string Usuario::getNickname() { return this->Nickname; }
 string Usuario::getNombre() { return this->Nombre; }
 string Usuario::getPassword() { return this->Password; }
 string Usuario::getDescripcion() { return this->Descripcion; }
-
-// Para el caso de uso : [Realizar Ejercicio]
-// set<string> Usuario::getCursosNoAprobados(){
-//     set<string> res;
-//     for(vector<Inscripcion *>::iterator it = this->colInscripcion.begin(); it != this->colInscripcion.end(); it++){
-//         if(verificarEstado(it)){
-//             string curso = it->
-//         }
-//     }
-// }
 
 // Para el caso de uso : [Eliminar Curso]
 // Falta Implementar...
@@ -71,4 +64,8 @@ set<string> Usuario::darIdiomasSuscritos(){
         res.insert(idioma);
     }
     return res;
+}
+
+void Usuario::notificarAlta(Idioma *i, Curso *c){
+
 }

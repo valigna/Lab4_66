@@ -2,21 +2,18 @@
 
 
 // Constructores
+Ejercicio::Ejercicio(){ }
 /* Ejercicio::Ejercicio(string desc, int id){
     this->Descripcion = desc;
     this->id = id;
 } */
 
 // Destructor 
+Ejercicio::~Ejercicio(){ }
 
-// Getters y Setters
-string Ejercicio::getDescripcion(){
-    return this->Descripcion;
-}
-
-int Ejercicio::getId(){
-    return this->getId();
-}
+// Getters
+string Ejercicio::getDescripcion(){ return this->Descripcion; }
+int Ejercicio::getId(){ return this->getId(); }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 

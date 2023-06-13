@@ -29,9 +29,11 @@ private:
     // Memoria para el Caso de Uso : [Alta de Usuario]
     DataUsuario* datos;
     set<string> seleccionados;
-    // Memoria para el Caso de Uso : [Suscribirse a Notificaciones], [Inscribirse a Curso]
+    // Memoria para el Caso de Uso : [Suscribirse a Notificaciones], [Inscribirse a Curso], [Realizar Ejercicio]
     string nickname;
     // Creo que tambien se va a usar en otros casos de uso, no pasa nada que se repita | Eso si, aclaren en cuales se repitio si es el caso
+    // Memoria para el Caso de Uso : [Realizar Ejercicio]
+    string nomC;
 
 public:
     // Destructor

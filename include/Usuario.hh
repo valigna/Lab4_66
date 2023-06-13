@@ -38,17 +38,14 @@ public:
     string getDescripcion();
 
     // DataTypes
-    virtual DataUsuario* getDataUsuario(); // Prof sin idiomas
-    virtual DataUsuario* getDatosUsuario(); // Este no tiene nick y password / Prof con idiomas
+    virtual DataUsuario* getDataUsuario() = 0; // Prof sin idiomas
+    virtual DataUsuario* getDatosUsuario() = 0; // Este no tiene nick y password / Prof con idiomas
 
     // Para distinguir entre las distintas sub-clases
     virtual bool esEstudiante() = 0;
     virtual bool esProfesor() = 0;
     // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
     // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
-
-    // Para el caso de uso : [Realizar Ejercicio]
-    //set<string> getCursosNoAprobados();
 
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();

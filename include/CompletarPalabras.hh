@@ -13,6 +13,10 @@ private:
     string frase;
     set<string> solucion;
 public:
+    // Constructores
+    CompletarPalabras(string frase, set<string> solucion);
+    // Destructor
+    ~CompletarPalabras();
     // Getters y Setters
     string getFraseCP();
     set<string> getSolucionCP();

@@ -1,7 +1,7 @@
 #include "../include/Curso.hh"
 
 // Constructores
-
+Curso::Curso(){ }
 // Destructor
 Curso::~Curso() {
     this->Idioma->cursoEliminado(this->Nombre);
@@ -14,19 +14,22 @@ Curso::~Curso() {
     }
 }
 
-// Getters y Setters
-string Curso::getNombre(){return this->Nombre;}
+// Getters
+string Curso::getNombre(){ return this->Nombre; }
+string Curso::getDescripcion(){ return this->Descricpion; }
+difficulty Curso::getDificultad(){ return this->Dificultad; }
+bool Curso::getHabilitado(){ return this->Habilitado; }
+int Curso::getIdLecciones(){ return this->idLecciones; }
+int Curso::getIdEjercicios(){ return this->idEjercicios; }
+//Profesor* Curso::getProfesor(){ return this->Profesor; }
+//Idioma* Curso::getIdioma(){ return this->Idioma; }
 
+// Setters
 void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
 
-
 // Auxiliares
-string Curso::getNombreIdioma(){
-    return this->Idioma->getNombre();
-};
-int Curso::obtenerTotalLecciones(){
-    return this->colLecciones.size();
-};
+string Curso::getNombreIdioma(){ return this->Idioma->getNombre(); }
+int Curso::obtenerTotalLecciones(){ return this->colLecciones.size(); }
 
 // DataTypes
 InformacionCurso* Curso::getInformacionCurso(bool conPromedio)

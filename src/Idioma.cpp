@@ -8,10 +8,7 @@ Idioma::Idioma(string nombre)
 }
 
 //Destructor
-Idioma::~Idioma()
-{
-
-}
+Idioma::~Idioma(){ }
 // Getters y Setters
 string Idioma::getNombre(){ return this->Nombre; }
 

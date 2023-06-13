@@ -78,31 +78,35 @@ DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
 
 // Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
-    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    it->second->esEstudiante();
+    Estudiante* est = (Estudiante*) it->second;
+    /* Estudiante* est = dynamic_cast<Estudiante *>(it->second); */
     return est->obtenerCursosNoAprobados();
 }
 
+/* it->second->esEstudiante()
+Estudiante* est = (Estudiante*) it->second */
+
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->obtenerEjerciciosNoAprobados(curso);
 }
 
 string ControladorUsuario::getProblema(int ejercicio){
-    string nomC;
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(nomC,ejercicio); // Como se maneja la memoria en nomC?
+    return cc->obtenerLetra(this->nomC,ejercicio); // No estoy seguro del manejo de memoria
 }
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioT(ejercicio, sol);
 }
 
 void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioCP(ejercicio, sol);
 }
@@ -193,10 +197,22 @@ void ControladorUsuario::suscribirse(set<string> idiomas){
     cc->agregarObservador(u,idiomas);
 }
 
-
+// Para el Caso de Uso : [Consulta de Notificaciones]
+// Falta Implementar...
+set<DataNotificacion *> ControladorUsuario::obtenerNotificaciones(string nickname)
+{
+    set<DataNotificacion *> res;
+    return res;
+}
 
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> ControladorUsuario::idiomasSuscritos(string nickname){
     this->nickname = nickname;
     return this->colUsuarios[nickname]->darIdiomasSuscritos();
+}
+
+// Falta Implementar...
+void ControladorUsuario::eliminarSuscripciones(set<string> seleccionados)
+{
+
 }

@@ -21,6 +21,8 @@ Inscripcion::~Inscripcion(){
 
 // Getters y Setters
 
+DataFecha* Inscripcion::getFechaInscripcion(){ return this->FechaInscripcion; }
+
 void Inscripcion::setCursoAprobado(bool curso){
     this->CursoAprobado = curso;
 }
@@ -72,9 +74,9 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
         if(lec != NULL){
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
-            /* if(this->colLecAprobadas.size() == this->c->colLecciones.size()){
+            if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
                 this->setCursoAprobado(true);
-            } */
+            }
         }
     }
 }
@@ -88,9 +90,9 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
         if(lec != NULL){
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
-/*             if(this->colLecAprobadas.size() == this->c->colLecciones.size()){
+            if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
                 this->setCursoAprobado(true);
-            } */
+            }
         }
     }
 }

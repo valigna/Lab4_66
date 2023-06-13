@@ -28,6 +28,8 @@ public:
     // Getters y Setters
     string getPaisResidencia();
     DataFecha* getNacimiento();
+    // Implementar en caso de ser necesario...
+    // set<Inscripcion *> getcolInscripciones();
     // DataTypes
     DataUsuario* getDataUsuario();
     DataUsuario* getDatosUsuario();

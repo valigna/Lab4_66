@@ -30,6 +30,7 @@ public:
     ~Inscripcion();
 
     // Getters y Setters
+    DataFecha* getFechaInscripcion();
     bool getCursoAprobado();
     Curso* getCurso();
     void setCursoAprobado(bool curso);

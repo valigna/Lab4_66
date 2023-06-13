@@ -15,7 +15,8 @@ private:
 public:
     // Constructor
     Traduccion(string fra, string sol);
-    // Destrcutor?
+    // Destrcutor
+    ~Traduccion();
     // Getters y Setters
     string getFraseT();
     string getSolucionT();

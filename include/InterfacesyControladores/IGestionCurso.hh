@@ -30,7 +30,7 @@ public:
     // virtual set<DataCurso *> getCursosNoHabilitados
     virtual void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo) = 0;
     virtual void ingresarEjercicio(DataEjercicio* ejercicio) = 0;
-    virtual void altaLeccion();
+    virtual void altaLeccion() = 0;
     // Operaciones Para El Caso de Uso : [Agregar Ejercicio]
     virtual set<DataLeccion *> getLecciones(string cursoSeleccionado) = 0;
     virtual void agregarEjercicio(int leccionSeleccionada, DataEjercicio* ejercicio) = 0;

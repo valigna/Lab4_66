@@ -1,13 +1,19 @@
 #include "../include/CompletarPalabras.hh"
 
-// Getters y Setters
-string CompletarPalabras::getFraseCP(){
-    return this->frase;
+// Constructores
+CompletarPalabras::CompletarPalabras(string frase, set<string> solucion)
+{
+    this->frase = frase;
+    this->solucion = solucion;
 }
 
-set<string> CompletarPalabras::getSolucionCP(){
-    return this->solucion;
-}
+// Destructor
+CompletarPalabras::~CompletarPalabras(){ }
+
+// Getters y Setters
+string CompletarPalabras::getFraseCP(){ return this->frase; }
+
+set<string> CompletarPalabras::getSolucionCP(){ return this->solucion; }
 
 // Para distinguir entre las distintas sub-clases
 bool CompletarPalabras::esCompletarPalabras(){ return true; }

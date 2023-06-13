@@ -6,6 +6,7 @@ Traduccion::Traduccion(string fra, string sol):Ejercicio(){
     this->solucion = sol;
 } 
 // Destructor
+Traduccion::~Traduccion(){ }
 
 // Getters y Setters
 string Traduccion::getFraseT(){

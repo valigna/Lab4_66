@@ -14,7 +14,7 @@ Estudiante::Estudiante(DataUsuario* datos) : Usuario(datos->getNickname(),datos-
     this->Nacimiento = est->getNacimiento();
 }
 // Destructor
-
+Estudiante::~Estudiante(){ }
 
 // Getters y Setters
 string Estudiante::getPaisResidencia(){ return this->PaisResidencia; }
@@ -32,8 +32,8 @@ DataUsuario* Estudiante::getDatosUsuario()
 }
 
 // Para distinguir entre las distintas sub-clases
-bool esEstudiante(){ return true; }
-bool esProfesor(){ return false; }
+bool Estudiante::esEstudiante(){ return true; }
+bool Estudiante::esProfesor(){ return false; }
 
 set<string> Estudiante::obtenerCursosAprobados(){
     set<string> res;

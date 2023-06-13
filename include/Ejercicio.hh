@@ -15,9 +15,9 @@ private:
     int id;
 public:
     // Constructores
-
+    Ejercicio();
     // Destructor
-    virtual ~Ejercicio();
+    ~Ejercicio();
     // Getters y Setters
     string getDescripcion();
     int getId();

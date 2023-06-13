@@ -40,16 +40,22 @@ private:
 
 public:
     // Constructores
-    
+    Curso();
     // Destructor
     ~Curso();
-
     // Getters y Setters
     string getNombre();
     string getDescripcion();
     difficulty getDificultad();
     bool getHabilitado();
-
+    int getIdLecciones();
+    int getIdEjercicios();
+    //Profesor* getProfesor();
+    //Idioma* getIdioma();
+    // Implementar en caso de ser necesario...
+    // list<Leccion *> getcolLecciones();
+    // set<Inscripcion *> getcolInscripciones();
+    // set<Curso *> getcolPrevios();
     // Auxiliares
     string getNombreIdioma();
     int obtenerTotalLecciones();
