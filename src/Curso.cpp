@@ -270,19 +270,17 @@ float Curso::darPromedio()
 
 
 // Para el caso de uso: [Inscribirse a curso]
-/* bool Curso::previosAprobados(set<string> nombresCursosAprobados){
+bool Curso::previosAprobados(set<string> nombresCursosAprobados){
     bool b = true;
     for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
-        if (nombresCursosAprobados.find(it) == nombresCursosAprobados.end()){
+        string nombreCurso = (*it)->getNombre();
+        if (nombresCursosAprobados.find(nombreCurso) == nombresCursosAprobados.end()){
             b = false;
         }
     }
     return b;
-} */
-bool Curso::previosAprobados(set<string> nombresCursosAprobados)
-{
-    return true;
 }
+
 void Curso::crearLinkConInsc(Inscripcion *I)
 {
     this->colInscripciones.insert(I);

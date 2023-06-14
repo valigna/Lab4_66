@@ -121,11 +121,8 @@ set<InformacionCurso *> Estudiante::darCursosDisponibles(){
     set<InformacionCurso *> res;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
-    ControladorCurso* cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     res = cc->darCursosHabilitadosDisponibles(nombresCursosAprobados, nombresCursosInscriptos);
-    
-    //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
     return res;
 }
 

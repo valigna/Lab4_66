@@ -235,15 +235,20 @@ InscripcionCurso* ControladorCurso::getCurso(string seleccionado)
 
 // Para el Caso de Uso : [Inscribirse a Curso]
 // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
-/* set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos){
+set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos){
     set<InformacionCurso *> res;
+
     // Para cada curso...
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end();++it){
+
          // Si esta habilitado
         if (it->second->getHabilitado()){
             string nombreCurso = it->second->getNombre();
+            set<string>::iterator it2 = nombresCursosInscriptos.find(nombreCurso);
+
              // Si no esta inscipto
-            if((set<string>::iterator it2 = nombresCursosInscriptos.find(nombreCurso)) == nombresCursosInscriptos.end()){
+            if(it2 == nombresCursosInscriptos.end()){
+
                 // Si no tiene previas sin aprobar
                 if(it->second->previosAprobados(nombresCursosAprobados)){
                     // Se agrega al set resultado
@@ -252,18 +257,16 @@ InscripcionCurso* ControladorCurso::getCurso(string seleccionado)
             }
         }    
     }
-} */
-set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos)
-{
-    set<InformacionCurso *> res;
-
     return res;
 }
+
 
 Curso *ControladorCurso::encontrarCurso(string curso){
     return this->colCursos[curso];
 }
 
+
+// Falta implementar... (no son de inscribirse a curso)
 set<InscripcionCurso *> ControladorCurso::getCursosDisponibles(string nickname)
 {
     set<InscripcionCurso *> res;
@@ -271,6 +274,7 @@ set<InscripcionCurso *> ControladorCurso::getCursosDisponibles(string nickname)
     return res;
 }
 
+// Falta implementar...
 void ControladorCurso::inscribirseACurso(string nickname, string curso)
 {
 
