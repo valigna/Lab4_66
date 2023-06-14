@@ -162,6 +162,16 @@ DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
     return res;
 }
 
+Ejercicio* Curso::encontrarEjercicioEnCurso(int ejercicio){
+    Ejercicio* res;
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); it++){
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            res = (*it)->encontrarEjercicioEnLeccion(ejercicio);
+        }
+    }
+    return res;
+}
+
 string Curso::buscarLetraEnCurso(int ejercicio){
     string res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){

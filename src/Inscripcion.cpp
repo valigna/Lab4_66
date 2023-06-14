@@ -69,32 +69,44 @@ bool Inscripcion::noAprobado(int ejercicio){
 void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     if(aux != NULL){
+        cout << "Respuesta correcta" << endl;
         set<Ejercicio *> ejes = this->colEjAprobados;
         ejes.insert(aux);
         Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
         if(lec != NULL){
+            cout << "Leccion aprobada" << endl;
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
+                cout << "Curso Aprobado" << endl;
                 this->setCursoAprobado(true);
             }
         }
+    }
+    else{
+        cout << "Respuesta incorrecta" << endl;
     }
 }
 
 void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
+        cout << "Respuesta correcta" << endl;
         set<Ejercicio *> ejes = this->colEjAprobados;
         ejes.insert(aux);
         Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
         if(lec != NULL){
+            cout << "Leccion aprobada" << endl;
             set<Leccion *> lecs = this->colLecAprobadas;
             lecs.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
+                cout << "Curso Aprobado" << endl;
                 this->setCursoAprobado(true);
             }
         }
+    }
+    else{
+        cout << "Respuesta incorrecta" << endl;
     }
 }
 

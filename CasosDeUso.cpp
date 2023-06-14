@@ -200,6 +200,27 @@ void eliminarCurso()
 // Para el Caso de Uso 10: [Consultar Curso]
 void consultarCurso()
 {
+    set<string> aux = cc->darNombreCursos();
+    cout << "o Cursos disponibles: " << endl;
+    for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
+        cout << "-> " << (*it) << endl;
+    }
+    cout << "Ingrese el nombre de un curso";
+    string seleccionado;
+    getline(cin, seleccionado);
+    cout << endl;
+    DataConsultaCurso* res = cc->obtenerDataCursoSeleccionado(seleccionado);
+    cout << "-> Nombre: " << res->getNombre() << endl;
+    cout << "-> Idioma: " << res->getIdioma() << endl;
+    cout << "-> Profesor: " << res->getProfesor() << endl;
+    cout << "-> Descripcion: " << res->getDescripcion() << endl;
+    cout << "-> Dificultad: " << res->getDifificulty() << endl;
+    if(res->getHabilitado()){
+        cout << "-> Habilitado: SI" << endl;
+    }
+    else{
+        cout << "-> Habilitado: NO" << endl;
+    }
 
 }
 
@@ -212,7 +233,52 @@ void inscribirseCurso()
 // Para el Caso de Uso 12: [Realizar Ejercicio]
 void realizarEjercicio()
 {
-
+    string nombre;
+    cout << "o Ingrese su nickname: "; getline(cin,nombre);
+    cout << "o Cursos no aprobados: " << endl;
+    set<string> cursos = cu->getCursosInscriptosNoAporbados(nombre);
+    for(set<string>::iterator it = cursos.begin(); it != cursos.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
+    cout << "Escriba el nombre de un curso: ";
+    string cursoSeleccionado;
+    getline(cin,cursoSeleccionado);
+    cout << endl;
+    set<DataEjercicio* > ejercicios = cu->getEjerciciosNoAprobados(cursoSeleccionado);
+    cout << "ID de los ejercicios no aprobados: " << endl;
+    for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
+        cout << "-> " << (*it)->getId() << endl;
+    }
+    cout << "Escriba el ID de un ejercicio que quiera realizar: ";
+    int idEjercicio;
+    //getline(cin, idEjercicio);
+    //cout << endl;
+    cout << "Letra: " << endl;
+    cout << "" << cu->getProblema(idEjercicio) << endl;
+    //Ejercicio* eje = cc->encontrarEjercicio(cursoSeleccionado, idEjercicio);
+    /* if(eje->esCompletarPalabras()){
+        cout << "Escriba sus soluciones, una por una, y termine con -1: " << endl;
+        set<string> respuestaCP;
+        string resCP;
+        bool respuestas = true;
+        while(respuestas){
+            getline(cin,resCP);
+            if(resCP != "-1")
+            {
+                respuestaCP.insert(resCP);
+            } else
+            {
+                respuestas = false;
+            }
+        }
+        cu->ResolverEjercicioCP(idEjercicio, respuestaCP);
+    }
+    else{
+        string respuestaT;
+        cout << "Escriba su solucion: "; getline(cin, respuestaT);
+        cu->ResolverEjercicioT(idEjercicio, respuestaT);
+    } */
 }
 
 // Para el Caso de Uso 13: [Consultar Estadisticas]

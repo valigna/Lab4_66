@@ -19,7 +19,9 @@ Leccion::~Leccion(){
     }
 }
 // Getters y Setters
-
+int Leccion::getId(){
+    return this->Id;
+}
 // DataTypes
 DataLeccion* Leccion::getDataLeccion(bool conId)
 {
@@ -47,7 +49,7 @@ DataLeccion* Leccion::getDataLeccion(bool conId)
 } */
 
 // Para el Caso de Uso : [Agregar Ejercicio]
-void agregarEjercicio(DataEjercicio* ejercicio)
+void Leccion::agregarEjercicio(DataEjercicio* ejercicio)
 {
 
 }// Me olvide de ir pasandole como parametro la nueva id de ejercicio a Asignar...
@@ -75,6 +77,11 @@ bool Leccion::ejercicioEnLeccion(int ejercicio){
 DataEjercicio* Leccion::buscarEjercicioEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
     return it->second->obtenerDataEjercicio();
+}
+
+Ejercicio* Leccion::encontrarEjercicioEnLeccion(int ejercicio){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    return it->second;
 }
 
 string Leccion::buscarLetraEnLeccion(int ejercicio){

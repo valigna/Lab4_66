@@ -85,7 +85,7 @@ set<string> ControladorCurso::getNicknamesProfesores()
 
  void ControladorCurso::ingresarDataCurso(string profesor, DTCurso* curso) {
     this->seleccionado = curso;
-    this->Profesor = profesor;
+    //this->Profesor = profesor;
  }
 
 // Falta Implementar...
@@ -94,7 +94,8 @@ set<string> ControladorCurso::getIdiomasProfesor()
     string nickP = this->nickProfesor;
     ControladorUsuario* cu = ControladorUsuario::getInstancia();
     DataUsuario* p = cu->getDatosUsuario(nickP);
-    set<string> res = p->;
+    //set<string> res = p->;
+    set<string> res;
     return res;
 }
 
@@ -280,6 +281,11 @@ string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
     map<string,Curso *>::iterator it = this->colCursos.find(nomC);
     return it->second->buscarLetraEnCurso(ejercicio);
 }
+
+/* Ejercicio* ControladorCurso::encontrarEjercicio(string nomC, int ejercicio){
+    map<string,Curso *>::iterator it = this->colCursos.find(nomC);
+    return it->second->encontrarEjercicioEnCurso(ejercicio);
+} */
 
 // Para el Caso de Uso : [Consultar Estadisticas] 
 

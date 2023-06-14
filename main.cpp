@@ -72,6 +72,7 @@ int main()
             break;
             
         case 12: // Realizar Ejercicio
+            realizarEjercicio();
             break;
             
         case 13: // Consultar Estadisticas

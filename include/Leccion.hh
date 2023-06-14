@@ -37,6 +37,7 @@ public:
     string buscarLetraEnLeccion(int ejercicio);
     bool ejercicioEnLeccion(int ejercicio);
     DataEjercicio* buscarEjercicioEnLeccion(int ejercicio);
+    Ejercicio* encontrarEjercicioEnLeccion(int ejercicio);
     Ejercicio* buscarEjercicioEnLeccionT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol);
 

@@ -83,6 +83,7 @@ public:
     set<int> obtenerListaEjerciciosCurso();
     DataEjercicio* buscarEjercicioEnCurso(int ejercicio);
     string buscarLetraEnCurso(int ejercicio);
+    Ejercicio* encontrarEjercicioEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
     Leccion* comprobarUltimaLeccion(int ejercicio);
