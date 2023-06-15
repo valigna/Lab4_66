@@ -1,19 +1,15 @@
 #include "../../include/DataTypes/DatosEjercicio.hh"
 
 // Constructores
-DatosEjercicio::DatosEjercicio(string descripcionEjercicio,float idEjercicio){
-    this->descripcionEjercicio = descripcionEjercicio;
-    this->idEjercicio = idEjercicio;
+DatosEjercicio::DatosEjercicio(string desc, int id)
+{
+    this->Descripcion = desc;
+    this->Id = id;
 }
 
-// Destructores
+// Destructor
 DatosEjercicio::~DatosEjercicio(){ }
 
 // Getters
-string DatosEjercicio::getDescripcionEjercicio(){
-    return this->descripcionEjercicio;
-}
-
-float DatosEjercicio::getIdEjercicio(){
-    return this->idEjercicio;
-}
+string DatosEjercicio::getDescripcion(){ return this->Descripcion; }
+int DatosEjercicio::getId(){ return this->Id; }

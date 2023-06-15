@@ -1,36 +1,30 @@
 #include "../include/Ejercicio.hh"
 
+
 // Constructores
+Ejercicio::Ejercicio(){ }
+/* Ejercicio::Ejercicio(string desc, int id){
+    this->Descripcion = desc;
+    this->id = id;
+} */
 
-// Destructor
+// Destructor 
+Ejercicio::~Ejercicio(){ }
 
-// Getters y Setters
-string getDescripcion(){
-    return this->descripcion;
-}
+// Getters
+string Ejercicio::getDescripcion(){ return this->Descripcion; }
+int Ejercicio::getId(){ return this->getId(); }
 
-float getId(){
-    return this->getId();
-}
+// Para el Caso de Uso : [Realizar Ejercicio]
 
-// Otres
-//No terminada...
-bool Ejercicio::comprobarEjercicio(){
-    if(){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-
-//No terminada...
-DataEjercicio* Ejercicio::obtenerDataEjercicio(){
+/* DataEjercicio* Ejercicio::obtenerDataEjercicio(){
     string descripcion = this->getDescripcion();
     float id = this->getId();
-    return DatosEjercicio(descripcion, id);
-}
+    DataEjercicio* res = new DataEjercicio(descripcion, id);
+    return res;
+} */
 
-string Ejercicio:getDescripcion(){
-    return this->Descripcion;
+DataEjercicio* Ejercicio::obtenerDataEjercicio()
+{
+    return NULL;
 }

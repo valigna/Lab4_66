@@ -1,96 +1,218 @@
 #include "../../include/InterfacesyControladores/ControladorUsuario.hh"
 
-// Constructores
-
 // Destructor
+ControladorUsuario::~ControladorUsuario(){ }
 
-// Getters y Setters
+// Implementacion del Patron de Disenio : Singleton
+ControladorUsuario* ControladorUsuario::instancia = NULL;
+ControladorUsuario::ControladorUsuario(){ }
 
-// Otros
+ControladorUsuario* ControladorUsuario::getInstancia()
+{
+    if (ControladorUsuario::instancia == NULL)
+    {
+        ControladorUsuario::instancia = new ControladorUsuario();
+    }
+    return ControladorUsuario::instancia;
+}
 
-void ControladorUsuario::ingresarUsuario(DataUsuario Datos) {this->Datos = Datos;}
+// Para el Caso de Uso : [Alta de Usuario]
+void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
 
-// Set : Unordered set (STL)
-set<string> ControladorUsuario::getIdiomas(){
-    // Paso 1:
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
-    // Paso 2:
-    set<string> idiomas;
-    idiomas = cc->darIdiomas();
-    
+set<string> ControladorUsuario::getIdiomas()
+{
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    set<string> idiomas = cc->getIdiomas();
     return idiomas;
 }
 
+void ControladorUsuario::ingresarIdiomas(set<string> seleccionados){ this->seleccionados = seleccionados; }
 
-set<string> ControladorUsuario::idiomasSuscritos(string nickname){
-    return this->colUsuarios[nickname]->getIdiomasSuscritos();
+bool ControladorUsuario::confirmarAltaUsuario()
+{
+    bool altaExitosa = false;
+    string nickname = this->datos->getNickname();
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    if (it == this->colUsuarios.end()) // No exisita un usuario con 'nickname', por lo que se pasa a crear uno...
+    {
+        bool estudiante = this->datos->esEstudiante();
+        if (estudiante) // Efectivamente se trata de un estudiante...
+        {
+            this->colUsuarios.emplace(nickname,new Estudiante(this->datos));
+        } else // Se trata de un profesor
+        {
+            this->colUsuarios.emplace(nickname, new Profesor(this->datos,this->seleccionados));
+        }
+        altaExitosa = true;
+    }
+    return altaExitosa;
 }
 
-set<string> ControladorUsuario::getCursosInscriptosNoAprobados(string nickname){
-    return this->colUsuarios[nickname]->getCursosNoAprobados();
+// Para el Caso de Uso : [Consulta de Usuario]
+set<string> ControladorUsuario::getNicksUsuarios()
+{
+    set<string> res;
+    for(map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end(); ++it)
+    {
+        res.insert(it->first);
+    }
+    return res;
 }
 
-set<string> ControladorUsuario::darNicksEstudiantes(){
+DataUsuario* ControladorUsuario::getDatosUsuario(string nick)
+{
+    Usuario* u = this->colUsuarios.find(nick)->second;
+    return u->getDatosUsuario();   
+}
+
+// Para el Casod De Uso : [Consulta de Curso]
+set<string> ControladorUsuario::obtenerCursos(){
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    return cc->darNombreCursos();
+}
+
+DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    return cc->obtenerDataCursoSeleccionado(curso);
+}
+
+// Para el caso de uso : [Realizar Ejercicio]
+set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    it->second->esEstudiante();
+    Estudiante* est = (Estudiante*) it->second;
+    /* Estudiante* est = dynamic_cast<Estudiante *>(it->second); */
+    return est->obtenerCursosNoAprobados();
+}
+
+/* it->second->esEstudiante()
+Estudiante* est = (Estudiante*) it->second */
+
+set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->obtenerEjerciciosNoAprobados(curso);
+}
+
+string ControladorUsuario::getProblema(int ejercicio){
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    return cc->obtenerLetra(this->nomC,ejercicio); // No estoy seguro del manejo de memoria
+}
+
+void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->hacerEjercicioT(ejercicio, sol);
+}
+
+void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
+    return est->hacerEjercicioCP(ejercicio, sol);
+}
+//
+
+// Para el Caso de Uso : [Alta de Curso]
+Usuario* ControladorUsuario::findUsuario(string nickname){
+    return colUsuarios.find(nickname)->second;
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+set<string> ControladorUsuario::darNicksEstudiantes()
+{
     set<string> res;
     
     // Recorremos la coleccion de Usuarios del Sistema
-    for (map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end();++it) {
+    for (map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end();++it)
+    {
         bool estudiante = it->second->esEstudiante();
-        if (estudiante) {res.insert(it->second->getNickname());}
+        if (estudiante) { res.insert(it->second->getNickname()); }
     }
     
     return res;
 }
 
-set<InfoCursoEst *> ControladorUsuario::darInfoCursoEst(string nickEstudiante){
-    set<InfoCursoEst *> res;
-    
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickEstudiante);
-    res = it->second->infCursosInscriptos();
-    
-    return res;
-}
-
-set<string> ControladorUsuario::darNicksProfesores(){
+set<string> ControladorUsuario::darNicksProfesores()
+{
     set<string> res;
     
     // Recorremos la coleccion de Usuarios del Sistema
-    for (map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end();++it) {
-        bool profesor = it->second->esProfesor();
+    for (map<string,Usuario *>::iterator it = this->colUsuarios.begin(); it != this->colUsuarios.end();++it)
+    {
+        bool profesor = (it->second->esProfesor());
         if (profesor) {res.insert(it->second->getNickname());}
     }
     
     return res;
 }
 
-set<InfoCursoProf *> ControladorUsuario::darInfoCursoProrf(string nickProfesor){
-    set<InfoCursoProf *> res;
+set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
+{
+    set<InfoCurso *> res;
     
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickProfesor);
-    res = it->second->darInfoCurso();
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickUsuario);
+    if(it != this->colUsuarios.end()) {res = it->second->getInfoCursos();}
     
     return res;
 }
-set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->obtenerCursosNoAprobados();
+
+
+
+// Para el caso de uso: [Inscribirse a curso]
+set<InformacionCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
+    set<InformacionCurso *> res;
+    this->nickname = nickname;
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname]);
+    if (est != NULL) {
+        res = est->darCursosDisponibles();
+    }
+    return res;
 }
 
-set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->obtenerEjerciciosNoAprobados(string curso);
+void ControladorUsuario::inscribirseACurso(string curso){
+    // Se busca al estudiante en la coleccion de usuarios usando el nickname recordado
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[this->nickname]);
+    // Se corrobora que el usuario sea un estudiante
+    if (est != NULL) {
+        est->realizarInscripcion(curso);
+    }
 }
 
-string ControladorUsuario::getProblema(int ejercicio){
-    ControladorCurso *cc;
-    cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(string nomC, int ejercicio);
+// Para el Caso de Uso : [Suscribirse a Notificaciones]
+set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
+{
+    set<string> res;
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    if(it != this->colUsuarios.end())
+    {
+        res = it->second->darIdiomasNoSuscritos();
+    }
+    return res;
 }
 
-set<string> ControladorUsuario::idiomasNoSuscritos(string nickname) {
-    map<string,Usuario *>::iterator it = this->colUsuarios->find(nickname);
-    return it->second->darIdiomasNoSuscritos();
+void ControladorUsuario::suscribirse(set<string> idiomas){
+    
+    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname]);
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    cc->agregarObservador(u,idiomas);
 }
 
+// Para el Caso de Uso : [Consulta de Notificaciones]
+// Falta Implementar...
+set<DataNotificacion *> ControladorUsuario::obtenerNotificaciones(string nickname)
+{
+    set<DataNotificacion *> res;
+    return res;
+}
 
+// Para el caso de uso: [Eliminar Suscripciones]
+set<string> ControladorUsuario::idiomasSuscritos(string nickname){
+    this->nickname = nickname;
+    return this->colUsuarios[nickname]->darIdiomasSuscritos();
+}
+
+// Falta Implementar...
+void ControladorUsuario::eliminarSuscripciones(set<string> seleccionados)
+{
+
+}

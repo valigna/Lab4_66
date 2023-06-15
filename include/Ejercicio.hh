@@ -1,27 +1,33 @@
 #ifndef EJERCICIO
 #define EJERCICIO
 
-// includes ... (Parece no tener)
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+
+// DataTypes
+#include "DataTypes/DataEjercicio.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Ejercicio
 {
 private: 
-    string:Descripcion;
+    string Descripcion;
     int id;
 public:
     // Constructores
-
+    Ejercicio();
     // Destructor
-    ~Ejercicio(); // Destructor por defecto
+    ~Ejercicio();
     // Getters y Setters
-    getDescripcion();
-    getId();
-
-    // Otres
-    bool comprobarEjercicio();
-    DataEjercicio* obtenerDataEjercicio();
     string getDescripcion();
-}
+    int getId();
+    // Para distinguir entre las distintas sub-clases
+    virtual bool esCompletarPalabras() = 0;
+    virtual bool esTraduccion() = 0;
+
+    // Para el Caso de Uso : [Realizar Ejercicio]
+    DataEjercicio* obtenerDataEjercicio();
+};
+
 
 #endif

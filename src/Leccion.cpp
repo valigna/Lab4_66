@@ -1,42 +1,92 @@
 #include "../include/Leccion.hh"
 
 // Constructores
-
+Leccion::Leccion(DataLeccion* datosLeccion){
+    this->Tema = datosLeccion->getTema();
+    this->Objetivo = datosLeccion->getObjetivo();
+    map<int, DataEjercicio*> ejercicios;
+    for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    {
+        ejercicios.emplace(it->first, it->second);
+    }
+    
+}
 // Destructor
 Leccion::~Leccion(){
-    for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        delete it;
+    for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        //delete it->second;
+        bool esTraduccion = it->second->esTraduccion();
+        if (esTraduccion)
+        {
+            Traduccion* t = (Traduccion*) it->second;
+            delete t;
+        } else
+        {
+            CompletarPalabras* cp = (CompletarPalabras*) it->second;
+            delete cp;
+        }
     }
 }
 // Getters y Setters
 
 // Otres
-int Leccion::totalEjercicios(){
-    return this->colEjercicios->size();
+
+/* int Leccion::cantEjAprobados(){ // No esta en el .hh
+    return 0;
+    //return this->colEjAprobados->size();
+} */
+
+// Para el Caso de Uso : [Realizar Ejercicio]
+set<int> Leccion::listaEjerciciosLeccion(){
+    set<int> res;
+    for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        int aux = it->second->getId();
+        res.insert(aux);
+    }
+    return res;
 }
 
-int Leccion::cantEjAprobados(){
-    return this->colEjAprobados->size();
-}
-
-set<DataEjercicio *> Leccion::ejerciciosNoAprobadosLeccion(){
-    set<DataEjercicio *> res;
-    for(set<Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        if(it->comprobarEjercicio() == false){
-            DataEjercicio* aux;
-            aux = it->obtenerDataEjercicio();
-            res.insert(aux);
+bool Leccion::ejercicioEnLeccion(int ejercicio){
+    bool res = false;
+    for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
+        if(it->second->getId() == ejercicio){
+            return true;
         }
     }
     return res;
 }
 
+DataEjercicio* Leccion::buscarEjercicioEnLeccion(int ejercicio){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    return it->second->obtenerDataEjercicio();
+}
+
 string Leccion::buscarLetraEnLeccion(int ejercicio){
-    map<int,Ejercicio *>::iterator it = this->colEjercicios->find(ejercicio);
-    if(it != NULL){
-        return it->gotDescripcion();
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    return it->second->getDescripcion();
+}
+
+Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    Traduccion* tra = dynamic_cast<Traduccion *>(it->second);
+    if(tra->comprobarSolucionT(sol)){
+        return it->second;
     }
     else{
         return NULL;
     }
 }
+
+Ejercicio* Leccion::buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    CompletarPalabras* cp = dynamic_cast<CompletarPalabras *>(it->second);
+    if(cp->comprobarSolucionCP(sol)){
+        return it->second;
+    }
+    else{
+        return NULL;
+    }
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+int Leccion::totalEjercicios(){ return this->colEjercicios.size(); }

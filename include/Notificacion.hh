@@ -1,10 +1,12 @@
 #ifndef NOTIFICACION
 #define NOTIFICACION
 
-// includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+// Conceptos del Modelo de Dominio
 #include "Idioma.hh"
 #include "Curso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
 class Notificacion
 {
@@ -18,13 +20,19 @@ public:
     // Destructor
     ~Notificacion(); // Se usa el destructor por defecto, no?
     // Getters y Setters
+   
+   // Otros
 
-    // Otros
+    // Para el caso de uso: [Eliminar Suscripciones]
     string darIdioma();
 
 
-    // Para el caso de uso : [Eliminar Curso]
+    // Para el Caso De Uso : [Eliminar Curso]
     bool presentaCurso(string nombreCurso);
-}
+};
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

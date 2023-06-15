@@ -1,28 +1,49 @@
 #ifndef LECCION
 #define LECCION
 
-// Includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "Utils.hh"
+// Conceptos del Modelo de Dominio
+#include "Ejercicio.hh"
+#include "CompletarPalabras.hh"
+#include "Traduccion.hh"
+// DataTypes
+#include "DataTypes/DataEjercicio.hh"
+#include "DataTypes/DataLeccion.hh"
+/* ------------------------------------------------------------------------------------------------------ */
+
 
 class Leccion
 {
 private:
-
+    string Tema;
+    string Objetivo;
+    int Id;
     // PseudoAtributos...
-    set<Ejercicio *> colEjercicios;
-
+    map<int,Ejercicio *> colEjercicios;
+    
 public:
     // Constructores
-
+    Leccion(DataLeccion* datosLeccion);
     // Destructor
     ~Leccion();
     // Getters y Setters
 
-    // Otres
-    int totalEjercicios();
-    set<DataEjercicio *> ejerciciosNoAprobadosLeccion();
+    // Para el Caso de Uso : [Realizar Ejercicio]
+    set<int> listaEjerciciosLeccion();
     string buscarLetraEnLeccion(int ejercicio);
+    bool ejercicioEnLeccion(int ejercicio);
+    DataEjercicio* buscarEjercicioEnLeccion(int ejercicio);
+    Ejercicio* buscarEjercicioEnLeccionT(int ejercicio, string sol);
+    Ejercicio* buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol);
 
-}
+    // Para el Caso de Uso : [Consultar Estadisticas]
+    int totalEjercicios();
+
+};
+
+/* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
+
+/* ------------------------------------------------------------------------------------------------------ */
 
 #endif

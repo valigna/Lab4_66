@@ -1,20 +1,24 @@
-#ifndef I_CONTROLADOR_ESTADISTICAS
-#define I_CONTROLADOR_ESTADISTICAS
+#ifndef I_CONSULTAR_ESTADISTICAS
+#define I_CONSULTAR_ESTADISTICAS
 
-// Includes...
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
+// DataTypes
+#include "../DataTypes/InfoCurso.hh"
+#include "../DataTypes/InformacionCurso.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
-class IControladorEstadisticas
+class IConsultarEstadisticas
 {
 public:
     virtual set<string> getNicksEstudiantes() = 0;
-    virtual set<InfoCursoEst *> listarCursosEstudiante(string nickEstudiante) = 0;
+    virtual set<InfoCurso *> listarCursosEstudiante(string nickEstudiante) = 0;
     virtual set<string> getNicksProfesores() = 0;
-    virtual set<InfoCursoProf *> listarCursosPropuestos(string nickProfesor) = 0;
-    virtual set<string> getCursos() = 0;
-    virtual set<InformacionCurso *> infoCurso(string nombreCurso) = 0;
+    virtual set<InfoCurso *> listarCursosPropuestos(string nickProfesor) = 0;
+    virtual set<string> getNombresCursos() = 0;
+    virtual InformacionCurso* infoCurso(string nombreCurso) = 0;
 
-    virtual ~IControladorEstadisticas();
-}
+    virtual ~IConsultarEstadisticas(){};
+};
 
 #endif

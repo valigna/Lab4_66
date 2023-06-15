@@ -1,34 +1,65 @@
 #include "../include/Estudiante.hh"
 
 // Constructores
+/* Estudiante::Estudiante(string nick,string name, string pass, string desc, DataEstudiante* est) : Usuario(nick,name,pass,desc)
+{
+    this->PaisResidencia = est->getPaisResidencia();
+    this->Nacimiento = est->getNacimiento();
+} */ // Por ahora decidi no borrarlo, seguramente lo saque para la version final (M.I)
 
-// Destructores
-
+Estudiante::Estudiante(DataUsuario* datos) : Usuario(datos->getNickname(),datos->getNombre(),datos->getContrasenia(),datos->getDescripcion())
+{
+    DataEstudiante* est = (DataEstudiante*) datos;
+    this->PaisResidencia = est->getPaisResidencia();
+    this->Nacimiento = est->getNacimiento();
+}
+// Destructor
+Estudiante::~Estudiante(){ }
 
 // Getters y Setters
+string Estudiante::getPaisResidencia(){ return this->PaisResidencia; }
+DataFecha* Estudiante::getNacimiento(){ return this->Nacimiento; }
 
+// DataTypes
+DataUsuario* Estudiante::getDataUsuario()
+{
+    return (new DataEstudiante(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
+}
 
-// Otres
+DataUsuario* Estudiante::getDatosUsuario()
+{
+    return (new DataEstudiante(" ",this->getNombre()," ",this->getDescripcion(),this->getPaisResidencia(),this->getNacimiento()));
+}
 
-set<InfoCursoEst> Estudiante::infCursosInscriptos(){
-    set<InfoCursoEst> res;
+// Para distinguir entre las distintas sub-clases
+bool Estudiante::esEstudiante(){ return true; }
+bool Estudiante::esProfesor(){ return false; }
 
-    for (map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
-        string nomC = it->second->darNombreCurso();
-        float av = it->second->darAvance();
-
-        InfoCursoEst elem = new InfoCursoEst(nomC,av);
-        res.insert(elem);
+set<string> Estudiante::obtenerCursosAprobados(){
+    set<string> res;
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
+        if ((*it)->getCursoAprobado()){
+            res.insert((*it)->darNombreCurso());
+        }
     }
-
     return res;
 }
 
+set<string> Estudiante::obtenerCursosInscriptos(){
+    set<string> res;
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
+        res.insert((*it)->darNombreCurso());
+    }
+    return res;
+}
+
+// Para el caso de Uso : [Realizar Ejercicio]
+
 set<string> Estudiante::obtenerCursosNoAprobados(){
     set<string> res;
-    for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        if(it->second->getCursoAprobado() == false){
-            string aux = it->second->darNombreCurso();
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        if((*it)->getCursoAprobado() == false){
+            string aux = (*it)->darNombreCurso();
             res.insert(aux);
         }
     }
@@ -36,14 +67,69 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 }
 
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
-    for(map<string,Incripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = it->second->getCurso();
+    set<DataEjercicio *> res;
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        Curso * aux = (*it)->getCurso();
         if(aux->igualCurso(curso)){
-            return it->second->obtenerListaEjerciciosNoAprobadosIns();
+            res = (*it)->obtenerListaEjerciciosNoAprobadosIns();
+        }
+    }
+    return res;
+}
+
+void Estudiante::hacerEjercicioT(int ejercicio, string sol){
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        Curso* aux = (*it)->getCurso();
+        if(aux->igualCurso(aux->getNombre())){
+            return (*it)->revisarEjercicioT(ejercicio, sol);
         }
     }
 }
 
+void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
+    for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
+        Curso * aux = (*it)->getCurso();
+        if(aux->igualCurso(aux->getNombre())){
+            return (*it)->revisarEjercicioCP(ejercicio, sol);
+        }
+    }
+}
+
+// Otres
 void Estudiante::eliminarLinkE(string nombreCurso){
-    this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso
+    /* this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso */
+}
+
+// Para el Caso de Uso : [Consultar Estadisticas]
+set<InfoCurso *> Estudiante::getInfoCursos()
+{
+    set<InfoCurso *> res;
+
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it) {
+        string nomC = (*it)->darNombreCurso();
+        float avance = (*it)->darAvance();
+
+        InfoCurso *elem = new InfoCurso(nomC,avance);
+        res.insert(elem);
+    }
+
+    return res;
+}
+
+// Para el caso de uso: [Inscribirse a curso]
+set<InformacionCurso *> Estudiante::darCursosDisponibles(){
+    set<InformacionCurso *> res;
+    set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
+    set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
+    ControladorCurso* cc;
+    cc = ControladorCurso::getInstancia();
+    res = cc->darCursosHabilitadosDisponibles(nombresCursosAprobados, nombresCursosInscriptos);
+    
+    //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
+    return res;
+}
+
+void Estudiante::realizarInscripcion(string curso){
+    Inscripcion *I = new Inscripcion(this, curso);
+    this->colInscripciones.insert(I);
 }

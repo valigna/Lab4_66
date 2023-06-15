@@ -1,18 +1,23 @@
-#ifndef DATOSEJERCICIOS
-#define DATOSEJERCICIO
+#ifndef DATOS_EJERCICIO
+#define DATOS_EJERCICIO
 
-//Includes..
+/* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
+/* ------------------------------------------------------------------------------------------------------ */
 
-class DatosEjercicio{
-    private:
-        string descripcionEjercicio;
-        float idEjercicio;
-    public:
-        DatosEjercicio(string descripcionEjercicio, float idEjercicio);
-        ~DatosEjercicio();
-        string getDescripcionEjercicio();
-        float getIdEjercicio();    
-}
+class DatosEjercicio
+{
+private:
+    string Descripcion;
+    int Id;
+public:
+    // Constructor
+    DatosEjercicio(string desc, int id);
+    // Destructor
+    ~DatosEjercicio();
+    // Getters
+    string getDescripcion();
+    int getId();
+};
 
 #endif
