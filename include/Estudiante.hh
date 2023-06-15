@@ -45,7 +45,7 @@ public:
     void hacerEjercicioT(int ejercicio, string sol);
     void hacerEjercicioCP(int ejercicio, set<string> sol);
     // Otres
-    void eliminarLinkE(string nombreCurso);
+    void eliminarLinkE(Inscripcion *I);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<InfoCurso *> getInfoCursos();

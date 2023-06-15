@@ -21,23 +21,17 @@ string Usuario::getPassword() { return this->Password; }
 string Usuario::getDescripcion() { return this->Descripcion; }
 
 // Para el caso de uso : [Eliminar Curso]
-// Falta Implementar...
 void Usuario::notificarBaja(string nombreCurso)
 {
-
-}
-
-/* void Usuario::notificarBaja(string nombreCurso){
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
-        if (it->presentaCurso(nombreCurso)) {
+        if ((*it)->presentaCurso(nombreCurso)) {
             vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
             this->colNotificaciones.erase(it);
-            delete itSup;
+            delete (*itSup);
             break;
         }
     }
- 
-} */
+}
 
 // Para el caso de uso : [Suscribirse a notificaciones]
 set<string> Usuario::darIdiomasNoSuscritos() {

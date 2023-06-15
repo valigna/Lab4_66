@@ -96,8 +96,8 @@ void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
 }
 
 // Otres
-void Estudiante::eliminarLinkE(string nombreCurso){
-    /* this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso */
+void Estudiante::eliminarLinkE(Inscripcion *I){
+    this->colInscripciones.erase(I); // Se elimina la inscripcion con nombreCurso
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
@@ -121,11 +121,8 @@ set<InformacionCurso *> Estudiante::darCursosDisponibles(){
     set<InformacionCurso *> res;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
-    ControladorCurso* cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     res = cc->darCursosHabilitadosDisponibles(nombresCursosAprobados, nombresCursosInscriptos);
-    
-    //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
     return res;
 }
 

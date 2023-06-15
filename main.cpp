@@ -35,9 +35,11 @@ int main()
             break;
 
         case 1: // Alta de Usuario
+            altaUsuario();
             break;
 
         case 2: // Consulta de Usuario
+            consultaUsuario();
             break;
         
         case 3: // Alta de Idioma
@@ -64,12 +66,14 @@ int main()
             break;
             
         case 10: // Consultar Curso
+            consultarCurso();
             break;
             
         case 11: // Inscribirse a Curso
             break;
             
         case 12: // Realizar Ejercicio
+            realizarEjercicio();
             break;
             
         case 13: // Consultar Estadisticas

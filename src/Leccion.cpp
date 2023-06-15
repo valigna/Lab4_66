@@ -28,6 +28,27 @@ Leccion::~Leccion(){
     }
 }
 // Getters y Setters
+int Leccion::getId(){
+    return this->Id;
+}
+// DataTypes
+DataLeccion* Leccion::getDataLeccion(bool conId)
+{
+    DataLeccion* res;
+    set<DataEjercicio *> ejercicios;
+    for(map<int,Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it)
+    {
+        ejercicios.insert(it->second->getDataEjercicio());
+    }
+    if(conId)
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,this->Id,ejercicios);
+    } else
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,ejercicios);
+    }
+    return res;
+}
 
 // Otres
 
@@ -35,6 +56,19 @@ Leccion::~Leccion(){
     return 0;
     //return this->colEjAprobados->size();
 } */
+
+// Para el Caso de Uso : [Agregar Ejercicio]
+void Leccion::agregarEjercicio(int idEj, DataEjercicio* ejercicio)
+{
+    if(ejercicio->esTraduccion())
+    {
+        this->colEjercicios.emplace(idEj,new Traduccion(idEj,ejercicio));
+    } else
+    {
+
+    }
+    
+}
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<int> Leccion::listaEjerciciosLeccion(){
@@ -58,7 +92,12 @@ bool Leccion::ejercicioEnLeccion(int ejercicio){
 
 DataEjercicio* Leccion::buscarEjercicioEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
-    return it->second->obtenerDataEjercicio();
+    return it->second->getDataEjercicio();
+}
+
+Ejercicio* Leccion::encontrarEjercicioEnLeccion(int ejercicio){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    return it->second;
 }
 
 string Leccion::buscarLetraEnLeccion(int ejercicio){

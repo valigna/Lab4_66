@@ -49,7 +49,8 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
 
     // Obtengo los nombres de los cursos previos...
     set<string> previos;
-    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
+    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it)
+    {
         string nomP = (*it)->getNombre();
         previos.insert(nomP);
     }
@@ -59,7 +60,8 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     
     int cantLec = this->colLecciones.size();
     int cantEj = 0;
-    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) 
+    {
         int cEj;
         cEj = (*it)->totalEjercicios();
         cantEj += cEj;
@@ -68,15 +70,15 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     float prom = 0;
     if(conPromedio)
     {
-    // Obtengo el avance del curso...
-    float avances = 0;
-    int totalInscriptos = this->colInscripciones.size();
+        // Obtengo el avance del curso...
+        float avances = 0;
+        int totalInscriptos = this->colInscripciones.size();
 
-    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) {
-        float av = (*it)->darAvance(cantEj);
-        avances += av;
-    }
-
+        for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) 
+        {
+            float av = (*it)->darAvance(cantEj);
+            avances += av;
+        }
     prom = avances/totalInscriptos;
     }
 
@@ -84,7 +86,8 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     return new InformacionCurso(nom,desc,dificultad,previos,idi,prof,cantLec,cantEj,prom);
 }
 
-InformacionCurso* Curso::getDatosCurso(){
+InformacionCurso* Curso::getDatosCurso()
+{
     string nom = this->getNombre();
     string desc = this->getDescripcion();
     difficulty dificultad = this->getDificultad();
@@ -96,7 +99,8 @@ InformacionCurso* Curso::getDatosCurso(){
     return new InformacionCurso(nom, desc, dificultad, idi, cantL, cantE);
 }
 
-DataConsultaCurso* Curso::getDataConsultaCurso(){
+DataConsultaCurso* Curso::getDataConsultaCurso()
+{
     string nom = this->getNombre();
     string desc = this->getDescripcion();
     difficulty diff = this->getDificultad();
@@ -106,6 +110,16 @@ DataConsultaCurso* Curso::getDataConsultaCurso(){
     return new DataConsultaCurso(nom,desc,diff,idi,prof,habil);
 }
 
+
+set<DataLeccion *> Curso::darDataLecciones(bool conId)
+{
+    set<DataLeccion *> res;
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it)
+    {
+        res.insert((*it)->getDataLeccion(conId));
+    }
+    return res;
+}
 // Para el Caso de Uso : [Habilitar Curso]
 /* bool Curso::sePuedeHabilitar()
 {
@@ -157,6 +171,16 @@ DataEjercicio* Curso::buscarEjercicioEnCurso(int ejercicio){
     return res;
 }
 
+Ejercicio* Curso::encontrarEjercicioEnCurso(int ejercicio){
+    Ejercicio* res;
+    for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); it++){
+        if((*it)->ejercicioEnLeccion(ejercicio) == true){
+            res = (*it)->encontrarEjercicioEnLeccion(ejercicio);
+        }
+    }
+    return res;
+}
+
 string Curso::buscarLetraEnCurso(int ejercicio){
     string res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
@@ -202,6 +226,24 @@ Leccion* Curso::comprobarUltimaLeccion(int ejercicio){
     return res;
 }
 
+// Para el Caso de Uso : [Agregar Ejercicio]
+void Curso::agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio)
+{
+    list<Leccion *>::iterator it = this->colLecciones.begin();
+    bool encontrada = false;
+    while((!encontrada) && (it != this->colLecciones.end()))
+    {
+        if(leccionSeleccionada == (*it)->getId())
+        {
+            this->idEjercicios++;
+            (*it)->agregarEjercicio(this->idEjercicios,ejercicio);
+        } else
+        {
+            ++it;
+        }
+    }
+}
+
 // Para el Caso de Uso : [Consultar Estadisticas]
 int Curso::obtenerTotalEjercicios()
 {
@@ -241,19 +283,17 @@ float Curso::darPromedio()
 
 
 // Para el caso de uso: [Inscribirse a curso]
-/* bool Curso::previosAprobados(set<string> nombresCursosAprobados){
+bool Curso::previosAprobados(set<string> nombresCursosAprobados){
     bool b = true;
     for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it){
-        if (nombresCursosAprobados.find(it) == nombresCursosAprobados.end()){
+        string nombreCurso = (*it)->getNombre();
+        if (nombresCursosAprobados.find(nombreCurso) == nombresCursosAprobados.end()){
             b = false;
         }
     }
     return b;
-} */
-bool Curso::previosAprobados(set<string> nombresCursosAprobados)
-{
-    return true;
 }
+
 void Curso::crearLinkConInsc(Inscripcion *I)
 {
     this->colInscripciones.insert(I);

@@ -1,5 +1,7 @@
 #include "../include/Notificacion.hh"
 
+//Destructor
+Notificacion::~Notificacion(){ }
 
 // Para el caso de uso: [Eliminar Suscripciones]
 string Notificacion::darIdioma(){
