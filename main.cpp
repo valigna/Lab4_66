@@ -66,6 +66,7 @@ int main()
             break;
             
         case 10: // Consultar Curso
+            consultarCurso();
             break;
             
         case 11: // Inscribirse a Curso

@@ -15,7 +15,8 @@ private:
     set<string> solucion;
 public:
     // Constructores
-    CompletarPalabras(string frase, set<string> solucion);
+    /* CompletarPalabras(string frase, set<string> solucion); */
+    CompletarPalabras(int idEj, DataEjercicio* ejercicio);
     // Destructor
     ~CompletarPalabras();
     // Getters y Setters

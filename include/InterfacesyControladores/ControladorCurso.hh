@@ -34,6 +34,12 @@ private:
     set<string> previos;
     DataLeccion* Leccion;
     DataEjercicio* Ejercicio;
+
+    // Memoria para : [Agregar Leccion]
+    string cursoAL;
+    string temaAL;
+    string objetivoAL;
+    
     // Memoria Para : [Agregar Ejercicio]
     string nombreCurso;
 
@@ -85,7 +91,7 @@ public:
     set<InformacionCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
     // Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(string nomC, int ejercicio);
-    //Ejercicio* encontrarEjercicio(string nomC, int ejercicio);
+    DataEjercicio* encontrarEjercicio(string nomC, int ejercicio);
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNombreCursos();
     InformacionCurso* darInformacionCurso(string nombreCurso);

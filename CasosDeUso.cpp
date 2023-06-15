@@ -194,7 +194,7 @@ void habilitarCurso()
 // Para el Caso de Uso 9: [Eliminar Curso]
 void eliminarCurso()
 {
-
+    
 }
 
 // Para el Caso de Uso 10: [Consultar Curso]
@@ -227,7 +227,7 @@ void consultarCurso()
 // Para el Caso de Uso 11: [Inscribirse a Curso]
 void inscribirseCurso()
 {
-
+    
 }
 
 // Para el Caso de Uso 12: [Realizar Ejercicio]
@@ -251,13 +251,13 @@ void realizarEjercicio()
         cout << "-> " << (*it)->getId() << endl;
     }
     cout << "Escriba el ID de un ejercicio que quiera realizar: ";
-    int idEjercicio;
-    //getline(cin, idEjercicio);
-    //cout << endl;
+    string aux;
+    getline(cin, aux);
+    int idEjercicio = stoi(aux);
     cout << "Letra: " << endl;
     cout << "" << cu->getProblema(idEjercicio) << endl;
-    //Ejercicio* eje = cc->encontrarEjercicio(cursoSeleccionado, idEjercicio);
-    /* if(eje->esCompletarPalabras()){
+    DataEjercicio* eje = cc->encontrarEjercicio(cursoSeleccionado, idEjercicio);
+    if(eje->esCompletarPalabras()){
         cout << "Escriba sus soluciones, una por una, y termine con -1: " << endl;
         set<string> respuestaCP;
         string resCP;
@@ -272,13 +272,13 @@ void realizarEjercicio()
                 respuestas = false;
             }
         }
-        cu->ResolverEjercicioCP(idEjercicio, respuestaCP);
+        cu->resolverEjercicioCP(idEjercicio, respuestaCP);
     }
     else{
         string respuestaT;
         cout << "Escriba su solucion: "; getline(cin, respuestaT);
-        cu->ResolverEjercicioT(idEjercicio, respuestaT);
-    } */
+        cu->resolverEjercicioT(idEjercicio, respuestaT);
+    }
 }
 
 // Para el Caso de Uso 13: [Consultar Estadisticas]

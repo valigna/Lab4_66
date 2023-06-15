@@ -15,7 +15,8 @@ private:
     string solucion;
 public:
     // Constructor
-    Traduccion(string fra, string sol);
+    /* Traduccion(string fra, string sol); */
+    Traduccion(int idEj, DataEjercicio* ejercicio);
     // Destrcutor
     ~Traduccion();
     // Getters y Setters

@@ -49,10 +49,17 @@ DataLeccion* Leccion::getDataLeccion(bool conId)
 } */
 
 // Para el Caso de Uso : [Agregar Ejercicio]
-void Leccion::agregarEjercicio(DataEjercicio* ejercicio)
+void Leccion::agregarEjercicio(int idEj, DataEjercicio* ejercicio)
 {
+    if(ejercicio->esTraduccion())
+    {
+        this->colEjercicios.emplace(idEj,new Traduccion(idEj,ejercicio));
+    } else
+    {
 
-}// Me olvide de ir pasandole como parametro la nueva id de ejercicio a Asignar...
+    }
+    
+}
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<int> Leccion::listaEjerciciosLeccion(){
@@ -76,7 +83,7 @@ bool Leccion::ejercicioEnLeccion(int ejercicio){
 
 DataEjercicio* Leccion::buscarEjercicioEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
-    return it->second->obtenerDataEjercicio();
+    return it->second->getDataEjercicio();
 }
 
 Ejercicio* Leccion::encontrarEjercicioEnLeccion(int ejercicio){

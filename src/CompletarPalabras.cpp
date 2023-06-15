@@ -7,6 +7,13 @@ CompletarPalabras::CompletarPalabras(string frase, set<string> solucion)
     this->solucion = solucion;
 }
 
+CompletarPalabras::CompletarPalabras(int idEj, DataEjercicio* ejercicio) : Ejercicio(idEj,ejercicio->getDescripcion())
+{
+    DataCompletarPalabras* cp = (DataCompletarPalabras*) ejercicio;
+    this->frase = cp->getFrase();
+    this->solucion = cp->getSolucion();
+}
+
 // Destructor
 CompletarPalabras::~CompletarPalabras(){ }
 

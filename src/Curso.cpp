@@ -226,7 +226,11 @@ void Curso::agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio)
     {
         if(leccionSeleccionada == (*it)->getId())
         {
-            (*it)->agregarEjercicio(ejercicio);
+            this->idEjercicios++;
+            (*it)->agregarEjercicio(this->idEjercicios,ejercicio);
+        } else
+        {
+            ++it;
         }
     }
 }

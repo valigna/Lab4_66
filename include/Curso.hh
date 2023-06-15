@@ -78,6 +78,7 @@ public:
     set<DataLeccion *> darDataLecciones(bool conId);
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
+    
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
     set<int> obtenerListaEjerciciosCurso();

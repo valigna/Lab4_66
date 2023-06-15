@@ -124,20 +124,17 @@ void ControladorCurso::confirmarAltaCurso()
 }
 
 // Para el Caso de Uso : [Agregar Leccion]
-// Falta Implementar...
-void ControladorCurso::ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo)
-{
-
+void ControladorCurso::ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo){
+    this->cursoAL = cursoSeleccionado;
+    this->temaAL = tema;
+    this->objetivoAL = objetivo;
 }
 
-// Falta Implementar...
-void ControladorCurso::ingresarEjercicio(DataEjercicio* ejercicio)
-{
-
+void ControladorCurso::ingresarEjercicio(DataEjercicio* ejercicio){
+    
 }
 
-void ControladorCurso::altaLeccion()
-{
+void ControladorCurso::altaLeccion(){
 
 }
 
@@ -153,7 +150,6 @@ set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
     {
         res = it->second->darDataLecciones(true);
     }
-
     return res;
 }
 
@@ -286,10 +282,10 @@ string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
     return it->second->buscarLetraEnCurso(ejercicio);
 }
 
-/* Ejercicio* ControladorCurso::encontrarEjercicio(string nomC, int ejercicio){
+DataEjercicio* ControladorCurso::encontrarEjercicio(string nomC, int ejercicio){
     map<string,Curso *>::iterator it = this->colCursos.find(nomC);
-    return it->second->encontrarEjercicioEnCurso(ejercicio);
-} */
+    return it->second->buscarEjercicioEnCurso(ejercicio);
+}
 
 // Para el Caso de Uso : [Consultar Estadisticas] 
 

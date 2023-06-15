@@ -42,7 +42,7 @@ public:
     Ejercicio* buscarEjercicioEnLeccionCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Agregar Ejercicio]
-    void agregarEjercicio(DataEjercicio* ejercicio);
+    void agregarEjercicio(int idEj, DataEjercicio* ejercicio);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     int totalEjercicios();

@@ -15,7 +15,8 @@ private:
     int id;
 public:
     // Constructores
-    Ejercicio();
+    /* Ejercicio(); */
+    Ejercicio(int idEj, string desc);
     // Destructor
     ~Ejercicio();
     // Getters y Setters
@@ -28,7 +29,7 @@ public:
     virtual bool esTraduccion() = 0;
 
     // Para el Caso de Uso : [Realizar Ejercicio]
-    DataEjercicio* obtenerDataEjercicio();
+    /* DataEjercicio* obtenerDataEjercicio(); */
 };
 
 
