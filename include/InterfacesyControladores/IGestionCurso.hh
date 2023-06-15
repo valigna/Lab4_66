@@ -23,8 +23,9 @@ public:
     virtual void agregarIdiomaCurso(string idioma) = 0;
     virtual set<string> getNombreCursosHabilitados() = 0;
     virtual void ingresarCursosPrevios(set<string> previos) = 0;
-    virtual void ingresarLeccionParaAlta(DataLeccion* leccion) = 0;
+    virtual void ingresarLeccionParaAlta(string tema, string objetivo) = 0;
     virtual void ingresarEjercicioParaAlta(DataEjercicio* ejercicio) = 0;
+    virtual void confirmarLeccion() = 0;
     virtual void confirmarAltaCurso() = 0;
     // Operaciones Para El Caso de Uso : [Agregar Leccion]
     // virtual set<DataCurso *> getCursosNoHabilitados

@@ -25,6 +25,11 @@
 // 
 
 // Obtengo las instancias de los Controladores
+distribuidorInterfaces* Fabrica = new distribuidorInterfaces();
+IGestionCurso* gestionCurso = Fabrica->getIGestionCurso();
+
+
+
 ControladorCurso* cc = ControladorCurso::getInstancia();
 ControladorUsuario* cu = ControladorUsuario::getInstancia();
 
@@ -170,7 +175,7 @@ void consultarIdiomas()
 // Para el Caso de Uso 5: [Alta de Curso]
 void altaCurso()
 {
-
+    
 }
 
 // Para el Caso de Uso 6: [Agregar Leccion]

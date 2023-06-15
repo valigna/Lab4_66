@@ -71,7 +71,7 @@ public:
     void ingresarCursosPrevios(set<string> previos);
     void ingresarLeccionParaAlta(string tema, string objetivo);
     void ingresarEjercicioParaAlta(DataEjercicio* ejercicio);
-    void confirmarAltaLeccion();
+    void confirmarLeccion();
     void confirmarAltaCurso();
     // Para El Caso de Uso : [Agregar Leccion]
     void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo);
