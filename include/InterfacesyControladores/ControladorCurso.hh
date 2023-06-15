@@ -30,12 +30,16 @@ private:
     // Para memoria de que caso de uso??
     string nombreCurso;
     //Memoria Para : [Alta de Curso]
+    int idLeccion;
+    int idEjercicio;
     DTCurso* seleccionado;
     string nickProfesor;
     string idiomaCurso;
     set<string> previos;
+    string temaLeccion;
+    string objLeccion;
     set<DataLeccion*> Lecciones;
-    DataEjercicio* Ejercicio;
+    map<int, DataEjercicio*> Ejercicios;
 
 public:
     // Destructor
@@ -57,8 +61,9 @@ public:
     void agregarIdiomaCurso(string idioma);
     set<string> getNombreCursosHabilitados();
     void ingresarCursosPrevios(set<string> previos);
-    void ingresarLeccionParaAlta(DataLeccion* leccion);
+    void ingresarLeccionParaAlta(string tema, string objetivo);
     void ingresarEjercicioParaAlta(DataEjercicio* ejercicio);
+    void confirmarAltaLeccion();
     void confirmarAltaCurso();
     // Para El Caso de Uso : [Agregar Leccion]
     void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo);

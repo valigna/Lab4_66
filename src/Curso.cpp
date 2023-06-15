@@ -6,6 +6,8 @@ Curso::Curso(DTCurso* datosCurso){
     this->Descricpion = datosCurso->getDescripcion();
     this->Dificultad = datosCurso->getDifificulty();
     this->Habilitado = false;
+    this->idEjercicios = 0;
+    this->idLecciones = 0;
 }
 // Destructor
 Curso::~Curso() {

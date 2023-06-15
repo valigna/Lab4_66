@@ -119,8 +119,19 @@ set<string> ControladorCurso::getNombreCursosHabilitados()
 }
 
 void ControladorCurso::ingresarCursosPrevios(set<string> previos){ this->previos = previos; }
-void ControladorCurso::ingresarLeccionParaAlta(DataLeccion* leccion){ this->Lecciones.insert(leccion); }
-void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ this->Ejercicio = ejercicio; }
+void ControladorCurso::ingresarLeccionParaAlta(string tema, string objetivo) {
+    this->temaLeccion = tema;
+    this->objLeccion = objetivo;
+}
+void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ this->Ejercicios.emplace(ejercicio->getId(),ejercicio); }
+void ControladorCurso::confirmarAltaLeccion() {
+    DataLeccion* leccion = new DataLeccion(this->temaLeccion, this->objLeccion, this->Ejercicios);
+    this->Lecciones.insert(leccion);
+    this->Ejercicios.clear();
+}
+
+// ingresarLeccionParaAlta(string tema, string objetivo), ngresarEjercicioParaAlta(DataEjercicio* ejercicio, DataLeccion* leccion){ leccion->Ejercicios.insert(ejercicio); }, confirmarLeccion()
+
 
 // Falta Implementar...
 void ControladorCurso::confirmarAltaCurso()
