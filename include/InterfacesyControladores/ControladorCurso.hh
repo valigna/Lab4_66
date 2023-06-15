@@ -6,6 +6,7 @@
 // Interfaces
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
+#include "ControladorUsuario.hh"
 class Suscripcion;
 class ControladorUsuario;
 // Conceptos Del Modelo De Dominio
@@ -29,11 +30,16 @@ private:
     map<string,Idioma *> colIdiomas;
     map<string,Curso *> colCursos;
     //Memoria Para : [Alta de Curso]
+    int idLeccion;
+    int idEjercicio;
     DTCurso* seleccionado;
     string nickProfesor;
+    string idiomaCurso;
     set<string> previos;
-    DataLeccion* Leccion;
-    DataEjercicio* Ejercicio;
+    string temaLeccion;
+    string objLeccion;
+    set<DataLeccion*> Lecciones;
+    map<int, DataEjercicio*> Ejercicios;
 
     // Memoria para : [Agregar Leccion]
     string cursoAL;
@@ -63,8 +69,9 @@ public:
     void agregarIdiomaCurso(string idioma);
     set<string> getNombreCursosHabilitados();
     void ingresarCursosPrevios(set<string> previos);
-    void ingresarLeccionParaAlta(DataLeccion* leccion);
+    void ingresarLeccionParaAlta(string tema, string objetivo);
     void ingresarEjercicioParaAlta(DataEjercicio* ejercicio);
+    void confirmarAltaLeccion();
     void confirmarAltaCurso();
     // Para El Caso de Uso : [Agregar Leccion]
     void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo);

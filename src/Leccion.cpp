@@ -1,7 +1,16 @@
 #include "../include/Leccion.hh"
 
 // Constructores
-
+Leccion::Leccion(DataLeccion* datosLeccion){
+    this->Tema = datosLeccion->getTema();
+    this->Objetivo = datosLeccion->getObjetivo();
+    map<int, DataEjercicio*> ejercicios;
+    for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    {
+        ejercicios.emplace(it->first, it->second);
+    }
+    
+}
 // Destructor
 Leccion::~Leccion(){
     for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){

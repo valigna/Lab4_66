@@ -10,6 +10,7 @@
 // DataTypes
 #include "DataTypes/DataLeccion.hh"
 #include "DataTypes/DataEjercicio.hh"
+#include "DataTypes/DataLeccion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 
@@ -23,7 +24,7 @@ private:
     map<int,Ejercicio *> colEjercicios;
 public:
     // Constructores
-
+    Leccion(DataLeccion* datosLeccion);
     // Destructor
     ~Leccion();
     // Getters y Setters

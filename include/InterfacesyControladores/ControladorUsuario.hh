@@ -10,6 +10,7 @@
 #include "ControladorCurso.hh"
 // Conceptos Del Modelo De Dominio
 #include "../Usuario.hh"
+#include "../Profesor.hh"
 // DataTypes
 #include "../DataTypes/DataEstudiante.hh"
 #include "../DataTypes/DataProfesor.hh"
