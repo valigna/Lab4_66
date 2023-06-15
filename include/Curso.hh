@@ -32,15 +32,15 @@ private:
     int idLecciones;
     int idEjercicios;
     // PseudoAtributos...
-    Profesor* Profesor;
-    Idioma* Idioma;
+    Profesor* profesor;
+    Idioma* idioma;
     list<Leccion *> colLecciones;
     set<Inscripcion *> colInscripciones;
     set<Curso *> colPrevios;
 
 public:
     // Constructores
-    Curso();
+    Curso(DTCurso* datosCurso);
     // Destructor
     ~Curso();
     // Getters y Setters
@@ -73,7 +73,7 @@ public:
     DTCurso* getDTCurso();
 
     void setHabilitado(bool hab);
-
+    void setIdioma(Idioma *idioma);
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
     // Para el Caso de Uso : [Realizar Ejercicio]
@@ -94,6 +94,9 @@ public:
     // Para el caso de uso: [Inscribirse a curso]
     bool previosAprobados(set<string> nombresCursosAprobados);
     void crearLinkConInsc(Inscripcion *I);
+
+    void agregarLeccion(Leccion* leccion);
+    void ingresarPrevia(Curso* curso);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

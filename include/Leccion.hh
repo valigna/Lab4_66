@@ -9,19 +9,22 @@
 #include "Traduccion.hh"
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
+#include "DataTypes/DataLeccion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 
 class Leccion
 {
 private:
-
+    string Tema;
+    string Objetivo;
+    int Id;
     // PseudoAtributos...
     map<int,Ejercicio *> colEjercicios;
     
 public:
     // Constructores
-
+    Leccion(DataLeccion* datosLeccion);
     // Destructor
     ~Leccion();
     // Getters y Setters

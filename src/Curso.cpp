@@ -1,11 +1,16 @@
 #include "../include/Curso.hh"
 
 // Constructores
-Curso::Curso(){ }
+Curso::Curso(DTCurso* datosCurso){
+    this->Nombre = datosCurso->getNombre();
+    this->Descricpion = datosCurso->getDescripcion();
+    this->Dificultad = datosCurso->getDifificulty();
+    this->Habilitado = false;
+}
 // Destructor
 Curso::~Curso() {
-    this->Idioma->cursoEliminado(this->Nombre);
-    this->Profesor->eliminarLinkP(this->Nombre);
+    this->idioma->cursoEliminado(this->Nombre);
+    this->profesor->eliminarLinkP(this->Nombre);
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
         delete (*it); // Se llama el destructor de cada inscripcion
     }
@@ -26,9 +31,11 @@ int Curso::getIdEjercicios(){ return this->idEjercicios; }
 
 // Setters
 void Curso::setHabilitado(bool hab){ this->Habilitado = hab; }
+void Curso::setIdioma(Idioma *i){ this->idioma = i; }
+
 
 // Auxiliares
-string Curso::getNombreIdioma(){ return this->Idioma->getNombre(); }
+string Curso::getNombreIdioma(){ return this->idioma->getNombre(); }
 int Curso::obtenerTotalLecciones(){ return this->colLecciones.size(); }
 
 // DataTypes
@@ -45,8 +52,8 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
         previos.insert(nomP);
     }
 
-    string idi = this->Idioma->getNombre();
-    string prof = this->Profesor->getNombre();
+    string idi = this->idioma->getNombre();
+    string prof = this->profesor->getNombre();
     
     int cantLec = this->colLecciones.size();
     int cantEj = 0;
@@ -92,7 +99,7 @@ DataConsultaCurso* Curso::getDataConsultaCurso(){
     string desc = this->getDescripcion();
     difficulty diff = this->getDificultad();
     string idi = this->getNombreIdioma();
-    string prof = this->Profesor->getNombre();
+    string prof = this->profesor->getNombre();
     bool habil = this->getHabilitado();
     return new DataConsultaCurso(nom,desc,diff,idi,prof,habil);
 }
@@ -249,3 +256,6 @@ void Curso::crearLinkConInsc(Inscripcion *I)
 {
     this->colInscripciones.insert(I);
 }
+
+void Curso::agregarLeccion(Leccion* leccion) { this->colLecciones.push_back(leccion); }
+void Curso::ingresarPrevia(Curso* cursoPrevio) { this->colPrevios.insert(cursoPrevio); }

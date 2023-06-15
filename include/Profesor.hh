@@ -26,8 +26,8 @@ public:
     string getInstituto();
 
     // DataTypes
-    DataUsuario* getDataUsuario();
-    DataUsuario* getDatosUsuario();
+    DataProfesor* getDataUsuario();
+    DataProfesor* getDatosUsuario();
 
     // Para distinguir entre las distintas sub-clases
     bool esEstudiante();
@@ -38,6 +38,8 @@ public:
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<InfoCurso *> getInfoCursos();
+
+    void agregarCurso(Curso* curso);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

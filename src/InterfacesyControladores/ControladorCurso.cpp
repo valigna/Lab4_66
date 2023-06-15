@@ -78,46 +78,72 @@ set<string> ControladorCurso::getIdiomas()
 // Falta Implementar...
 set<string> ControladorCurso::getNicknamesProfesores()
 {
-    set<string> res;
-
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    set<string> res = cu->darNicksProfesores();
     return res;
 }
 
  void ControladorCurso::ingresarDataCurso(string profesor, DTCurso* curso) {
     this->seleccionado = curso;
-    this->Profesor = profesor;
+    this->nickProfesor = profesor;
  }
 
 // Falta Implementar...
 set<string> ControladorCurso::getIdiomasProfesor()
 {
-    set<string> res;
-
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    string nickProfesor = this->nickProfesor;
+    DataUsuario* p = cu->getDatosUsuario(nickProfesor);
+    DataProfesor* prof = dynamic_cast<DataProfesor*>(p);
+    set<string> res = prof->getIdiomas();
     return res;
 }
 
 // Falta Implementar...
 void ControladorCurso::agregarIdiomaCurso(string idioma)
 {
-
+    this->idiomaCurso = idioma;
 }
 
 // Falta Implementar...
 set<string> ControladorCurso::getNombreCursosHabilitados()
-{
+{   
     set<string> res;
-
+    for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it) {
+        if (it->second->getHabilitado())
+        {
+            res.insert(it->first);
+        }
+    }
     return res;
 }
 
 void ControladorCurso::ingresarCursosPrevios(set<string> previos){ this->previos = previos; }
-void ControladorCurso::ingresarLeccionParaAlta(DataLeccion* leccion){ this->Leccion = leccion; }
+void ControladorCurso::ingresarLeccionParaAlta(DataLeccion* leccion){ this->Lecciones.insert(leccion); }
 void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ this->Ejercicio = ejercicio; }
 
 // Falta Implementar...
 void ControladorCurso::confirmarAltaCurso()
 {
-
+    Curso* curso = new Curso(this->seleccionado);
+    for (set<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
+    {
+        Leccion* leccion = new Leccion(*it);
+        curso->agregarLeccion(leccion);
+    }
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    Usuario* p = cu->findUsuario(this->nickProfesor);
+    Profesor* prof = dynamic_cast<Profesor*>(p);
+    prof->agregarCurso(curso);
+    set<Curso *> cursosPrevios;
+    for (set<string>::iterator it = this->previos.begin(); it != this->previos.end(); it++)
+    {
+        Curso* cursoPrevio = this->colCursos.find(*it)->second;
+        curso->ingresarPrevia(cursoPrevio);
+    }
+    Idioma* idiomaC = this->colIdiomas.find(this->idiomaCurso)->second;
+    curso->setIdioma(idiomaC);
+    this->colCursos.emplace(curso);
 }
 
 // Para el Caso de Uso : [Agregar Leccion]

@@ -6,6 +6,7 @@
 // Interfaces
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
+#include "ControladorUsuario.hh"
 class Suscripcion;
 // Conceptos Del Modelo De Dominio
 #include "../Idioma.hh"
@@ -30,9 +31,10 @@ private:
     string nombreCurso;
     //Memoria Para : [Alta de Curso]
     DTCurso* seleccionado;
-    string Profesor;
+    string nickProfesor;
+    string idiomaCurso;
     set<string> previos;
-    DataLeccion* Leccion;
+    set<DataLeccion*> Lecciones;
     DataEjercicio* Ejercicio;
 
 public:

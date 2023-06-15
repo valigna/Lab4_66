@@ -37,13 +37,13 @@ Profesor::Profesor(DataUsuario* datos,set<string> seleccionados) : Usuario(datos
 string Profesor::getInstituto(){ return this->Instituto; }
 
 // DataTypes
-DataUsuario* Profesor::getDataUsuario()
+DataProfesor* Profesor::getDataUsuario()
 {
     set<string> sinIdiomas;
     return (new DataProfesor(this->getNickname(),this->getNombre(),this->getPassword(),this->getDescripcion(),this->getInstituto(),sinIdiomas));
 }
 
-DataUsuario* Profesor::getDatosUsuario()
+DataProfesor* Profesor::getDatosUsuario()
 {
     set<string> conIdiomas;
     for(map<string,Idioma *>::iterator it = this->colIdiomas.begin(); it != this->colIdiomas.end(); ++it)
@@ -75,3 +75,5 @@ set<InfoCurso *> Profesor::getInfoCursos()
     }
     return res;
 }
+
+void Profesor::agregarCurso(Curso* curso) { this->colCursos.emplace(curso->getNombre(), curso); }
