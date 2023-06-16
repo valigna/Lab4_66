@@ -2,8 +2,6 @@
 #include "include/Utils.hh"
 
 #include"include/InterfacesyControladores/distribuidorInterfaces.hh"
-
-using namespace std;
 /* ------------------------------------------------------------------------------------------------------ */
 
 // Obtengo la Fabrica junto a sus interfaces...
@@ -83,6 +81,8 @@ void crearDatos()
             cout << "Error: Usuario no es ni Estudiante ni Profesor" << endl;
         }
     }
+
+    cout << "-> Se cargaron correctamente los datos publicados en el EVA" << endl;
 }
 
 void csvLoad()
@@ -137,42 +137,42 @@ void csvLoad()
             {
                 while(getline(file,linea))
                 {
+                    string estRef;
                     stringstream str(linea);
                     // Obtengo la referencia...
-                    getline(str,palabra,';');
-                    cargaUsuario e = users[palabra];
+                    getline(str,estRef,';');
                     // Obtengo la fecha
                     // Dia
                     getline(str,palabra,'/');
-                    e.dia = palabra;
+                    users[estRef].dia = palabra;
                     // Mes
                     getline(str,palabra,'/');
-                    e.mes = palabra;
+                    users[estRef].mes = palabra;
                     // Anio
                     getline(str,palabra,';');
-                    e.anio = palabra;
+                    users[estRef].anio = palabra;
                     // Pais residencia
                     getline(str,palabra,';');
-                    e.pResidencia = palabra;
+                    users[estRef].pResidencia = palabra;
                 }
             } else if (archivo == DProfesores)
             {
                 while(getline(file, linea))
                 {
+                    string profRef;
                     stringstream str(linea);
                     // Obtengo la referencia...
-                    getline(str,palabra,';');
-                    cargaUsuario p = users[palabra];
+                    getline(str,profRef,';');
                     // Obtengo el Instituto...
                     getline(str,palabra,';');
-                    p.ins = palabra;
+                    users[profRef].ins = palabra;
                     // Obtengo Idiomas...
                     for (map<string, string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
                     {
                         getline(str, palabra, ';');
                         if (palabra == "Si" || palabra == " Si")
                         {
-                            p.idiomasP.insert(it->second);
+                            users[profRef].idiomasP.insert(it->second);
                         }
                     }
                 } // vector<string> idiomas; " Si" || "Si"

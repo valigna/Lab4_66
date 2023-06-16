@@ -14,9 +14,15 @@ CCFLAGS = -std=c++11 -g
 
 main: $(ODIR)/main.o $(ODIR)/distribuidorInterfaces.o $(ODIR)/ControladorUsuario.o $(ODIR)/ControladorCurso.o $(ODIR)/ControladorEstadisticas.o $(ODIR)/DataCompletarPalabras.o $(ODIR)/DataConsultaCurso.o $(ODIR)/DataCurso.o $(ODIR)/DataEjercicio.o $(ODIR)/DataEstudiante.o $(ODIR)/DataFecha.o $(ODIR)/DataInscripto.o $(ODIR)/DataLeccion.o $(ODIR)/DataNotificacion.o $(ODIR)/DataProfesor.o $(ODIR)/DataTraduccion.o $(ODIR)/DataUsuario.o $(ODIR)/DatosEjercicio.o $(ODIR)/DTCurso.o $(ODIR)/InfoCurso.o $(ODIR)/InformacionCurso.o $(ODIR)/InscripcionCurso.o $(ODIR)/Ejercicio.o $(ODIR)/Traduccion.o $(ODIR)/CompletarPalabras.o $(ODIR)/Idioma.o $(ODIR)/Leccion.o $(ODIR)/Curso.o $(ODIR)/Usuario.o $(ODIR)/Estudiante.o $(ODIR)/Profesor.o $(ODIR)/Notificacion.o $(ODIR)/Inscripcion.o
 	$(CXX) $(CCFLAGS) $^ -o $@
-	./main
+	@echo " "
+	@echo "*******************************************"
+	@echo "Compilacion Exitosa, cargando lab4_66..."
+	@echo "*******************************************"
+	@sleep 7
+	@clear
+	@./main
 
-$(ODIR)/main.o: main.cpp $(ODIR)/CasosDeUso.o $(ODIR)/csvLoad.o
+$(ODIR)/main.o: main.cpp
 	$(CC) $(CCFLAGS) -c $^ -o $@
 
 $(ODIR)/CasosDeUso.o: CasosDeUso.cpp 
@@ -128,7 +134,6 @@ $(ODIR)/Traduccion.o: $(SDIR)/Traduccion.cpp $(HDIR)/Traduccion.hh $(SDIR)/Ejerc
 # Funciones extra
 clean:
 	rm $(ODIR)/*.o main
-
 
 #Repasando
 #target: dependencies (Quiero volver a compilar esto cuando "dependencies" cambien)
