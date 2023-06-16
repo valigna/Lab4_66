@@ -6,7 +6,6 @@
 // Interfaces
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
-#include "ControladorUsuario.hh"
 class Suscripcion;
 class ControladorUsuario;
 // Conceptos Del Modelo De Dominio
@@ -39,14 +38,13 @@ private:
     string temaLeccion;
     string objLeccion;
     set<DataLeccion*> Lecciones;
-    map<int, DataEjercicio*> Ejercicios;
+    map<int, DataEjercicio*> Ejercicios; // OJO : (El constructor de DataLeccion usa un set, no map. Esta tirando error por eso...)
+    
 
     // Memoria para : [Agregar Leccion]
-    string cursoAL;
-    string temaAL;
-    string objetivoAL;
+    set<DataEjercicio*> Ejs;
     
-    // Memoria Para : [Agregar Ejercicio]
+    // Memoria Para : [Agregar Ejercicio] (tambien usado en agregar Leccion)
     string nombreCurso;
 
 public:
@@ -86,15 +84,12 @@ public:
     // Operaciones Para el Caso de Uso: [Eliminar Curso]
     set<string> getNombreCursos();
     void seleccionarCurso(string nombreCurso);
-    void bajarCurso();
+    void bajarCurso(string nombreCurso);
     // Para el Caso de Uso : [Consultar Curso]
     InscripcionCurso* getCurso(string seleccionado);
     DataConsultaCurso* obtenerDataCursoSeleccionado(string curso);
     // Para el caso de uso: [Inscribirse a curso]
-    set<InscripcionCurso *> getCursosDisponibles(string nickname);
-    Curso* encontrarCurso(string curso); // No entiendo el error : (Tenian un atributo llamado Curso, generando un conflicto...)
-    void inscribirseACurso(string nickname, string curso);
-    // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
+    Curso* encontrarCurso(string curso);
     set<InformacionCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
     // Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(string nomC, int ejercicio);

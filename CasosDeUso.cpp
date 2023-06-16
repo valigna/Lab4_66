@@ -4,32 +4,27 @@
 
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "include/Utils.hh"
-
 // Fabrica
 #include "include/InterfacesyControladores/distribuidorInterfaces.hh"
 
-// DataTypes (???
-/* #include "src/DataTypes/DataUsuario.cpp"
-#include "src/DataTypes/DataProfesor.cpp"
-#include "src/DataTypes/DataEstudiante.cpp" */
-
-// Interfaces
-//#include "include/InterfacesyControladores/IGestionUsuario.hh"
-//#include "include/InterfacesyControladores/IGestionNotificaciones.hh"
-//#include "include/InterfacesyControladores/IGestionCurso.hh"
-//#include "include/InterfacesyControladores/IGestionIdiomas.hh"
-//#include "include/InterfacesyControladores/IConsultarEstadisticas.hh"
+// Para cargar los datos publicados en el EVA
+#include "csvLoad.cpp"
 /* ------------------------------------------------------------------------------------------------------ */
 
 // Poner esto al Principio y Final de cada Caso de Uso...
 // 
 
-// Obtengo las instancias de los Controladores
+// Obtengo la Fabrica junto a sus interfaces...
 distribuidorInterfaces* Fabrica = new distribuidorInterfaces();
+
+IGestionUsuario* gestionUsuario = Fabrica->getIGestionUsuario();
+IGestionNotificaciones* gestionNotificaciones = Fabrica->getIGestionNotificaciones();
 IGestionCurso* gestionCurso = Fabrica->getIGestionCurso();
+IGestionIdiomas* gestionIdiomas = Fabrica->getIGestionIdiomas();
+IConsultarEstadisticas* consEstadisticas = Fabrica->getIConsultarEstadisticas();
 
 
-
+// Esto no deberia de estar en la version final...
 ControladorCurso* cc = ControladorCurso::getInstancia();
 ControladorUsuario* cu = ControladorUsuario::getInstancia();
 
@@ -81,7 +76,7 @@ void altaUsuario()
         cout << "o Idiomas en los que se especializa:" << endl;
         cout << "Para ello..." << endl;
         cout << "1- Se listaran los idiomas con los que cuenta el sistema" << endl;
-        set<string> idiomasSistema = cu->getIdiomas();
+        set<string> idiomasSistema = gestionIdiomas->getIdiomas();
         for(set<string>::iterator it = idiomasSistema.begin(); it != idiomasSistema.end(); ++it){ cout << "  -> " << (*it) << endl; }
         cout << "2- Ingrese, uno a la vez, los idiomas en los cuales se especializa. Terminar con '-1'" << endl;
         bool masIdiomas = true;
@@ -149,7 +144,8 @@ void consultaUsuario()
 void altaIdioma()
 {
     string nombre;
-    cout << "o Ingrese el nombre del idioma que quiere dar de alta en el sistema: "; getline(cin,nombre);
+    cout << "o Ingrese el nombre del idioma que quiere dar de alta en el sistema: ";
+    getline(cin,nombre);
 
     bool altaExitosa = cc->altaIdioma(nombre);
     if (altaExitosa)
@@ -199,7 +195,17 @@ void habilitarCurso()
 // Para el Caso de Uso 9: [Eliminar Curso]
 void eliminarCurso()
 {
-    
+    cout << "o Cursos creados: " << endl;
+    set<string> cursos = gestionCurso->getNombreCursos();
+    for(set<string>::iterator it = cursos.begin(); it != cursos.end(); it++){
+        cout << "-> " << (*it) << endl;
+    }
+    cout << "---------o---------" << endl;
+    cout << "o Ingrese el nombre del curso que desea eliminar" << endl;
+    string nombreCurso;
+    getline(cin,nombreCurso);
+    gestionCurso->bajarCurso(nombreCurso);
+    cout << "o El curso de nombre " << nombreCurso << " fue eliminado";
 }
 
 // Para el Caso de Uso 10: [Consultar Curso]
@@ -232,7 +238,24 @@ void consultarCurso()
 // Para el Caso de Uso 11: [Inscribirse a Curso]
 void inscribirseCurso()
 {
-    
+    cout << "o Ingrese su nickname" << endl;
+    string nicknameUsuario;
+    getline(cin, nicknameUsuario);
+    set<InformacionCurso *> cursos = gestionUsuario->getCursosDisponibles(nicknameUsuario);
+    cout << "o Sus cursos disponibles son:" << endl;
+    for(set<InformacionCurso *>::iterator it = cursos.begin(); it != cursos.end(); it++){
+        cout << "-> " << (*it)->getNombre() << endl;
+        cout << "   -Descripcion: " << (*it)->getDescripcion() << endl;
+        cout << "   -Dificultad: " << (*it)->getDificultad() << endl;
+        cout << "   -Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
+        cout << "   -Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
+    }
+    cout << "---------o---------" << endl;
+    cout << "o Ingrese el nombre del curso al que se quiere inscribir" << endl;
+    string nombreCurso;
+    getline(cin,nombreCurso);
+    gestionUsuario->inscribirseACurso(nombreCurso);
+    cout << "o Inscripcion completada" << endl;
 }
 
 // Para el Caso de Uso 12: [Realizar Ejercicio]

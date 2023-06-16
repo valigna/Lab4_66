@@ -14,7 +14,8 @@
 // DataTypes
 #include "../DataTypes/DataEstudiante.hh"
 #include "../DataTypes/DataProfesor.hh"
-#include"../DataTypes/InfoCurso.hh"
+#include "../DataTypes/InfoCurso.hh"
+#include "../DataTypes/InformacionCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 

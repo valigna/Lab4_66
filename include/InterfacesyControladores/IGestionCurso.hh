@@ -41,13 +41,10 @@ public:
     // Operaciones Para El Caso de Uso : [Eliminar Curso]
     virtual set<string> getNombreCursos() = 0;
     virtual void seleccionarCurso(string nombreCurso) = 0;
-    virtual void bajarCurso() = 0;
+    virtual void bajarCurso(string nombreCurso) = 0;
     // Operaciones para el Caso de Uso : [Consultar Curso]
     //virtual set<string> getNombresCursos() = 0;
     virtual InscripcionCurso* getCurso(string seleccionado) = 0;
-    // Operaciones Para el Caso de Uso : [Inscribirse a Curso]
-    virtual set<InscripcionCurso *> getCursosDisponibles(string nickname) = 0;
-    virtual void inscribirseACurso(string nickname, string curso) = 0;
     //
     virtual ~IGestionCurso(){};
 };

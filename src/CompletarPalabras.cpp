@@ -1,11 +1,11 @@
 #include "../include/CompletarPalabras.hh"
 
 // Constructores
-CompletarPalabras::CompletarPalabras(string frase, set<string> solucion)
+/* CompletarPalabras::CompletarPalabras(string frase, set<string> solucion)
 {
     this->frase = frase;
     this->solucion = solucion;
-}
+} */
 
 CompletarPalabras::CompletarPalabras(int idEj, DataEjercicio* ejercicio) : Ejercicio(idEj,ejercicio->getDescripcion())
 {

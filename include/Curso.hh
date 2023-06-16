@@ -54,7 +54,7 @@ public:
     //Idioma* getIdioma();
 
     void setHabilitado(bool hab);
-    void setIdioma(Idioma *idioma);
+    void setIdioma(Idioma* idioma);
     // Implementar en caso de ser necesario...
     // list<Leccion *> getcolLecciones();
     // set<Inscripcion *> getcolInscripciones();
@@ -89,6 +89,9 @@ public:
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
     Leccion* comprobarUltimaLeccion(int ejercicio);
 
+    // Para el Case de Uso : [Agregar Leccion]
+    DataEjercicio* obtenerIdEjercicio(DataEjercicio* ejercicio);
+    void agregarLeccion(string tema, string obj, set<DataEjercicio*> ejs);
     // Para el Caso de Uso : [Agregar Ejercicio]
     void agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio);
     

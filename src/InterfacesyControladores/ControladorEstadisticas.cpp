@@ -6,6 +6,12 @@
 
 /* ------------------------------------------------------------------------------------------------------ */
 
+// Constructor
+ControladorEstadisticas::ControladorEstadisticas(){ }
+
+// Destructor
+ControladorEstadisticas::~ControladorEstadisticas(){ }
+
 set<string> ControladorEstadisticas::getNicksEstudiantes()
 {
     set<string> res;

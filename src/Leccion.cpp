@@ -5,12 +5,39 @@ Leccion::Leccion(DataLeccion* datosLeccion){
     this->Tema = datosLeccion->getTema();
     this->Objetivo = datosLeccion->getObjetivo();
     map<int, DataEjercicio*> ejercicios;
-    for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    
+/*     for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
     {
         ejercicios.emplace(it->first, it->second);
-    }
-    
+    } */
+/*     for(set<DataEjercicio *>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    {
+        ejercicios.emplace((*it)->getId(),)
+    } */   
 }
+
+Leccion::Leccion(string tema, string obj, int id, set<DataEjercicio*> ejs){
+    this->Tema = tema;
+    this->Objetivo = obj;
+    this->Id = id;
+    for(set<DataEjercicio *>::iterator it = ejs.begin(); it != ejs.end(); ++it){
+        DataEjercicio* ej = (*it);
+        if(ej->esCompletarPalabras())
+        {
+            this->colEjercicios.emplace(ej->getId(),new CompletarPalabras(ej->getId(),ej));
+        } else
+        {
+            this->colEjercicios.emplace(ej->getId(), new Traduccion(ej->getId(), ej));
+        }
+        
+    }
+}
+
+/* Ejercicio::Ejercicio(int idEj, string desc)
+{
+    this->id = idEj;
+    this->Descripcion = desc;
+} */
 // Destructor
 Leccion::~Leccion(){
     for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){

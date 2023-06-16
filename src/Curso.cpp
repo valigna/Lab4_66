@@ -225,6 +225,30 @@ Leccion* Curso::comprobarUltimaLeccion(int ejercicio){
     }
     return res;
 }
+// Para el Caso de Uso : [Agregar Leccion]
+
+DataEjercicio* Curso::obtenerIdEjercicio(DataEjercicio* ejercicio){
+    this->idEjercicios++;
+    DataEjercicio* res;
+    if(ejercicio->esCompletarPalabras())
+    {
+        DataCompletarPalabras* dtCP = (DataCompletarPalabras*) ejercicio;
+        res = new DataCompletarPalabras(dtCP->getDescripcion(),this->idEjercicios,dtCP->getFrase(),dtCP->getSolucion());
+        delete dtCP;
+    } else
+    {
+        DataTraduccion* dtT = (DataTraduccion*) ejercicio;
+        res = new DataTraduccion(dtT->getDescripcion(), this->idEjercicios, dtT->getFrase(), dtT->getTraduccion());
+        delete dtT;
+    }
+    return res;
+}
+
+
+void Curso::agregarLeccion(string tema, string obj, set<DataEjercicio*> ejs){
+    this->idLecciones++;
+    this->colLecciones.push_back(new Leccion(tema,obj,this->idLecciones,ejs));
+}
 
 // Para el Caso de Uso : [Agregar Ejercicio]
 void Curso::agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio)

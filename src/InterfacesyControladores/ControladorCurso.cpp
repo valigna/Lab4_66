@@ -120,8 +120,13 @@ void ControladorCurso::ingresarLeccionParaAlta(string tema, string objetivo) {
     this->objLeccion = objetivo;
 }
 void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ this->Ejercicios.emplace(ejercicio->getId(),ejercicio); }
-void ControladorCurso::confirmarAltaLeccion() {
-    DataLeccion* leccion = new DataLeccion(this->temaLeccion, this->objLeccion, this->Ejercicios);
+void ControladorCurso::confirmarLeccion() {
+    set<DataEjercicio *> ejs;
+    for(map<int,DataEjercicio *>::iterator it = this->Ejercicios.begin(); it != this->Ejercicios.end(); ++it)
+    {
+        ejs.insert(it->second);
+    } // Hice esto para que pueda compilar, si no usas el map para nada, cambialo directamente a set...
+    DataLeccion* leccion = new DataLeccion(this->temaLeccion, this->objLeccion, ejs);
     this->Lecciones.insert(leccion);
     this->Ejercicios.clear();
 }
@@ -132,7 +137,7 @@ void ControladorCurso::confirmarAltaLeccion() {
 // Falta Implementar Notificaciones
 void ControladorCurso::confirmarAltaCurso()
 {
-    Curso* curso = new Curso(this->seleccionado);
+/*     Curso* curso = new Curso(this->seleccionado);
     for (set<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
     {
         Leccion* leccion = new Leccion(*it);
@@ -150,22 +155,28 @@ void ControladorCurso::confirmarAltaCurso()
     }
     Idioma* idiomaC = this->colIdiomas.find(this->idiomaCurso)->second;
     curso->setIdioma(idiomaC);
-    this->colCursos.emplace(curso);
+    this->colCursos.emplace(curso); */ // Revisar el diagrama de comunicacion, controlador curso solo tendria que hacer:
+    // Curso(DataCurso* datos)
+    // notificarNuevoCurso(Idioma *i / cpz solo pasar el string nombre...)
+    // ingresarPrevios(set<previos>)
+    // Es mas, creo que le delegaria tanto los cursos previos como el data curso en una sola operacion...
 }
 
 // Para el Caso de Uso : [Agregar Leccion]
 void ControladorCurso::ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo){
-    this->cursoAL = cursoSeleccionado;
-    this->temaAL = tema;
-    this->objetivoAL = objetivo;
+    this->nombreCurso = cursoSeleccionado;
+    this->temaLeccion = tema;
+    this->objLeccion = objetivo;
 }
 
 void ControladorCurso::ingresarEjercicio(DataEjercicio* ejercicio){
-    
+    DataEjercicio* nuevo = this->colCursos.find(this->nombreCurso)->second->obtenerIdEjercicio(ejercicio);
+    this->Ejs.insert(nuevo);
 }
 
 void ControladorCurso::altaLeccion(){
-
+    this->colCursos.find(this->nombreCurso)->second->agregarLeccion(this->temaLeccion, this->objLeccion, this->Ejs);
+    this->Ejs.clear();
 }
 
 // Para el Caso de Uso : [Agregar Ejercicio]
@@ -234,10 +245,11 @@ set<string> ControladorCurso::getNombreCursos(){
     return res;
 }
 
+//Quiero borrar esta funcion. Alguien la usa? Nacho p.
 void ControladorCurso::seleccionarCurso(string nombreCurso){ this->nombreCurso = nombreCurso; }
 
 
-void ControladorCurso::bajarCurso()
+void ControladorCurso::bajarCurso(string nombreCurso)
 {
     Curso *C = this->colCursos[this->nombreCurso];
     this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
@@ -292,19 +304,7 @@ Curso *ControladorCurso::encontrarCurso(string curso){
 }
 
 
-// Falta implementar... (no son de inscribirse a curso)
-set<InscripcionCurso *> ControladorCurso::getCursosDisponibles(string nickname)
-{
-    set<InscripcionCurso *> res;
 
-    return res;
-}
-
-// Falta implementar...
-void ControladorCurso::inscribirseACurso(string nickname, string curso)
-{
-
-}
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){

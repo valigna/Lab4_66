@@ -30,8 +30,8 @@ int main()
             terminarEjecucion = true;
             break;
 
-        case 0: // Mostrar opciones
-            cout << "Estoy mostrando las opciones..." << endl;
+        case 0: // Para la carga de los datos publicados en el EVA
+            csvLoad();
             break;
 
         case 1: // Alta de Usuario
@@ -63,6 +63,7 @@ int main()
             break;
 
         case 9: // Eliminar Curso
+            eliminarCurso();
             break;
             
         case 10: // Consultar Curso

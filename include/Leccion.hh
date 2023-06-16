@@ -25,6 +25,7 @@ private:
 public:
     // Constructores
     Leccion(DataLeccion* datosLeccion);
+    Leccion(string tema, string obj, int id, set<DataEjercicio*> ejs);
     // Destructor
     ~Leccion();
     // Getters y Setters

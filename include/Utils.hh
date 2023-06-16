@@ -1,13 +1,16 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 // Colecciones de la biblioteca STL utilizadas...
-#include <string>
-#include <set>
-#include <map>
-#include <vector>
-#include <list>
-
+#include<string>
+#include<set>
+#include<map>
+#include<vector>
+#include<list>
 // Para entrada/salida
 #include <iostream>
+//
+#include<fstream>
+#include<sstream>
+
 using namespace std;
 /* ------------------------------------------------------------------------------------------------------ */
 

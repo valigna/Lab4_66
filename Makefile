@@ -12,12 +12,18 @@ ODIR = obj
 CXX = g++
 CCFLAGS = -std=c++11 -g
 
-main: $(ODIR)/main.o $(ODIR)/ControladorUsuario.o $(ODIR)/ControladorCurso.o $(ODIR)/ControladorEstadisticas.o $(ODIR)/DataCompletarPalabras.o $(ODIR)/DataConsultaCurso.o $(ODIR)/DataCurso.o $(ODIR)/DataEjercicio.o $(ODIR)/DataEstudiante.o $(ODIR)/DataFecha.o $(ODIR)/DataInscripto.o $(ODIR)/DataLeccion.o $(ODIR)/DataNotificacion.o $(ODIR)/DataProfesor.o $(ODIR)/DataTraduccion.o $(ODIR)/DataUsuario.o $(ODIR)/DatosEjercicio.o $(ODIR)/DTCurso.o $(ODIR)/InfoCurso.o $(ODIR)/InformacionCurso.o $(ODIR)/InscripcionCurso.o $(ODIR)/Ejercicio.o $(ODIR)/Traduccion.o $(ODIR)/CompletarPalabras.o $(ODIR)/Idioma.o $(ODIR)/Leccion.o $(ODIR)/Curso.o $(ODIR)/Usuario.o $(ODIR)/Estudiante.o $(ODIR)/Profesor.o $(ODIR)/Notificacion.o $(ODIR)/Inscripcion.o
+main: $(ODIR)/main.o $(ODIR)/distribuidorInterfaces.o $(ODIR)/ControladorUsuario.o $(ODIR)/ControladorCurso.o $(ODIR)/ControladorEstadisticas.o $(ODIR)/DataCompletarPalabras.o $(ODIR)/DataConsultaCurso.o $(ODIR)/DataCurso.o $(ODIR)/DataEjercicio.o $(ODIR)/DataEstudiante.o $(ODIR)/DataFecha.o $(ODIR)/DataInscripto.o $(ODIR)/DataLeccion.o $(ODIR)/DataNotificacion.o $(ODIR)/DataProfesor.o $(ODIR)/DataTraduccion.o $(ODIR)/DataUsuario.o $(ODIR)/DatosEjercicio.o $(ODIR)/DTCurso.o $(ODIR)/InfoCurso.o $(ODIR)/InformacionCurso.o $(ODIR)/InscripcionCurso.o $(ODIR)/Ejercicio.o $(ODIR)/Traduccion.o $(ODIR)/CompletarPalabras.o $(ODIR)/Idioma.o $(ODIR)/Leccion.o $(ODIR)/Curso.o $(ODIR)/Usuario.o $(ODIR)/Estudiante.o $(ODIR)/Profesor.o $(ODIR)/Notificacion.o $(ODIR)/Inscripcion.o
 	$(CXX) $(CCFLAGS) $^ -o $@
 	./main
 
-$(ODIR)/main.o: main.cpp CasosDeUso.cpp
-	$(CXX) $(CCFLAGS) -c $< -o $@
+$(ODIR)/main.o: main.cpp $(ODIR)/CasosDeUso.o $(ODIR)/csvLoad.o
+	$(CC) $(CCFLAGS) -c $^ -o $@
+
+$(ODIR)/CasosDeUso.o: CasosDeUso.cpp 
+	$(CC) $(CCFLAGS) -c $^ -o $@
+
+$(ODIR)/csvLoad.o: csvLoad.cpp
+	$(CC) $(CCFLAGS) -c $^ -o $@
 
 # Se define la Fabrica
 $(ODIR)/distribuidorInterfaces.o: $(SIDIR)/distribuidorInterfaces.cpp $(HIDIR)/distribuidorInterfaces.hh $(HIDIR)/IGestionUsuario.hh $(HIDIR)/IGestionNotificaciones.hh $(HIDIR)/IGestionCurso.hh $(HIDIR)/IGestionIdiomas.hh $(HIDIR)/IConsultarEstadisticas.hh $(HIDIR)/Suscripcion.hh
