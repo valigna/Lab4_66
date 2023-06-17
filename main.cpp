@@ -102,6 +102,7 @@ int main()
             break;
 
         case 5: // Alta de Curso
+            altaCurso();
             cout << endl;
             break;
 

@@ -37,9 +37,7 @@ private:
     set<string> previos;
     string temaLeccion;
     string objLeccion;
-    set<DataLeccion*> Lecciones;
-    map<int, DataEjercicio*> Ejercicios; // OJO : (El constructor de DataLeccion usa un set, no map. Esta tirando error por eso...)
-    
+    list<DataLeccion*> Lecciones;
 
     // Memoria para : [Agregar Leccion]
     set<DataEjercicio*> Ejs;

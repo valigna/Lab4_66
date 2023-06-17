@@ -92,7 +92,7 @@ void Leccion::agregarEjercicio(int idEj, DataEjercicio* ejercicio)
         this->colEjercicios.emplace(idEj,new Traduccion(idEj,ejercicio));
     } else
     {
-
+        this->colEjercicios.emplace(idEj,new CompletarPalabras(idEj,ejercicio));
     }
     
 }

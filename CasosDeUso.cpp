@@ -47,6 +47,13 @@ struct userInfo{
     set<string> seleccionados;
 };
 
+struct courseInfo{
+    string nombre;
+    string desc;
+    string opcionDiff;
+    difficulty diff;
+};
+
 void altaUsuario()
 {
     userInfo ingresado;
@@ -171,7 +178,123 @@ void consultarIdiomas()
 // Para el Caso de Uso 5: [Alta de Curso]
 void altaCurso()
 {
-    
+    set<string> nickProfesores = cc->getNicknamesProfesores();
+    string nickProfesor;
+    string idioma;
+    courseInfo infoCurso;
+    cout << "Profesores: " << endl;
+    for(set<string>::iterator it = nickProfesores.begin(); it != nickProfesores.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
+    cout << "Ingrese el nickname del profesor que dara de alta al curso: "; getline(cin,nickProfesor);
+    cout << "Se pasaran a pedir los datos necesarios para crear un nuevo curso: ";
+    cout << "o Nombre del curso: "; getline(cin, infoCurso.nombre);
+    cout << "o Descripcion: "; getline(cin, infoCurso.desc);
+    cout << "o El curso a crearse es de dificultad: (1) Principiante / (2) Intermedio / (3) Avanzado"; getline(cin, infoCurso.opcionDiff);
+    if (infoCurso.opcionDiff == "1")
+    {
+        infoCurso.diff = Principiante;
+    } else if (infoCurso.opcionDiff == "2")
+    {
+        infoCurso.diff = Intermedio;
+    } else if (infoCurso.opcionDiff == "3")
+    {
+        infoCurso.diff = Avanzado;
+    }
+    cc->ingresarDataCurso(nickProfesor, new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff));
+    set<string> idiomas = cc->getIdiomasProfesor();
+    cout << "o Se listaran los idiomas en los cuales se especializa el profesor: " << endl;
+    for (set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
+    cout << "o Seleccione el idioma del curso entre los listados: "; getline(cin, idioma);
+    cc->agregarIdiomaCurso(idioma);
+    cout << "o Se pasara a listar los cursos habilitados, entre los cuales debe seleccionar aquellos que sean previas de el curso a crear: " << endl;
+    set<string> cursosHab = cc->getNombreCursosHabilitados();
+    for (set<string>::iterator it = cursosHab.begin(); it != cursosHab.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    } 
+    cout << "o Ingrese, uno a la vez, los cursos que son previos del creado. Terminar con '-1'" << endl;
+    bool masCursos = true;
+    set<string> previos;
+    string previo;
+    while (masCursos)
+    {
+        getline(cin, previo);
+        if (previo != "-1")
+        {
+            previos.insert(previo);
+        } else
+        {
+            masCursos = false;
+        }
+    }
+    cc->ingresarCursosPrevios(previos);
+    cout << "o Comenzaremos a ingresar las lecciones del curso:" << endl;
+    bool masLecciones = true;
+    while (masLecciones)
+    {
+        string tema;
+        string objetivo;
+        string aux;
+        cout << "o Desea agregar una nueva leccion?: (1) Si, (2) No"; getline(cin, aux);
+        if (aux == "1")
+        {
+            cout << "o Ingrese el tema de la leccion:"; getline(cin, tema);
+            cout << "o Ingrese el objetivo de la leccion:"; getline(cin, objetivo);
+            cc->ingresarLeccionParaAlta(tema, objetivo);
+            bool masEjercicios = true;
+            string descEj;
+            string auxEj;
+            cout << "o Ingrese los ejercicios de la leccion:" << endl;
+            while (masEjercicios)
+            {   
+                cout << "o Desea agregar un nuevo ejercicio?: (1) Si, (2) No"; getline(cin, auxEj);
+                if (auxEj == "1")
+                { 
+                    string tipoEj;
+                    cout << "o Que tipo de ejercicio desea agregar: (1) Completar Palabras, (2) Traduccion"; getline(cin, tipoEj);
+                    cout << "o Ingrese la descripcion del ejercicio"; getline(cin, descEj);
+                    if (tipoEj == "1")
+                    {
+                        string frase;
+                        string solucionLeida;
+                        set<string> solucion;
+                        string palabra;
+                        cout << "o Ingrese la frase:"; getline(cin, frase);
+                        cout << "o Ingrese la solucion separando las palabras con SOLO ',':"; getline(cin, solucionLeida);
+                        stringstream str(solucionLeida);
+                        while(getline(str,palabra,','))
+                        {
+                            solucion.insert(palabra);    
+                        }
+                        DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
+                        gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                    } else if (tipoEj == "2")
+                    {
+                        string frase;
+                        string traduccion;
+                        cout << "o Ingrese la frase:"; getline(cin, frase);
+                        cout << "o Ingrese la frase traducida:"; getline(cin, traduccion);
+                        DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
+                    }
+                    
+                } else if (auxEj == "2")
+                {
+                    masEjercicios = false;
+                }
+            }
+            gestionCurso->confirmarLeccion();
+        } else if (aux == "2")
+        {
+            masLecciones = false;
+        }
+    }
+    cc->confirmarAltaCurso();
+    cout << "-> Se creo el curso de nombre: " << infoCurso.nombre << endl;
 }
 
 // Para el Caso de Uso 6: [Agregar Leccion]
@@ -283,7 +406,7 @@ void realizarEjercicio()
     getline(cin, aux);
     int idEjercicio = stoi(aux);
     cout << "Letra: " << endl;
-    cout << "" << cu->getProblema(idEjercicio) << endl;
+    cout << "" << cc->obtenerLetra(cursoSeleccionado,idEjercicio) << endl;
     DataEjercicio* eje = cc->encontrarEjercicio(cursoSeleccionado, idEjercicio);
     if(eje->esCompletarPalabras()){
         cout << "Escriba sus soluciones, una por una, y termine con -1: " << endl;

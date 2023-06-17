@@ -47,6 +47,9 @@ public:
     // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
     // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
 
+    // Para el Caso de Uso : [Alta de Curso]
+    void notificarAlta(Idioma *i,Curso *c);
+    
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();
 
@@ -59,8 +62,6 @@ public:
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();
 
-    // Supongo que para cuando se haga alta de curso...
-    void notificarAlta(Idioma *i,Curso *c);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

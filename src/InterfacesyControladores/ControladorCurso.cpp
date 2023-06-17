@@ -83,6 +83,11 @@ set<string> ControladorCurso::getNicknamesProfesores()
 }
 
  void ControladorCurso::ingresarDataCurso(string profesor, DTCurso* curso) {
+    this->idLeccion = 0;
+    this->idEjercicio = 0;
+    this->previos.clear();
+    this->Ejs.clear();
+    this->Lecciones.clear();    
     this->seleccionado = curso;
     this->nickProfesor = profesor;
  }
@@ -116,37 +121,55 @@ set<string> ControladorCurso::getNombreCursosHabilitados()
 
 void ControladorCurso::ingresarCursosPrevios(set<string> previos){ this->previos = previos; }
 void ControladorCurso::ingresarLeccionParaAlta(string tema, string objetivo) {
+    this->idLeccion++;
     this->temaLeccion = tema;
     this->objLeccion = objetivo;
 }
-void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ this->Ejercicios.emplace(ejercicio->getId(),ejercicio); }
+void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){ 
+    this->idEjercicio++;
+    DataEjercicio* ej;
+    if(ejercicio->esCompletarPalabras())
+    {
+        DataCompletarPalabras* dtCP = (DataCompletarPalabras*) ejercicio;
+        ej = new DataCompletarPalabras(dtCP->getDescripcion(),this->idEjercicio,dtCP->getFrase(),dtCP->getSolucion());
+        delete dtCP;
+    } else
+    {
+        DataTraduccion* dtT = (DataTraduccion*) ejercicio;
+        ej = new DataTraduccion(ejercicio->getDescripcion(), this->idEjercicio, dtT->getFrase(), dtT->getTraduccion());
+        delete dtT;
+    }
+    this->Ejs.insert(ej);
+}
+
 void ControladorCurso::confirmarLeccion() {
     set<DataEjercicio *> ejs;
-    for(map<int,DataEjercicio *>::iterator it = this->Ejercicios.begin(); it != this->Ejercicios.end(); ++it)
+    for(set<DataEjercicio *>::iterator it = this->Ejs.begin(); it != this->Ejs.end(); ++it)
     {
-        ejs.insert(it->second);
-    } // Hice esto para que pueda compilar, si no usas el map para nada, cambialo directamente a set...
-    DataLeccion* leccion = new DataLeccion(this->temaLeccion, this->objLeccion, ejs);
-    this->Lecciones.insert(leccion);
-    this->Ejercicios.clear();
+        ejs.insert((*it));
+    }
+    DataLeccion* leccion = new DataLeccion(this->temaLeccion, this->objLeccion, this->idLeccion, ejs);
+    this->Lecciones.push_back(leccion);
+    this->Ejs.clear();
 }
 
 // ingresarLeccionParaAlta(string tema, string objetivo), ngresarEjercicioParaAlta(DataEjercicio* ejercicio, DataLeccion* leccion){ leccion->Ejercicios.insert(ejercicio); }, confirmarLeccion()
 
 
-// Falta Implementar Notificaciones
+
 void ControladorCurso::confirmarAltaCurso()
 {
-/*     Curso* curso = new Curso(this->seleccionado);
-    for (set<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
-    {
-        Leccion* leccion = new Leccion(*it);
-        curso->agregarLeccion(leccion);
+    Curso* curso = new Curso(this->seleccionado, nickProfesor);
+    for (list<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
+    {   
+        curso->agregarLeccion((*it)->getTema(), (*it)->getObjetivo(), this->Ejs);
     }
     ControladorUsuario* cu = ControladorUsuario::getInstancia();
     Usuario* p = cu->findUsuario(this->nickProfesor);
     Profesor* prof = dynamic_cast<Profesor*>(p);
     prof->agregarCurso(curso);
+
+    this->colCursos.emplace(curso->getNombre(),curso); 
     set<Curso *> cursosPrevios;
     for (set<string>::iterator it = this->previos.begin(); it != this->previos.end(); it++)
     {
@@ -155,11 +178,7 @@ void ControladorCurso::confirmarAltaCurso()
     }
     Idioma* idiomaC = this->colIdiomas.find(this->idiomaCurso)->second;
     curso->setIdioma(idiomaC);
-    this->colCursos.emplace(curso); */ // Revisar el diagrama de comunicacion, controlador curso solo tendria que hacer:
-    // Curso(DataCurso* datos)
-    // notificarNuevoCurso(Idioma *i / cpz solo pasar el string nombre...)
-    // ingresarPrevios(set<previos>)
-    // Es mas, creo que le delegaria tanto los cursos previos como el data curso en una sola operacion...
+    curso->notificarNuevoCurso(idiomaC);
 }
 
 // Para el Caso de Uso : [Agregar Leccion]

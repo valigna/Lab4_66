@@ -1,14 +1,18 @@
 #include "../include/Curso.hh"
 
 // Constructores
-Curso::Curso(DTCurso* datosCurso){
+Curso::Curso(DTCurso* datosCurso,string nickProfesor){
     this->Nombre = datosCurso->getNombre();
     this->Descricpion = datosCurso->getDescripcion();
     this->Dificultad = datosCurso->getDifificulty();
     this->Habilitado = false;
     this->idEjercicios = 0;
     this->idLecciones = 0;
+    ControladorUsuario* cu = ControladorUsuario::getInstancia();
+    Usuario* usuarioP = cu->findUsuario(nickProfesor);
+    this->profesor = (Profesor *) usuarioP;
 }
+
 // Destructor
 Curso::~Curso() {
     this->idioma->cursoEliminado(this->Nombre);
@@ -323,5 +327,14 @@ void Curso::crearLinkConInsc(Inscripcion *I)
     this->colInscripciones.insert(I);
 }
 
-void Curso::agregarLeccion(Leccion* leccion) { this->colLecciones.push_back(leccion); }
+/* void Curso::agregarLeccion(string tema, string objetivo, set<DataEjercicio *> ejercicios)
+{
+    this->idLecciones++;
+    this->colLecciones.push_back(new Leccion(tema, objetivo, this->idLecciones, ejercicios));
+} */
 void Curso::ingresarPrevia(Curso* cursoPrevio) { this->colPrevios.insert(cursoPrevio); }
+
+void Curso::notificarNuevoCurso(Idioma* idiomaCurso)
+{
+    idiomaCurso->nuevoCurso(this);
+}

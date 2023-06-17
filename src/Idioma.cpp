@@ -20,6 +20,15 @@ void Idioma::cursoEliminado(string nombreCurso){
 }
 
 
+// Para el Caso de Uso : [Alta de Curso]
+void Idioma::nuevoCurso(Curso* c)
+{
+    for(vector<Suscripcion *>::iterator it = this->colSuscripciones.begin(); it != this->colSuscripciones.end(); ++it )
+    {
+        (*it)->notificarAlta(this,c);
+    }
+}
+
 // Para el Caso de Uso : [Suscribirse a Notificaciones]
 void Idioma::agregar(Suscripcion* u){
     this->colSuscripciones.push_back(u);    

@@ -20,6 +20,12 @@ string Usuario::getNombre() { return this->Nombre; }
 string Usuario::getPassword() { return this->Password; }
 string Usuario::getDescripcion() { return this->Descripcion; }
 
+// Para el Caso de Uso : [Alta de Curso]
+void Usuario::notificarAlta(Idioma *i,Curso *c)
+{
+    this->colNotificaciones.push_back(new Notificacion(i,c));
+}
+
 // Para el caso de uso : [Eliminar Curso]
 void Usuario::notificarBaja(string nombreCurso)
 {
@@ -58,8 +64,4 @@ set<string> Usuario::darIdiomasSuscritos(){
         res.insert(idioma);
     }
     return res;
-}
-
-void Usuario::notificarAlta(Idioma *i, Curso *c){
-
 }

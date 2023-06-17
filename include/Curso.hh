@@ -40,7 +40,7 @@ private:
 
 public:
     // Constructores
-    Curso(DTCurso* datosCurso);
+    Curso(DTCurso* datosCurso, string nickProfesor);
     // Destructor
     ~Curso();
     // Getters y Setters
@@ -105,8 +105,9 @@ public:
     bool previosAprobados(set<string> nombresCursosAprobados);
     void crearLinkConInsc(Inscripcion *I);
 
-    void agregarLeccion(Leccion* leccion);
+    // [Alta Curso]
     void ingresarPrevia(Curso* curso);
+    void notificarNuevoCurso(Idioma* idiomaCurso);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

@@ -18,7 +18,7 @@ main: $(ODIR)/main.o $(ODIR)/distribuidorInterfaces.o $(ODIR)/ControladorUsuario
 	@echo "*******************************************"
 	@echo "Compilacion Exitosa, cargando lab4_66..."
 	@echo "*******************************************"
-	@sleep 7
+#@sleep 7
 	@clear
 	@./main
 
