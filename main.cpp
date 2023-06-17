@@ -115,11 +115,12 @@ int main()
             break;
         
         case 8: // Habilitar Curso
+            habilitarCurso();
             cout << endl;
             break;
 
         case 9: // Eliminar Curso
-            eliminarCurso();
+            eliminarCurso(); // Falta ver si queda memoria colgada
             cout << endl;
             break;
             
@@ -129,6 +130,7 @@ int main()
             break;
             
         case 11: // Inscribirse a Curso
+            inscribirseCurso();
             cout << endl;
             break;
             

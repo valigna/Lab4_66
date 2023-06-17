@@ -270,8 +270,8 @@ void ControladorCurso::seleccionarCurso(string nombreCurso){ this->nombreCurso =
 
 void ControladorCurso::bajarCurso(string nombreCurso)
 {
-    Curso *C = this->colCursos[this->nombreCurso];
-    this->colCursos.erase(this->nombreCurso); // Se saca el curso de la coleccion
+    Curso *C = this->colCursos[nombreCurso];
+    this->colCursos.erase(nombreCurso); // Se saca el curso de la coleccion
     delete C; // Se llama al destructor de Curso
 }
 

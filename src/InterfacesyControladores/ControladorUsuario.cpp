@@ -96,7 +96,7 @@ set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
 
 string ControladorUsuario::getProblema(int ejercicio){
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(this->nomC,ejercicio); // No estoy seguro del manejo de memoria
+    return cc->obtenerLetra(this->nomC,ejercicio);
 }
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){

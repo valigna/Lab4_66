@@ -4,12 +4,21 @@
 Leccion::Leccion(DataLeccion* datosLeccion){
     this->Tema = datosLeccion->getTema();
     this->Objetivo = datosLeccion->getObjetivo();
-    map<int, DataEjercicio*> ejercicios;
-    
-/*     for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    map<int, Ejercicio*> ejercicios;
+    for (set<DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
     {
-        ejercicios.emplace(it->first, it->second);
-    } */
+        DataEjercicio* ej = (*it);
+        if(ej->esCompletarPalabras())
+        {
+            // CompletarPalabras::CompletarPalabras(int idEj, DataEjercicio* ejercicio) : Ejercicio(idEj,ejercicio->getDescripcion())
+            CompletarPalabras *CP = new CompletarPalabras(ej->getId(), ej);
+            this->colEjercicios.emplace(ej->getId(), CP);
+        } else if(ej->esTraduccion()){
+            Traduccion *T = new Traduccion(ej->getId(), ej);
+            this->colEjercicios.emplace(ej->getId(), T);
+        }
+    }
+    this->colEjercicios = ejercicios;
 /*     for(set<DataEjercicio *>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
     {
         ejercicios.emplace((*it)->getId(),)

@@ -312,7 +312,15 @@ void agregarEjercicio()
 // Para el Caso de Uso 8: [Habilitar Curso]
 void habilitarCurso()
 {
-
+    cout << "o Cursos no habilitados: " << endl;
+    set<InformacionCurso*> cursos = gestionCurso->getCursosNoHabilitados();
+    for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
+        cout << "-> " << ((*it)->getNombre()) << endl;
+    }
+    string curso;
+    cout << "o Ingrese el nombre del curso que desea habilitar: "; getline(cin, curso);
+    gestionCurso->habilitarCurso(curso);
+    cout << "o El curso fue habilitado correctamente" << endl;
 }
 
 // Para el Caso de Uso 9: [Eliminar Curso]
@@ -359,7 +367,7 @@ void consultarCurso()
 }
 
 // Para el Caso de Uso 11: [Inscribirse a Curso]
-void inscribirseCurso()
+void inscribirseCurso() //Hacer verificacion de que existe el curso
 {
     cout << "o Ingrese su nickname" << endl;
     string nicknameUsuario;
@@ -435,7 +443,7 @@ void realizarEjercicio()
 // Para el Caso de Uso 13: [Consultar Estadisticas]
 void consultarEstadisticas()
 {
-
+    
 }
 
 // Para el Caso de Uso 14: [Suscribirse a Notificaciones]
