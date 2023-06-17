@@ -78,7 +78,8 @@ DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
 
 // Para el caso de uso : [Realizar Ejercicio]
 set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    this->nickname = nickname;
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     it->second->esEstudiante();
     Estudiante* est = (Estudiante*) it->second;
     /* Estudiante* est = dynamic_cast<Estudiante *>(it->second); */
@@ -89,6 +90,7 @@ set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
 Estudiante* est = (Estudiante*) it->second */
 
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+    this->nomC = curso;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->obtenerEjerciciosNoAprobados(curso);

@@ -130,14 +130,14 @@ void ControladorCurso::ingresarEjercicioParaAlta(DataEjercicio* ejercicio){
     DataEjercicio* ej;
     if(ejercicio->esCompletarPalabras())
     {
-        DataCompletarPalabras* dtCP = (DataCompletarPalabras*) ejercicio;
-        ej = new DataCompletarPalabras(dtCP->getDescripcion(),this->idEjercicio,dtCP->getFrase(),dtCP->getSolucion());
-        delete dtCP;
+        DataCompletarPalabras* dt = (DataCompletarPalabras*) ejercicio;
+        ej = new DataCompletarPalabras(dt->getDescripcion(),this->idEjercicio,dt->getFrase(),dt->getSolucion());
+        delete dt;
     } else
     {
-        DataTraduccion* dtT = (DataTraduccion*) ejercicio;
-        ej = new DataTraduccion(ejercicio->getDescripcion(), this->idEjercicio, dtT->getFrase(), dtT->getTraduccion());
-        delete dtT;
+        DataTraduccion* dt = (DataTraduccion*) ejercicio;
+        ej = new DataTraduccion(ejercicio->getDescripcion(), this->idEjercicio, dt->getFrase(), dt->getTraduccion());
+        delete dt;
     }
     this->Ejs.insert(ej);
 }
@@ -162,7 +162,7 @@ void ControladorCurso::confirmarAltaCurso()
     Curso* curso = new Curso(this->seleccionado, nickProfesor);
     for (list<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
     {   
-        curso->agregarLeccion((*it)->getTema(), (*it)->getObjetivo(), this->Ejs);
+        curso->agregarLeccion((*it)->getTema(), (*it)->getObjetivo(), (*it)->getEjercicios());
     }
     ControladorUsuario* cu = ControladorUsuario::getInstancia();
     Usuario* p = cu->findUsuario(this->nickProfesor);

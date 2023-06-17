@@ -12,7 +12,7 @@ Ejercicio::~Ejercicio(){ }
 
 // Getters
 string Ejercicio::getDescripcion(){ return this->Descripcion; }
-int Ejercicio::getId(){ return this->getId(); }
+int Ejercicio::getId(){ return this->id; }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 

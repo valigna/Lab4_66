@@ -280,6 +280,7 @@ void altaCurso()
                         cout << "o Ingrese la frase:"; getline(cin, frase);
                         cout << "o Ingrese la frase traducida:"; getline(cin, traduccion);
                         DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
+                        gestionCurso->ingresarEjercicioParaAlta(ejT);
                     }
                     
                 } else if (auxEj == "2")
@@ -356,6 +357,21 @@ void consultarCurso()
     cout << "-> Idioma: " << res->getIdioma() << endl;
     cout << "-> Profesor: " << res->getProfesor() << endl;
     cout << "-> Descripcion: " << res->getDescripcion() << endl;
+    difficulty dificultad = res->getDifificulty();
+    switch (dificultad)
+    {
+    case Principiante:
+        cout << "-> Dificultad: Principiante" << endl;
+        break;
+    case Intermedio:
+        cout << "-> Dificultad: Intermedio" << endl;
+        break;
+    case Avanzado:
+        cout << "-> Dificultad: Avanzado" << endl;
+        break;
+    default:
+        break;
+    }
     cout << "-> Dificultad: " << res->getDifificulty() << endl;
     if(res->getHabilitado()){
         cout << "-> Habilitado: SI" << endl;
@@ -403,8 +419,9 @@ void realizarEjercicio()
     cout << "Escriba el nombre de un curso: ";
     string cursoSeleccionado;
     getline(cin,cursoSeleccionado);
-    cout << endl;
+    cout << "pre" << endl;
     set<DataEjercicio* > ejercicios = cu->getEjerciciosNoAprobados(cursoSeleccionado);
+    cout << "post" << endl;
     cout << "ID de los ejercicios no aprobados: " << endl;
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
         cout << "-> " << (*it)->getId() << endl;
