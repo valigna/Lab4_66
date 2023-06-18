@@ -302,6 +302,30 @@ void altaCurso()
 // Para el Caso de Uso 6: [Agregar Leccion]
 void agregarLeccion()
 {
+    set<InformacionCurso *> cursos = gestionCurso->getCursosNoHabilitados();
+    if(!cursos.empty()){
+        cout << "o Cursos no habilitados: " << endl;
+        for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
+            cout << "->" << ((*it)->getNombre()) << endl;
+        }
+        string nombreCurso;
+        cout << "o Ingrese el nombre del curso que desea agregar una leccion: ";
+        getline(cin, nombreCurso);
+        
+        string temaLeccion;
+        cout << "o Ingrese el tema de la Leccion: " << endl;
+        getline(cin, temaLeccion);
+
+        string objetivoLeccion;
+        cout << "o Ingrese el objetivo de la Leccion: " << endl;
+        getline(cin, objetivoLeccion);
+
+        gestionCurso->ingresarDatosLeccion(nombreCurso, temaLeccion, objetivoLeccion);
+
+        //Faltan los ejercicios
+
+        gestionCurso->altaLeccion();
+    }
 
 }
 

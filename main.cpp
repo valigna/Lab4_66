@@ -106,11 +106,13 @@ int main()
             cout << endl;
             break;
 
-        case 6: // Agregar Leccion
+        case 6: // Agregar Leccion --
+            agregarLeccion();
             cout << endl;
             break;
 
-        case 7: // Agregar Ejercicio
+        case 7: // Agregar Ejercicio --
+            agregarEjercicio();
             cout << endl;
             break;
         
