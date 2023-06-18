@@ -14,16 +14,16 @@ IGestionIdiomas* gIdiomas = Fab->getIGestionIdiomas();
 IConsultarEstadisticas* cEstadisticas = Fab->getIConsultarEstadisticas();
 
 /* --------------------------------------------- Directorios --------------------------------------------- */
-string DIdiomas = "cargaDatos/CSVs/Idiomas.csv";
-string DUsuarios = "cargaDatos/CSVs/Usuarios.csv";
-string DEstudiantes = "cargaDatos/CSVs/Usuarios-Estudiantes.csv";
-string DProfesores = "cargaDatos/CSVs/Usuarios-Profesores.csv";
-string DCursos = "cargaDatos/CSVs/Cursos.csv";
-string DCursosPrevios = "cargaDatos/CSVs/Cursos-Previos.csv";
-string DCursosLecciones = "cargaDatos/CSVs/Cursos-Lecciones.csv";
-string DCursosLeccionesEjercicios = "cargaDatos/CSVs/Cursos-Lecciones-Ejercicios.csv";
-string DInscripciones = "cargaDatos/CSVs/Inscripciones.csv";
-string DInscripcionesEjerciciosArpobados = "cargaDatos/CSVs/Inscripciones-EjerciciosAprobados.csv";
+string DIdiomas = "cargaDatos/Idiomas.csv";
+string DUsuarios = "cargaDatos/Usuarios.csv";
+string DEstudiantes = "cargaDatos/Usuarios-Estudiantes.csv";
+string DProfesores = "cargaDatos/Usuarios-Profesores.csv";
+string DCursos = "cargaDatos/Cursos.csv";
+string DCursosPrevios = "cargaDatos/Cursos-Previos.csv";
+string DCursosLecciones = "cargaDatos/Cursos-Lecciones.csv";
+string DCursosLeccionesEjercicios = "cargaDatos/Cursos-Lecciones-Ejercicios.csv";
+string DInscripciones = "cargaDatos/Inscripciones.csv";
+string DInscripcionesEjerciciosArpobados = "cargaDatos/Inscripciones-EjerciciosAprobados.csv";
 /* ------------------------------------------------------------------------------------------------------ */
 
 
