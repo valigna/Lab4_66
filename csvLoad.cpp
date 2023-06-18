@@ -92,7 +92,7 @@ struct cargaInscripcion
     string ref;
     string estRef;
     string curRef;
-    set<string> ejerciciosRef;
+    list<string> ejerciciosRef;
 
     int dia,mes,anio;
 };
@@ -215,6 +215,12 @@ void crearDatos()
         }
         cout << "Se va a intentar de hacer un alta..." << endl;
         gCurso->confirmarAltaCurso();
+
+        // Tengo que verificar si el curso esta habilitado...
+        if(cur.habilitado)
+        {
+            gCurso->habilitarCurso(cur.name);
+        }
     }
     cout << "Se cargaron los cursos..." << endl;
 
@@ -223,17 +229,16 @@ void crearDatos()
     {
         // Registramos la inscripcion...
         cargaInscripcion insc = it->second;
-        set<InformacionCurso *> inecesario = gUsuario->getCursosDisponibles(usuarios[insc.estRef].name);
+        set<InformacionCurso *> inecesario = gUsuario->getCursosDisponibles(usuarios[insc.estRef].nick);
         gUsuario->inscribirseACurso(cursos[insc.curRef].name);
-        cout << "Se registro la inscripcion... " << endl;
 
         // Apruebo los ejercicios correspondientes...
-        for(set<string>::iterator it2 = insc.ejerciciosRef.begin(); it2 != insc.ejerciciosRef.end(); ++it2)
+        for(list<string>::iterator it2 = insc.ejerciciosRef.begin(); it2 != insc.ejerciciosRef.end(); ++it2)
         {
             cargaEjercicio ej = ejercicios[(*it2)];
-            set<string> inecesario2 = gUsuario->getCursosInscriptosNoAprobados(usuarios[insc.estRef].name);
+            set<string> inecesario2 = gUsuario->getCursosInscriptosNoAprobados(usuarios[insc.estRef].nick);
             set<DataEjercicio *> inecesario3 = gUsuario->getEjerciciosNoAprobados(cursos[insc.curRef].name);
-
+            cout << "Se realizo la inscripcion: " << insc.ref << endl;
             // Encuentro el ejercicio dentro del sistema...
             DataEjercicio* dataEj;
             for(set<DataEjercicio*>::iterator it3 = inecesario3.begin(); it3 != inecesario3.end();++it)
@@ -251,7 +256,7 @@ void crearDatos()
                 gUsuario->resolverEjercicioCP(dtCP->getId(),dtCP->getSolucion());
             }
         }
-    }
+    } 
     cout << "-> Se cargaron correctamente los datos publicados en el EVA" << endl;
 }
 
@@ -507,7 +512,7 @@ void csvLoad()
                     ejercicioRef = palabra;
 
                     // Registro la aprobacion en la inscripcion...
-                    inscripciones[inscripcionRef].ejerciciosRef.insert(ejercicioRef);
+                    inscripciones[inscripcionRef].ejerciciosRef.push_back(ejercicioRef);
                 }
             }
         } else

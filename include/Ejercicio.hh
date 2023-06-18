@@ -6,6 +6,8 @@
 
 // DataTypes
 #include "DataTypes/DataEjercicio.hh"
+#include "DataTypes/DataTraduccion.hh"
+#include "DataTypes/DataEjercicio.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Ejercicio
