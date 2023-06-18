@@ -55,7 +55,16 @@ set<string> Usuario::darIdiomasNoSuscritos() {
     return idiomas;
 }
 
-
+set<DataNotificacion *> Usuario::darNotificaciones()
+{
+    set<DataNotificacion*> res;
+    for (vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
+    {
+        res.insert((*it)->darData());
+    }
+    this->colNotificaciones.clear();
+    return res;
+}
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> Usuario::darIdiomasSuscritos(){
     set<string> res;

@@ -144,10 +144,12 @@ int main()
             break;
             
         case 14: // Suscribirse a Notificaciones
+            // suscribirseNotificaciones();
             cout << endl;
             break;
             
         case 15: // Consulta de Notificaciones
+            // consultaNotificaciones();
             cout << endl;
             break;
             

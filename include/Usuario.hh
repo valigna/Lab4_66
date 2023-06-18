@@ -11,6 +11,7 @@ class Notificacion;
 #include "DataTypes/DataEstudiante.hh"
 #include "DataTypes/DataProfesor.hh"
 #include "DataTypes/InfoCurso.hh"
+#include "DataTypes/DataNotificacion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Usuario : public Suscripcion
@@ -58,6 +59,8 @@ public:
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     virtual set<InfoCurso *> getInfoCursos() = 0;
+
+    set<DataNotificacion *> darNotificaciones();
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();

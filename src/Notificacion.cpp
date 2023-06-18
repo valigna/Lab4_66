@@ -15,6 +15,11 @@ bool Notificacion::presentaCurso(string nombreCurso){
     return (this->MiCurso->getNombre() == nombreCurso);
 }
 
+DataNotificacion* Notificacion::darData()
+{
+    DataNotificacion* res = new DataNotificacion(this->MiIdioma->getNombre(), this->MiCurso->getNombre());
+    return res;
+}
 // Para el caso de uso: [Eliminar Suscripciones]
 string Notificacion::darIdioma(){
     return this->MiIdioma->getNombre();

@@ -9,6 +9,7 @@
 
 // Para cargar los datos publicados en el EVA
 #include "csvLoad.cpp"
+//#include "nuevo_csvLoad.cpp"
 /* ------------------------------------------------------------------------------------------------------ */
 
 // Poner esto al Principio y Final de cada Caso de Uso...
@@ -381,7 +382,6 @@ void consultarCurso()
         default:
             break;
         }
-        cout << "-> Dificultad: " << res->getDifificulty() << endl;
         if(res->getHabilitado()){
             cout << "-> Habilitado: SI" << endl;
         }
@@ -432,9 +432,7 @@ void realizarEjercicio()
     cout << "Escriba el nombre de un curso: ";
     string cursoSeleccionado;
     getline(cin,cursoSeleccionado);
-    cout << "pre" << endl;
     set<DataEjercicio* > ejercicios = cu->getEjerciciosNoAprobados(cursoSeleccionado);
-    cout << "post" << endl;
     cout << "ID de los ejercicios no aprobados: " << endl;
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
         cout << "-> " << (*it)->getId() << endl;
@@ -479,13 +477,50 @@ void consultarEstadisticas()
 // Para el Caso de Uso 14: [Suscribirse a Notificaciones]
 void suscribirseNotificaciones()
 {
-
+    string nick;
+    cout << "Ingrese su nickname: "; getline(cin, nick);
+    cout << "Idiomas no suscrito: " << endl;
+    set<string> idiomas = cu->idiomasNoSuscritos(nick);
+    for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
+    bool masIdiomas = true;
+    cout << "Escriba los idiomas a los cuales desea suscribirse, uno por uno, y termine con -1: " << endl;
+    set<string> idiomasSeleccionados;
+    string idioma;
+    while (masIdiomas)
+    {
+        getline(cin, idioma);
+        if (idioma != "-1")
+        {
+            idiomasSeleccionados.insert(idioma);
+        } else
+        {
+            masIdiomas = false;
+        }
+    }
+    cu->suscribirse(idiomasSeleccionados);
+    cout << "Se ha suscrito correctamente a los siguientes idiomas: " << endl;
+    for(set<string>::iterator it = idiomasSeleccionados.begin(); it != idiomasSeleccionados.end(); ++it)
+    {
+        cout << "-> " << (*it) << endl;
+    }
 }
 
 // Para el Caso de Uso 15: [Consulta de Notificaciones]
 void consultaNotificaciones()
 {
-
+    string nick;
+    cout << "Ingrese su nickname: "; getline(cin, nick);
+    set<DataNotificacion *> notif = cu->obtenerNotificaciones(nick);
+    cout << "Aqui estan sus notificaciones: " << endl;
+    for(set<DataNotificacion *>::iterator it = notif.begin(); it != notif.end(); ++it)
+    {
+        cout << "-> Idioma: " << (*it)->getIdioma() << endl;
+        cout << "-> Nuevo Curso: " << (*it)->getNombreCurso() << endl;
+        cout << endl;
+    }
 }
 
 // Para el Caso de Uso 16: [Eliminar Suscripciones]

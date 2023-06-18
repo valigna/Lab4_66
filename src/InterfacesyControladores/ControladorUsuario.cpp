@@ -204,6 +204,8 @@ void ControladorUsuario::suscribirse(set<string> idiomas){
 set<DataNotificacion *> ControladorUsuario::obtenerNotificaciones(string nickname)
 {
     set<DataNotificacion *> res;
+    Usuario* u = this->colUsuarios.find(nickname)->second;
+    res = u->darNotificaciones();
     return res;
 }
 
