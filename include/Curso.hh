@@ -52,6 +52,7 @@ public:
     int getIdEjercicios();
     //Profesor* getProfesor();
     //Idioma* getIdioma();
+    Leccion* getLeccion(int idLec);
 
     void setHabilitado(bool hab);
     void setIdioma(Idioma* idioma);
@@ -81,13 +82,13 @@ public:
     
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
-    set<int> obtenerListaEjerciciosCurso();
+    set<int> obtenerListaEjerciciosCurso(Leccion* ultima);
     DataEjercicio* buscarEjercicioEnCurso(int ejercicio);
     string buscarLetraEnCurso(int ejercicio);
     Ejercicio* encontrarEjercicioEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
-    Leccion* comprobarUltimaLeccion(int ejercicio);
+    Leccion* obtenerLeccionDeEjercicio(int ejercicio);
 
     // Para el Case de Uso : [Agregar Leccion]
     DataEjercicio* obtenerIdEjercicio(DataEjercicio* ejercicio);

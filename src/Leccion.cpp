@@ -138,7 +138,14 @@ Ejercicio* Leccion::encontrarEjercicioEnLeccion(int ejercicio){
 
 string Leccion::buscarLetraEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
-    return it->second->getDescripcion();
+    if(it->second->esTraduccion()){
+        Traduccion* tra = dynamic_cast<Traduccion *>(it->second);
+        return tra->getFraseT();
+    }
+    else{
+        CompletarPalabras* cp = dynamic_cast<CompletarPalabras *>(it->second);
+        return cp->getFraseCP();
+    }
 }
 
 Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){

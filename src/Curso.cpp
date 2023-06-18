@@ -32,6 +32,15 @@ difficulty Curso::getDificultad(){ return this->Dificultad; }
 bool Curso::getHabilitado(){ return this->Habilitado; }
 int Curso::getIdLecciones(){ return this->idLecciones; }
 int Curso::getIdEjercicios(){ return this->idEjercicios; }
+Leccion* Curso::getLeccion(int idLec)
+{
+    list<Leccion *>::iterator it = this->colLecciones.begin();
+    while((*it)->getId() != idLec){
+        ++it;
+    }
+    return *it;
+};
+
 //Profesor* Curso::getProfesor(){ return this->Profesor; }
 //Idioma* Curso::getIdioma(){ return this->Idioma; }
 
@@ -154,7 +163,7 @@ bool Curso::igualCurso(string curso){
     }
 }
 
-set<int> Curso::obtenerListaEjerciciosCurso(){
+set<int> Curso::obtenerListaEjerciciosCurso(Leccion* ultima){
     set<int> res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         set<int> aux;
@@ -215,16 +224,11 @@ Ejercicio* Curso::buscarEjercicioEnCursoCP(int ejercicio, set<string> sol){
     return res;
 }
 
-Leccion* Curso::comprobarUltimaLeccion(int ejercicio){ 
-    Leccion* res;
+Leccion* Curso::obtenerLeccionDeEjercicio(int ejercicio){ 
+    Leccion* res = NULL;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it){
         if((*it)->ejercicioEnLeccion(ejercicio) == true){
-            if((*it)->totalEjercicios() == ejercicio){
-                res = (*it);
-            }
-            else{
-                res = NULL;
-            }
+            res = (*it);
         }
     }
     return res;

@@ -424,7 +424,7 @@ void realizarEjercicio()
     string nombre;
     cout << "o Ingrese su nickname: "; getline(cin,nombre);
     cout << "o Cursos no aprobados: " << endl;
-    set<string> cursos = cu->getCursosInscriptosNoAporbados(nombre);
+    set<string> cursos = cu->getCursosInscriptosNoAprobados(nombre);
     for(set<string>::iterator it = cursos.begin(); it != cursos.end(); ++it)
     {
         cout << "-> " << (*it) << endl;
@@ -432,7 +432,7 @@ void realizarEjercicio()
     cout << "Escriba el nombre de un curso: ";
     string cursoSeleccionado;
     getline(cin,cursoSeleccionado);
-    set<DataEjercicio* > ejercicios = cu->getEjerciciosNoAprobados(cursoSeleccionado);
+    set<DataEjercicio *> ejercicios = gestionUsuario->getEjerciciosNoAprobados(cursoSeleccionado);
     cout << "ID de los ejercicios no aprobados: " << endl;
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
         cout << "-> " << (*it)->getId() << endl;

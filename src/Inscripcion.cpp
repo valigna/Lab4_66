@@ -41,16 +41,57 @@ Curso* Inscripcion::getCurso(){
     return this->c;
 }
 
+int Inscripcion::getUltimaLeccion(){
+    int res = 0;
+
+    for(set<Leccion*>::iterator it = this->colLecAprobadas.begin(); it != this->colLecAprobadas.end(); ++it){
+        int idNuevo = (*it)->getId();
+        if (idNuevo > res){
+            res = idNuevo;
+        }
+    }
+    res++;
+
+    return res;
+}
+
+// Funciones Auxliares
+bool Inscripcion::aproboLeccion(Leccion* lec)
+{
+    // Obtengo todos los id de los ejercicios de esta leccion y creo un iterador...
+    set<int> idsEjLeccion = lec->listaEjerciciosLeccion();
+    set<int>::iterator itGeneral = idsEjLeccion.begin();
+
+    // Obtengo todos los id de los ejercicios aprobados
+    set<int> aprobados;
+    for(set<Ejercicio *>::iterator it = this->colEjAprobados.begin(); it != this->colEjAprobados.end(); ++it)
+    {
+        aprobados.insert((*it)->getId());
+    }
+
+    // Corroboro que todos los ejercicios de esta leccion esten aprobados...
+    while( (itGeneral != idsEjLeccion.end()) && (aprobados.find(*itGeneral) != aprobados.end())  ) // Si encontro el ejercicio y no itero sobre todas las lecciones...
+    {
+        ++itGeneral;
+    }
+    return (itGeneral == idsEjLeccion.end());
+}
+
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
+    cout << "entro a inscr" << endl;
+    int idLec = this->getUltimaLeccion();
+    Leccion* L = this->c->getLeccion(idLec);
+    set<int> aux = L->listaEjerciciosLeccion();
     set<DataEjercicio *> res;
-    set<int> aux = this->c->obtenerListaEjerciciosCurso();
+    // set<int> aux = this->c->obtenerListaEjerciciosCurso();
     for(set<int>::iterator it = aux.begin(); it != aux.end();++it){
         if(this->noAprobado((*it))){
             DataEjercicio* eje = this->c->buscarEjercicioEnCurso((*it));
             res.insert(eje);
         }
     }
+    cout << "termino inscr" << endl;
     return res;
 }
 
@@ -71,8 +112,9 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
     if(aux != NULL){
         cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
-        Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
-        if(lec != NULL){
+        Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
+        bool aprobo = this->aproboLeccion(lec);
+        if(aprobo){
             cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
@@ -91,8 +133,9 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
     if(aux != NULL){
         cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
-        Leccion* lec = this->c->comprobarUltimaLeccion(ejercicio);
-        if(lec != NULL){
+        Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
+        bool aprobo = this->aproboLeccion(lec);
+        if(aprobo){
             cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){

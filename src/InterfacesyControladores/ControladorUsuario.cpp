@@ -77,23 +77,29 @@ DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
 }
 
 // Para el caso de uso : [Realizar Ejercicio]
-set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
+set<string> ControladorUsuario::getCursosInscriptosNoAprobados(string nickname){
+    set<string> res;
     this->nickname = nickname;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
-    it->second->esEstudiante();
-    Estudiante* est = (Estudiante*) it->second;
-    /* Estudiante* est = dynamic_cast<Estudiante *>(it->second); */
-    return est->obtenerCursosNoAprobados();
+    if (it->second->esEstudiante())
+    {
+        Estudiante* est = (Estudiante*) it->second;
+        res = est->obtenerCursosNoAprobados();
+    }
+    return res;
 }
 
-/* it->second->esEstudiante()
-Estudiante* est = (Estudiante*) it->second */
-
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+    set<DataEjercicio *> res;
     this->nomC = curso;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
-    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->obtenerEjerciciosNoAprobados(curso);
+    cout << "entra a CU" << endl;
+    if(it->second->esEstudiante())
+    {
+        Estudiante* est = (Estudiante*) it->second;
+        res = est->obtenerEjerciciosNoAprobados(curso);
+    }
+    return res;
 }
 
 string ControladorUsuario::getProblema(int ejercicio){

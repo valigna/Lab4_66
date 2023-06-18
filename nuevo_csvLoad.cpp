@@ -53,7 +53,9 @@ struct cargaUsuario
 struct cargaEjercicio
 {
     string ref;
+    string leccionRef;
     string tipo;
+
     string desc;
     string problema;
     string sol;
@@ -62,9 +64,10 @@ struct cargaEjercicio
 struct cargaLeccion
 {
     string ref;
+    set<string> ejerciciosRef;
+
     string tema;
     string objetivo;
-    set<string> ejerciciosRef;
 };
 
 
@@ -72,14 +75,16 @@ struct cargaLeccion
 struct cargaCurso
 {
     string ref;
+    string profRef;
+    string idiRef;
+    set<string> previosRef;
+    set<string> leccionesRef;
+
     string name;
     string desc;
     difficulty diff;
-    string profRef;
-    string idiRef;
     bool habilitado;
-    set<string> previosRef;
-    set<string> leccionesRef;
+
 };
 
 struct cargaInscripcion
@@ -87,21 +92,50 @@ struct cargaInscripcion
     string ref;
     string estRef;
     string curRef;
+    set<string> ejerciciosRef;
+
     int dia,mes,anio;
-    set<string> refsEjerciciosAprobados;
 };
 
-map<string,string> idiomas;
-map<string,cargaUsuario> usuarios;
-map<string,cargaCurso> cursos;
-map<string,cargaLeccion> lecciones;
-map<string,cargaEjercicio> ejercicios;
-map<string,string> referenciasLeccionesCursos;
-map<string,string> referenciasEjerciciosLecciones;
-map<string,cargaInscripcion> inscripciones;
+map<string,string> idiomas; // La clave es la referencia del idioma
+map<string,cargaUsuario> usuarios; // La clave es la referencia del usuario
+map<string,cargaCurso> cursos; // La clave es la referencia del curso
+map<string,cargaLeccion> lecciones; // La clave es la referencia de la leccion
+map<string,cargaEjercicio> ejercicios; // La clave es la referencia del ejercicio
+/* map<string,string> referenciasLeccionesCursos;
+map<string,string> referenciasEjerciciosLecciones; */
+map<string,cargaInscripcion> inscripciones; // La clave es la referencia de la inscripcion
 /* ------------------------------------------------------------------------------------------------------------------------ */
 
-void crearDatos()
+void mostrarConjuntosCreados()
+{
+    cout << "-> Total de idiomas cargados: " << idiomas.size() << endl;
+    cout << "-> Total de usuarios cargados: " << usuarios.size() << endl;
+    for(map<string,cargaUsuario>::iterator it = usuarios.begin(); it != usuarios.end(); ++it)
+    {
+        if (it->second.tipo == "P")
+        {
+            cout << "-> El profesor de referencia " << it->first << " tiene un total de " << it->second.idiomasP.size() << " idiomas." << endl;
+        }
+    }
+    cout << "-> Total de cursos cargados: " << cursos.size() << endl;
+    for(map<string,cargaCurso>::iterator it = cursos.begin(); it != cursos.end(); ++it)
+    {
+        cout << "-> El curso de referencia " << it->first << " tiene un total de " << it->second.leccionesRef.size() << " lecciones." << endl;
+    }
+
+    cout << "-> Total de lecciones cargadas: " << lecciones.size() << endl;
+    for(map<string,cargaLeccion>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+    {
+        cout << "-> La leccion de referencia " << it->first << " tiene un total de " << it->second.ejerciciosRef.size() << " ejercicios." << endl;
+    }
+
+    cout << "Total de ejercicios cargados: " << ejercicios.size() << endl;
+
+    cout << "Total de inscripciones cargadas: " << inscripciones.size() << endl;
+}
+
+/* void crearDatos()
 {
     // Se crean los Idiomas...
     for(map<string,string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
@@ -218,7 +252,7 @@ void crearDatos()
         }
     }
     cout << "-> Se cargaron correctamente los datos publicados en el EVA" << endl;
-}
+} */
 
 void csvLoad()
 {
@@ -391,8 +425,9 @@ void csvLoad()
                     getline(str,palabra,';');
                     lec.objetivo = palabra;
 
-                    referenciasLeccionesCursos[lec.ref] = cursoPerteneciente;
-                    cursos[cursoPerteneciente].lecciones[lec.ref] = lec;
+                    // Registro en el curso la referencia a esta leccion...
+                    cursos[cursoPerteneciente].leccionesRef.insert(lec.ref);
+                    lecciones[lec.ref] = lec;
                 }
             } else if (archivo == DCursosLeccionesEjercicios)
             {
@@ -400,14 +435,13 @@ void csvLoad()
                 while(getline(file,linea))
                 {
                     stringstream str(linea);
-                    string leccionPerteneciente;
 
                     // Obtengo la referencia...
                     getline(str,palabra,';');
                     ej.ref = palabra;
                     // Obtengo la leccion a la que pertenece...
                     getline(str,palabra,';');
-                    leccionPerteneciente = palabra;
+                    ej.leccionRef = palabra;
                     // Obtengo el tipo...
                     getline(str,palabra,';');
                     ej.tipo = palabra;
@@ -421,16 +455,16 @@ void csvLoad()
                     getline(str,palabra,';');
                     ej.sol = palabra;
 
-                    referenciasEjerciciosLecciones[ej.ref] = leccionPerteneciente;
-                    cursos[referenciasLeccionesCursos[leccionPerteneciente]].lecciones[leccionPerteneciente].ejercicios[ej.ref] = ej;
+                    // Registro en la leccion la referencia a este ejercicio...
+                    lecciones[ej.leccionRef].ejerciciosRef.insert(ej.ref);
+                    ejercicios[ej.ref] = ej;
             }
             } else if (archivo == DInscripciones)
             {
+                cargaInscripcion ins;
                 while(getline(file,linea))
                 {
                     stringstream str(linea);
-
-                    cargaInscripcion ins;
 
                     // Obtengo la referencia...
                     getline(str,palabra,';');
@@ -472,7 +506,7 @@ void csvLoad()
                     ejercicioRef = palabra;
 
                     // Registro la aprobacion en la inscripcion...
-                    inscripciones[inscripcionRef].refsEjerciciosAprobados.insert(ejercicioRef);
+                    inscripciones[inscripcionRef].ejerciciosRef.insert(ejercicioRef);
                 }
             }
         } else
@@ -480,5 +514,6 @@ void csvLoad()
             cout << "Error al abrir el archivo: " << archivo << endl;
         }
     }
-    crearDatos();
+    //mostrarConjuntosCreados();
+    //crearDatos();
 }

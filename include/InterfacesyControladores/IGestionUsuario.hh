@@ -21,7 +21,7 @@ public:
     virtual set<string> getNicksUsuarios() = 0;
     virtual DataUsuario* getDatosUsuario(string nick) = 0;
     // Para el Caso de Uso : [Realizar Ejercicio]
-    virtual set<string> getCursosInscriptosNoAporbados(string nickname) = 0;
+    virtual set<string> getCursosInscriptosNoAprobados(string nickname) = 0;
     virtual set<DataEjercicio *> getEjerciciosNoAprobados(string curso) = 0;
     virtual string getProblema(int ejercicio) = 0;
     virtual void resolverEjercicioT(int ejercicio, string sol) = 0;

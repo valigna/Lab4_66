@@ -33,7 +33,11 @@ public:
     DataFecha* getFechaInscripcion();
     bool getCursoAprobado();
     Curso* getCurso();
+    int getUltimaLeccion();
     void setCursoAprobado(bool curso);
+
+    // Funciones Auxiliares
+    bool aproboLeccion(Leccion* lec);
 
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
