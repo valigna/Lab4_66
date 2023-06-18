@@ -188,10 +188,10 @@ void altaCurso()
         cout << "-> " << (*it) << endl;
     }
     cout << "Ingrese el nickname del profesor que dara de alta al curso: "; getline(cin,nickProfesor);
-    cout << "Se pasaran a pedir los datos necesarios para crear un nuevo curso: ";
+    cout << "Se pasaran a pedir los datos necesarios para crear un nuevo curso." << endl;
     cout << "o Nombre del curso: "; getline(cin, infoCurso.nombre);
     cout << "o Descripcion: "; getline(cin, infoCurso.desc);
-    cout << "o El curso a crearse es de dificultad: (1) Principiante / (2) Intermedio / (3) Avanzado"; getline(cin, infoCurso.opcionDiff);
+    cout << "o El curso a crearse es de dificultad: (1) Principiante / (2) Intermedio / (3) Avanzado: "; getline(cin, infoCurso.opcionDiff);
     if (infoCurso.opcionDiff == "1")
     {
         infoCurso.diff = Principiante;
@@ -240,11 +240,11 @@ void altaCurso()
         string tema;
         string objetivo;
         string aux;
-        cout << "o Desea agregar una nueva leccion?: (1) Si, (2) No"; getline(cin, aux);
+        cout << "o Desea agregar una nueva leccion?: (1) Si, (2) No: "; getline(cin, aux);
         if (aux == "1")
         {
-            cout << "o Ingrese el tema de la leccion:"; getline(cin, tema);
-            cout << "o Ingrese el objetivo de la leccion:"; getline(cin, objetivo);
+            cout << "o Ingrese el tema de la leccion: "; getline(cin, tema);
+            cout << "o Ingrese el objetivo de la leccion: "; getline(cin, objetivo);
             cc->ingresarLeccionParaAlta(tema, objetivo);
             bool masEjercicios = true;
             string descEj;
@@ -252,20 +252,20 @@ void altaCurso()
             cout << "o Ingrese los ejercicios de la leccion:" << endl;
             while (masEjercicios)
             {   
-                cout << "o Desea agregar un nuevo ejercicio?: (1) Si, (2) No"; getline(cin, auxEj);
+                cout << "o Desea agregar un nuevo ejercicio?: (1) Si, (2) No: "; getline(cin, auxEj);
                 if (auxEj == "1")
                 { 
                     string tipoEj;
-                    cout << "o Que tipo de ejercicio desea agregar: (1) Completar Palabras, (2) Traduccion"; getline(cin, tipoEj);
-                    cout << "o Ingrese la descripcion del ejercicio"; getline(cin, descEj);
+                    cout << "o Que tipo de ejercicio desea agregar: (1) Completar Palabras, (2) Traduccion: "; getline(cin, tipoEj);
+                    cout << "o Ingrese la descripcion del ejercicio: "; getline(cin, descEj);
                     if (tipoEj == "1")
                     {
                         string frase;
                         string solucionLeida;
                         set<string> solucion;
                         string palabra;
-                        cout << "o Ingrese la frase:"; getline(cin, frase);
-                        cout << "o Ingrese la solucion separando las palabras con SOLO ',':"; getline(cin, solucionLeida);
+                        cout << "o Ingrese la frase: "; getline(cin, frase);
+                        cout << "o Ingrese la solucion separando las palabras con SOLO ',': "; getline(cin, solucionLeida);
                         stringstream str(solucionLeida);
                         while(getline(str,palabra,','))
                         {
@@ -277,8 +277,8 @@ void altaCurso()
                     {
                         string frase;
                         string traduccion;
-                        cout << "o Ingrese la frase:"; getline(cin, frase);
-                        cout << "o Ingrese la frase traducida:"; getline(cin, traduccion);
+                        cout << "o Ingrese la frase: "; getline(cin, frase);
+                        cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                         DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                         gestionCurso->ingresarEjercicioParaAlta(ejT);
                     }
@@ -295,7 +295,7 @@ void altaCurso()
         }
     }
     cc->confirmarAltaCurso();
-    cout << "-> Se creo el curso de nombre: " << infoCurso.nombre << endl;
+    cout << "-> Se creo el curso: " << infoCurso.nombre << endl;
 }
 
 // Para el Caso de Uso 6: [Agregar Leccion]
@@ -313,15 +313,22 @@ void agregarEjercicio()
 // Para el Caso de Uso 8: [Habilitar Curso]
 void habilitarCurso()
 {
-    cout << "o Cursos no habilitados: " << endl;
     set<InformacionCurso*> cursos = gestionCurso->getCursosNoHabilitados();
-    for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
-        cout << "-> " << ((*it)->getNombre()) << endl;
+    if (!cursos.empty())
+    {
+        cout << "o Cursos no habilitados: " << endl;
+        for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++)
+        {
+            cout << "-> " << ((*it)->getNombre()) << endl;
+        }
+        string curso;
+        cout << "o Ingrese el nombre del curso que desea habilitar: "; getline(cin, curso);
+        gestionCurso->habilitarCurso(curso);
+        cout << "o El curso fue habilitado correctamente" << endl;
+    } else
+    {
+        cout << "o No hay cursos por habilitar" << endl; 
     }
-    string curso;
-    cout << "o Ingrese el nombre del curso que desea habilitar: "; getline(cin, curso);
-    gestionCurso->habilitarCurso(curso);
-    cout << "o El curso fue habilitado correctamente" << endl;
 }
 
 // Para el Caso de Uso 9: [Eliminar Curso]
@@ -344,42 +351,48 @@ void eliminarCurso()
 void consultarCurso()
 {
     set<string> aux = cc->darNombreCursos();
-    cout << "o Cursos disponibles: " << endl;
-    for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
-        cout << "-> " << (*it) << endl;
-    }
-    cout << "Ingrese el nombre de un curso";
-    string seleccionado;
-    getline(cin, seleccionado);
-    cout << endl;
-    DataConsultaCurso* res = cc->obtenerDataCursoSeleccionado(seleccionado);
-    cout << "-> Nombre: " << res->getNombre() << endl;
-    cout << "-> Idioma: " << res->getIdioma() << endl;
-    cout << "-> Profesor: " << res->getProfesor() << endl;
-    cout << "-> Descripcion: " << res->getDescripcion() << endl;
-    difficulty dificultad = res->getDifificulty();
-    switch (dificultad)
+    if (!aux.empty())
     {
-    case Principiante:
-        cout << "-> Dificultad: Principiante" << endl;
-        break;
-    case Intermedio:
-        cout << "-> Dificultad: Intermedio" << endl;
-        break;
-    case Avanzado:
-        cout << "-> Dificultad: Avanzado" << endl;
-        break;
-    default:
-        break;
+        cout << "o Cursos disponibles: " << endl;
+        for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
+            cout << "-> " << (*it) << endl;
+        }
+        cout << "Ingrese el nombre de un curso";
+        string seleccionado;
+        getline(cin, seleccionado);
+        cout << endl;
+        DataConsultaCurso* res = cc->obtenerDataCursoSeleccionado(seleccionado);
+        cout << "-> Nombre: " << res->getNombre() << endl;
+        cout << "-> Idioma: " << res->getIdioma() << endl;
+        cout << "-> Profesor: " << res->getProfesor() << endl;
+        cout << "-> Descripcion: " << res->getDescripcion() << endl;
+        difficulty dificultad = res->getDifificulty();
+        switch (dificultad)
+        {
+        case Principiante:
+            cout << "-> Dificultad: Principiante" << endl;
+            break;
+        case Intermedio:
+            cout << "-> Dificultad: Intermedio" << endl;
+            break;
+        case Avanzado:
+            cout << "-> Dificultad: Avanzado" << endl;
+            break;
+        default:
+            break;
+        }
+        cout << "-> Dificultad: " << res->getDifificulty() << endl;
+        if(res->getHabilitado()){
+            cout << "-> Habilitado: SI" << endl;
+        }
+        else{
+            cout << "-> Habilitado: NO" << endl;
+        }
+    } else
+    {
+        cout << "No hay cursos cargados." << endl;
     }
-    cout << "-> Dificultad: " << res->getDifificulty() << endl;
-    if(res->getHabilitado()){
-        cout << "-> Habilitado: SI" << endl;
-    }
-    else{
-        cout << "-> Habilitado: NO" << endl;
-    }
-
+    
 }
 
 // Para el Caso de Uso 11: [Inscribirse a Curso]
