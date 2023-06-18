@@ -64,7 +64,7 @@ struct cargaEjercicio
 struct cargaLeccion
 {
     string ref;
-    set<string> ejerciciosRef;
+    list<string> ejerciciosRef;
 
     string tema;
     string objetivo;
@@ -77,8 +77,8 @@ struct cargaCurso
     string ref;
     string profRef;
     string idiRef;
-    set<string> previosRef;
-    set<string> leccionesRef;
+    list<string> previosRef;
+    list<string> leccionesRef;
 
     string name;
     string desc;
@@ -175,7 +175,7 @@ void crearDatos()
 
         // Agrego los cursos previos...
         set<string> cursosPrevios;
-        for(set<string>::iterator it2 = cur.previosRef.begin(); it2 != cur.previosRef.end(); ++it2)
+        for(list<string>::iterator it2 = cur.previosRef.begin(); it2 != cur.previosRef.end(); ++it2)
         {
             cursosPrevios.insert(cursos[(*it2)].name);
         }
@@ -183,13 +183,13 @@ void crearDatos()
         cout << "Parte 2 bien..." << endl;
 
         // Agrego las lecciones y sus ejercicios...
-        for(set<string>::iterator it3 = cur.leccionesRef.begin(); it3 != cur.leccionesRef.end(); ++ it3)
+        for(list<string>::iterator it3 = cur.leccionesRef.begin(); it3 != cur.leccionesRef.end(); ++ it3)
         {
             cargaLeccion lec = lecciones[(*it3)];
             gCurso->ingresarLeccionParaAlta(lec.tema,lec.objetivo);
 
             // Ingreso sus ejercicios...
-            for(set<string>::iterator it31 = lec.ejerciciosRef.begin(); it31 != lec.ejerciciosRef.end(); ++it31)
+            for(list<string>::iterator it31 = lec.ejerciciosRef.begin(); it31 != lec.ejerciciosRef.end(); ++it31)
             {
                 cargaEjercicio ejer = ejercicios[(*it31)];
                 if(ejer.tipo == "T")
@@ -241,7 +241,7 @@ void crearDatos()
             cout << "Se realizo la inscripcion: " << insc.ref << endl;
             // Encuentro el ejercicio dentro del sistema...
             DataEjercicio* dataEj;
-            for(set<DataEjercicio*>::iterator it3 = inecesario3.begin(); it3 != inecesario3.end();++it)
+            for(set<DataEjercicio*>::iterator it3 = inecesario3.begin(); it3 != inecesario3.end();++it3)
             {
                 DataEjercicio* dato = *it3;
                 if(dato->getDescripcion() == ej.desc){ dataEj = dato; }
@@ -409,7 +409,7 @@ void csvLoad()
                     previa = palabra;
 
                     // Agrego la referencia del previo al curso correspondiente
-                    cursos[origen].previosRef.insert(previa);
+                    cursos[origen].previosRef.push_back(previa);
                 }
             } else if (archivo == DCursosLecciones )
             {
@@ -432,7 +432,7 @@ void csvLoad()
                     lec.objetivo = palabra;
 
                     // Registro en el curso la referencia a esta leccion...
-                    cursos[cursoPerteneciente].leccionesRef.insert(lec.ref);
+                    cursos[cursoPerteneciente].leccionesRef.push_back(lec.ref);
                     lecciones[lec.ref] = lec;
                 }
             } else if (archivo == DCursosLeccionesEjercicios)
@@ -462,7 +462,7 @@ void csvLoad()
                     ej.sol = palabra;
 
                     // Registro en la leccion la referencia a este ejercicio...
-                    lecciones[ej.leccionRef].ejerciciosRef.insert(ej.ref);
+                    lecciones[ej.leccionRef].ejerciciosRef.push_back(ej.ref);
                     ejercicios[ej.ref] = ej;
             }
             } else if (archivo == DInscripciones)
@@ -520,6 +520,6 @@ void csvLoad()
             cout << "Error al abrir el archivo: " << archivo << endl;
         }
     }
-    mostrarConjuntosCreados();
+    //mostrarConjuntosCreados();
     crearDatos();
 }

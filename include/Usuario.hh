@@ -64,6 +64,7 @@ public:
 
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();
+    void eliminarSuscripciones(set<string> seleccionados);
 
 };
 

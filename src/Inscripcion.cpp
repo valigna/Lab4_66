@@ -4,12 +4,12 @@
 Inscripcion::Inscripcion(Estudiante *est, string curso){
     //Atributos...
     this->CursoAprobado = false;
-    //FALTA FECHA
+    this->FechaInscripcion = NULL; //FALTA FECHA
 
     //PseudoAtributos...
     this->e = est;
     ControladorCurso *cc = ControladorCurso::getInstancia();
-    Curso *C = cc->encontrarCurso(curso);
+    Curso* C = cc->encontrarCurso(curso);
     this->c = C;
     C->crearLinkConInsc(this);
 }
@@ -79,7 +79,6 @@ bool Inscripcion::aproboLeccion(Leccion* lec)
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
-    cout << "entro a inscr" << endl;
     int idLec = this->getUltimaLeccion();
     Leccion* L = this->c->getLeccion(idLec);
     set<int> aux = L->listaEjerciciosLeccion();
@@ -91,7 +90,6 @@ set<DataEjercicio *> Inscripcion::obtenerListaEjerciciosNoAprobadosIns(){
             res.insert(eje);
         }
     }
-    cout << "termino inscr" << endl;
     return res;
 }
 
@@ -109,6 +107,7 @@ bool Inscripcion::noAprobado(int ejercicio){
 
 void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
+    Traduccion* aux2 = (Traduccion*) aux;
     if(aux != NULL){
         cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
@@ -124,7 +123,7 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
         }
     }
     else{
-        cout << "Respuesta incorrecta" << endl;
+        cout << "Respuesta incorrecta, la respuesta correcta es: " << aux2->getSolucionT() << endl;
     }
 }
 

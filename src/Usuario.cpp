@@ -61,6 +61,7 @@ set<DataNotificacion *> Usuario::darNotificaciones()
     for (vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
     {
         res.insert((*it)->darData());
+        delete (*it);
     }
     this->colNotificaciones.clear();
     return res;
@@ -73,4 +74,17 @@ set<string> Usuario::darIdiomasSuscritos(){
         res.insert(idioma);
     }
     return res;
+}
+
+void Usuario::eliminarSuscripciones(set<string> seleccionados)
+{
+    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
+    {
+        string idioma = (*it)->darIdioma();
+        if(seleccionados.find(idioma) != seleccionados.end()){this->colNotificaciones.erase(it);}
+        delete (*it);
+    }
+    Suscripcion* sub = (Suscripcion*) this;
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    cc->quitarObservador(sub,seleccionados);
 }

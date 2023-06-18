@@ -5,7 +5,8 @@ Leccion::Leccion(DataLeccion* datosLeccion){
     this->Tema = datosLeccion->getTema();
     this->Objetivo = datosLeccion->getObjetivo();
     map<int, Ejercicio*> ejercicios;
-    for (set<DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    set<DataEjercicio*> datosEj = datosLeccion->getEjercicios();
+    for (set<DataEjercicio*>::iterator it = datosEj.begin(); it != datosEj.end(); ++it)
     {
         DataEjercicio* ej = (*it);
         if(ej->esCompletarPalabras())

@@ -97,6 +97,8 @@ public:
     InformacionCurso* darInformacionCurso(string nombreCurso);
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
     void agregarObservador(Suscripcion *u, set<string> idiomas);
+    // Para el Caso de Uso : [Eliminar Suscripciones]
+    void quitarObservador(Suscripcion *s, set<string> seleccionados);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

@@ -31,10 +31,19 @@ void Idioma::nuevoCurso(Curso* c)
 
 // Para el Caso de Uso : [Suscribirse a Notificaciones]
 void Idioma::agregar(Suscripcion* u){
-    this->colSuscripciones.push_back(u);    
+    this->colSuscripciones.push_back(u);
 }
 
-
-
-
-
+// Para el Caso de Uso : [Eliminar Suscripciones]
+void Idioma::eliminarUsuario(Suscripcion *s)
+{
+    vector<Suscripcion *>::iterator it = this->colSuscripciones.begin();
+    while ((it != colSuscripciones.end()) && ((*it) != s))
+    {
+        ++it;
+    }
+    if (it != colSuscripciones.end())
+    {
+        this->colSuscripciones.erase(it);
+    }
+}

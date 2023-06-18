@@ -213,7 +213,6 @@ set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
     return res;
 }
 
-// Falta Implementar...
 void ControladorCurso::agregarEjercicio(int leccionSeleccionada, DataEjercicio* ejercicio)
 {
     map<string,Curso *>::iterator it = this->colCursos.find(this->nombreCurso);
@@ -238,7 +237,7 @@ set<InformacionCurso *> ControladorCurso::getCursosNoHabilitados()
 
 bool ControladorCurso::habilitarCurso(string seleccionado) 
 {
-    bool pudoHabilitarse;
+    bool pudoHabilitarse = false;
     map<string,Curso *>::iterator it = this->colCursos.find(seleccionado);
     if (it != this->colCursos.end() )
     {
@@ -318,12 +317,9 @@ set<InformacionCurso *> ControladorCurso::darCursosHabilitadosDisponibles(set<st
 }
 
 
-Curso *ControladorCurso::encontrarCurso(string curso){
+Curso* ControladorCurso::encontrarCurso(string curso){
     return this->colCursos[curso];
 }
-
-
-
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 string ControladorCurso::obtenerLetra(string nomC, int ejercicio){
@@ -365,5 +361,14 @@ void ControladorCurso::agregarObservador(Suscripcion *u, set<string> idiomas){
     for(set<string>::iterator iter = idiomas.begin(); iter != idiomas.end(); ++iter)
     {
         this->colIdiomas.find((*iter))->second->agregar(u);
+    }
+}
+
+// Para el Caso de Uso : [Eliminar Suscripciones]
+void ControladorCurso::quitarObservador(Suscripcion *s, set<string> seleccionados)
+{
+    for (set<string>::iterator it = seleccionados.begin(); it !=seleccionados.end(); ++it)
+    {
+        this->colIdiomas[(*it)]->eliminarUsuario(s);
     }
 }

@@ -42,8 +42,8 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> obtenerCursosNoAprobados();
     set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
-    void hacerEjercicioT(int ejercicio, string sol);
-    void hacerEjercicioCP(int ejercicio, set<string> sol);
+    void hacerEjercicioT(string curso, int ejercicio, string sol);
+    void hacerEjercicioCP(string curso, int ejercicio, set<string> sol);
     // Otres
     void eliminarLinkE(Inscripcion *I);
 

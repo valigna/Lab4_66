@@ -93,7 +93,6 @@ set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
     set<DataEjercicio *> res;
     this->nomC = curso;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
-    cout << "entra a CU" << endl;
     if(it->second->esEstudiante())
     {
         Estudiante* est = (Estudiante*) it->second;
@@ -110,13 +109,13 @@ string ControladorUsuario::getProblema(int ejercicio){
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->hacerEjercicioT(ejercicio, sol);
+    return est->hacerEjercicioT(this->nomC, ejercicio, sol);
 }
 
 void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->hacerEjercicioCP(ejercicio, sol);
+    return est->hacerEjercicioCP(this->nomC, ejercicio, sol);
 }
 //
 
@@ -170,10 +169,9 @@ set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
 set<InformacionCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
     set<InformacionCurso *> res;
     this->nickname = nickname;
-    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname]);
-    if (est != NULL) {
-        res = est->darCursosDisponibles();
-    }
+
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[this->nickname]);
+    res = est->darCursosDisponibles();
     return res;
 }
 
@@ -221,8 +219,11 @@ set<string> ControladorUsuario::idiomasSuscritos(string nickname){
     return this->colUsuarios[nickname]->darIdiomasSuscritos();
 }
 
-// Falta Implementar...
 void ControladorUsuario::eliminarSuscripciones(set<string> seleccionados)
 {
-
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    if(it != this->colUsuarios.end())
+    {
+        it->second->eliminarSuscripciones(seleccionados);
+    }
 }

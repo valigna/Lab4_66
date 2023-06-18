@@ -23,4 +23,5 @@ DataLeccion::~DataLeccion(){ }
 // Getters
 string DataLeccion::getTema(){ return this->Tema; }
 string DataLeccion::getObjetivo(){ return this->Objetivo; }
+int DataLeccion::getId(){ return this->Id; }
 set<DataEjercicio *> DataLeccion::getEjercicios(){ return this->Ejercicios; }

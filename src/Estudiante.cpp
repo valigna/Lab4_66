@@ -68,7 +68,6 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     set<DataEjercicio *> res;
-    cout << "entro a est" << endl;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         string aux = (*it)->darNombreCurso();
         if(aux == curso){
@@ -78,19 +77,19 @@ set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     return res;
 }
 
-void Estudiante::hacerEjercicioT(int ejercicio, string sol){
+void Estudiante::hacerEjercicioT(string curso, int ejercicio, string sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso* aux = (*it)->getCurso();
-        if(aux->igualCurso(aux->getNombre())){
+        if(aux->igualCurso(curso)){
             return (*it)->revisarEjercicioT(ejercicio, sol);
         }
     }
 }
 
-void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
+void Estudiante::hacerEjercicioCP(string curso, int ejercicio, set<string> sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso * aux = (*it)->getCurso();
-        if(aux->igualCurso(aux->getNombre())){
+        if(aux->igualCurso(curso)){
             return (*it)->revisarEjercicioCP(ejercicio, sol);
         }
     }

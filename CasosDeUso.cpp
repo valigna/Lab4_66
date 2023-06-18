@@ -321,9 +321,47 @@ void agregarLeccion()
         getline(cin, objetivoLeccion);
 
         gestionCurso->ingresarDatosLeccion(nombreCurso, temaLeccion, objetivoLeccion);
-
         //Faltan los ejercicios
-
+        bool masEjercicios = true;
+        while(masEjercicios){
+            string auxEj;
+            cout << "Desea agregar un Ejercicio? (1) SI, (2) NO"; getline(cin, auxEj);
+            if (auxEj == "1")
+            { 
+                string descEj;
+                string tipoEj;
+                cout << "o Que tipo de ejercicio desea agregar: (1) Completar Palabras, (2) Traduccion: "; getline(cin, tipoEj);
+                cout << "o Ingrese la descripcion del ejercicio: "; getline(cin, descEj);
+                if (tipoEj == "1")
+                {
+                    string frase;
+                    string solucionLeida;
+                    set<string> solucion;
+                    string palabra;
+                    cout << "o Ingrese la frase: "; getline(cin, frase);
+                    cout << "o Ingrese la solucion separando las palabras con SOLO ',': "; getline(cin, solucionLeida);
+                    stringstream str(solucionLeida);
+                    while(getline(str,palabra,','))
+                    {
+                        solucion.insert(palabra);    
+                    }
+                    DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
+                    gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                } else if (tipoEj == "2")
+                {
+                    string frase;
+                    string traduccion;
+                    cout << "o Ingrese la frase: "; getline(cin, frase);
+                    cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
+                    DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
+                    gestionCurso->ingresarEjercicioParaAlta(ejT);
+                }
+                
+            } else if (auxEj == "2")
+            {
+                masEjercicios = false;
+            }
+        }
         gestionCurso->altaLeccion();
     }
 
@@ -332,7 +370,60 @@ void agregarLeccion()
 // Para el Caso de Uso 7: [Agregar Ejercicio]
 void agregarEjercicio()
 {
-
+    set<InformacionCurso *> cursos = gestionCurso->getCursosNoHabilitados();
+    if(!cursos.empty()){
+        cout << "o Cursos no habilitados: " << endl;
+        for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
+            cout << "->" << ((*it)->getNombre()) << endl;
+        }
+        string nombreCurso;
+        cout << "o Ingrese el nombre del curso que desea agregar un ejercicio: ";
+        getline(cin, nombreCurso);
+        set<DataLeccion *> lecciones = gestionCurso->getLecciones(nombreCurso);
+        if (lecciones.size() != 0)
+        {
+            cout << "o Lecciones:" << endl;
+            for(set<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+            {
+                cout << "Leccion Numero:" << (*it)->getId() << " -> " << (*it)->getTema() << endl; //Las muestra sin orden
+            }
+            cout << "Ingrese el Numero de la leccion a la cual desea agregar un ejercicio: " << endl;
+            string IdStr;
+            getline(cin,IdStr);
+            int Id = stoi(IdStr);
+            string descEj;
+            string tipoEj;
+            cout << "o Que tipo de ejercicio desea agregar: (1) Completar Palabras, (2) Traduccion: "; getline(cin, tipoEj);
+            cout << "o Ingrese la descripcion del ejercicio: "; getline(cin, descEj);
+            if (tipoEj == "1")
+            {
+                string frase;
+                string solucionLeida;
+                set<string> solucion;
+                string palabra;
+                cout << "o Ingrese la frase: "; getline(cin, frase);
+                cout << "o Ingrese la solucion separando las palabras con SOLO ',': "; getline(cin, solucionLeida);
+                stringstream str(solucionLeida);
+                while(getline(str,palabra,','))
+                {
+                    solucion.insert(palabra);    
+                }
+                DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
+                gestionCurso->agregarEjercicio(Id, ejCP);
+            } else if (tipoEj == "2")
+            {
+                string frase;
+                string traduccion;
+                cout << "o Ingrese la frase: "; getline(cin, frase);
+                cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
+                DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
+                gestionCurso->agregarEjercicio(Id, ejT);
+            }
+        } else
+        {
+            cout << "o Este curso no tiene lecciones" << endl;
+        }
+    } 
 }
 
 // Para el Caso de Uso 8: [Habilitar Curso]
@@ -348,11 +439,17 @@ void habilitarCurso()
         }
         string curso;
         cout << "o Ingrese el nombre del curso que desea habilitar: "; getline(cin, curso);
-        gestionCurso->habilitarCurso(curso);
-        cout << "o El curso fue habilitado correctamente" << endl;
+        bool habilitado = gestionCurso->habilitarCurso(curso);
+        if(habilitado)
+        {
+            cout << "-> El curso fue habilitado correctamente" << endl;
+        } else
+        {
+            cout << "-> El curso no puede ser habilitado" << endl;
+        }
     } else
     {
-        cout << "o No hay cursos por habilitar" << endl; 
+        cout << "-> No hay cursos por habilitar" << endl; 
     }
 }
 
@@ -382,7 +479,7 @@ void consultarCurso()
         for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
             cout << "-> " << (*it) << endl;
         }
-        cout << "Ingrese el nombre de un curso";
+        cout << "Ingrese el nombre de un curso: " << endl;
         string seleccionado;
         getline(cin, seleccionado);
         cout << endl;
@@ -504,7 +601,7 @@ void suscribirseNotificaciones()
     string nick;
     cout << "Ingrese su nickname: "; getline(cin, nick);
     cout << "Idiomas no suscrito: " << endl;
-    set<string> idiomas = cu->idiomasNoSuscritos(nick);
+    set<string> idiomas = gestionNotificaciones->idiomasNoSuscritos(nick);
     for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
         cout << "-> " << (*it) << endl;
@@ -537,7 +634,7 @@ void consultaNotificaciones()
 {
     string nick;
     cout << "Ingrese su nickname: "; getline(cin, nick);
-    set<DataNotificacion *> notif = cu->obtenerNotificaciones(nick);
+    set<DataNotificacion *> notif = gestionNotificaciones->obtenerNotificaciones(nick);
     cout << "Aqui estan sus notificaciones: " << endl;
     for(set<DataNotificacion *>::iterator it = notif.begin(); it != notif.end(); ++it)
     {
@@ -550,5 +647,28 @@ void consultaNotificaciones()
 // Para el Caso de Uso 16: [Eliminar Suscripciones]
 void eliminarSuscripciones()
 {
-
+    string nick;
+    cout << "Ingrese su nickname: ";
+    getline(cin, nick);
+    cout << "Aqui estan sus suscripciones: " << endl;
+    set<string> aux = gestionNotificaciones->idiomasSuscritos(nick);
+    for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
+        cout << "-> " << (*it) << endl;
+    }
+    string auxiliar;
+    set<string> suscripcionesSeleccionada;
+    cout << "Escriba los nombres de las suscripciones a eliminar y termine con '-1': " << endl;
+    bool masSuscripciones = true;
+    while (masSuscripciones)
+    {
+        getline(cin,auxiliar);
+        if (auxiliar != "-1")
+        {
+            suscripcionesSeleccionada.insert(auxiliar);
+        } else
+        {
+            masSuscripciones = false;
+        }
+    }
+    gestionNotificaciones->eliminarSuscripciones(suscripcionesSeleccionada);
 }

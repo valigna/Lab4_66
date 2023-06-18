@@ -134,25 +134,22 @@ set<DataLeccion *> Curso::darDataLecciones(bool conId)
     return res;
 }
 // Para el Caso de Uso : [Habilitar Curso]
-/* bool Curso::sePuedeHabilitar()
+bool Curso::sePuedeHabilitar()
 {
     bool res = true;
     if(this->colLecciones.size() >= 1)
     {
         for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it)
         {
-            if((*it)->colEjercicios.size() < 1) { res = false; }
+            if((*it)->totalEjercicios() < 1) { res = false; }
         }
     } else
     {
         res = false;
     }
     return res;
-} */
-bool Curso::sePuedeHabilitar()
-{
-    return true;
 }
+
 // Para el Caso de Uso : [Realizar Ejercicio]
 bool Curso::igualCurso(string curso){
     if(this->getNombre() == curso){
@@ -269,6 +266,7 @@ void Curso::agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio)
         {
             this->idEjercicios++;
             (*it)->agregarEjercicio(this->idEjercicios,ejercicio);
+            encontrada = true;
         } else
         {
             ++it;

@@ -106,12 +106,12 @@ int main()
             cout << endl;
             break;
 
-        case 6: // Agregar Leccion --
+        case 6: // Agregar Leccion
             agregarLeccion();
             cout << endl;
             break;
 
-        case 7: // Agregar Ejercicio --
+        case 7: // Agregar Ejercicio
             agregarEjercicio();
             cout << endl;
             break;
@@ -146,16 +146,17 @@ int main()
             break;
             
         case 14: // Suscribirse a Notificaciones
-            // suscribirseNotificaciones();
+            suscribirseNotificaciones();
             cout << endl;
             break;
             
         case 15: // Consulta de Notificaciones
-            // consultaNotificaciones();
+            consultaNotificaciones();
             cout << endl;
             break;
             
         case 16: // Eliminar Suscripciones
+            eliminarSuscripciones();
             cout << endl;
             break;
             

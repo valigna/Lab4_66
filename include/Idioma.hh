@@ -30,6 +30,9 @@ public:
 
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
     void agregar(Suscripcion* u);
+
+    // Para el Caso de Uso : [Eliminar Suscripciones]
+    void eliminarUsuario(Suscripcion *s);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
