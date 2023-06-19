@@ -133,6 +133,10 @@ void mostrarConjuntosCreados()
 
 void crearDatos()
 {
+    // Para gestionar la memoria pedida
+    set<DataCompletarPalabras *> dCompletarCol;
+    set<DataTraduccion *> dTraduccionCol;
+
     // Se crean los Idiomas...
     for(map<string,string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
@@ -173,7 +177,6 @@ void crearDatos()
         cargaCurso cur = it->second;
         DTCurso* datosCurso = new DTCurso(cur.name,cur.desc,cur.diff);
         gCurso->ingresarDataCurso(usuarios[cur.profRef].nick,datosCurso);
-        delete datosCurso;
         gCurso->agregarIdiomaCurso(idiomas[cur.idiRef]);
 
         // Agrego los cursos previos...
@@ -198,7 +201,7 @@ void crearDatos()
                 {
                     DataTraduccion* dtTrad = new DataTraduccion(ejer.desc,0,ejer.problema,ejer.sol);
                     gCurso->ingresarEjercicioParaAlta(dtTrad);
-                    delete dtTrad;
+                    dTraduccionCol.insert(dtTrad);
                 } else
                 {
                     // Adapto la solucion al formato necesario...
@@ -213,14 +216,22 @@ void crearDatos()
                     // Creo el ejercicio...
                     DataCompletarPalabras* dtCP = new DataCompletarPalabras(ejer.desc,0,ejer.problema,solucion);
                     gCurso->ingresarEjercicioParaAlta(dtCP);
-                    delete dtCP;
+                    dCompletarCol.insert(dtCP);
                 }
             }
             // Creo la leccion...
             gCurso->confirmarLeccion();
         }
         gCurso->confirmarAltaCurso();
-
+        delete datosCurso;
+        for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
+        {
+            delete (*it);
+        }
+        for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
+        {
+            delete (*it);
+        }
         // Tengo que verificar si el curso esta habilitado...
         if(cur.habilitado)
         {
