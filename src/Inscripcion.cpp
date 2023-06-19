@@ -107,14 +107,15 @@ bool Inscripcion::noAprobado(int ejercicio){
 }
 
 bool Inscripcion::revisarEjercicioT(int ejercicio, string sol){
-    bool aprobo = false;
+    bool res = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     Traduccion* aux2 = (Traduccion*) aux;
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
+        res = true;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
-        aprobo = this->aproboLeccion(lec);
+        bool aprobo = this->aproboLeccion(lec);
         if(aprobo){
             //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
@@ -124,17 +125,18 @@ bool Inscripcion::revisarEjercicioT(int ejercicio, string sol){
             }
         }
     }
-    return aprobo;
+    return res;
 }
 
 bool Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
-    bool aprobo = false;
+    bool res = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
+        res = true;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
-        aprobo = this->aproboLeccion(lec);
+        bool aprobo = this->aproboLeccion(lec);
         if(aprobo){
             //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
@@ -144,7 +146,7 @@ bool Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
             }
         }
     }
-    return aprobo;
+    return res;
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]

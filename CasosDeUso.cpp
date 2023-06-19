@@ -638,7 +638,8 @@ void realizarEjercicio()
         }
         correcto = gestionUsuario->resolverEjercicioCP(idEjercicio, respuestaCP);
     }
-    else{
+    else
+    {
         string respuestaT;
         cout << "o Escriba su solucion: "; getline(cin, respuestaT);
         correcto = gestionUsuario->resolverEjercicioT(idEjercicio, respuestaT);

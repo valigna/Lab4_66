@@ -139,7 +139,7 @@ void crearDatos()
         gIdiomas->altaIdioma(it->second);
     }
     cout << "-> Se cargaron correctamente los idiomas." << endl;
-    cout << "    |-> Total de idiomas cargados: " << idiomas.size() << endl;
+    cout << "   |-> Total de idiomas cargados: " << idiomas.size() << endl;
 
     // Se crean los Usuarios...
     for(map<string,cargaUsuario>::iterator it = usuarios.begin(); it != usuarios.end(); ++it)
@@ -165,7 +165,7 @@ void crearDatos()
         }
     }
     cout << "-> Se cargaron correctamente los usuarios." << endl;
-    cout << "    |-> Total de usuarios cargados: " << usuarios.size() << endl;
+    cout << "   |-> Total de usuarios cargados: " << usuarios.size() << endl;
 
     // Se crean los Cursos...
     for(map<string,cargaCurso>::iterator it = cursos.begin(); it != cursos.end(); ++it)
@@ -225,7 +225,7 @@ void crearDatos()
         }
     }
     cout << "-> Se cargaron correctamente los cursos." << endl;
-    cout << "    |-> Total de cursos cargados: " << cursos.size() << endl;
+    cout << "   |-> Total de cursos cargados: " << cursos.size() << endl;
 
     // Se registran las inscripciones...
     for(map<string,cargaInscripcion>::iterator it = inscripciones.begin(); it != inscripciones.end(); ++it)
