@@ -577,12 +577,14 @@ void inscribirseCurso() //Hacer verificacion de que existe el curso
     getline(cin, nicknameUsuario);
     set<InformacionCurso *> cursos = gestionUsuario->getCursosDisponibles(nicknameUsuario);
     cout << "-> Sus cursos disponibles son:" << endl;
+    cout << endl;
     for(set<InformacionCurso *>::iterator it = cursos.begin(); it != cursos.end(); it++){
-        cout << "-> " << (*it)->getNombre() << endl;
-        cout << "-> Descripcion: " << (*it)->getDescripcion() << endl;
-        cout << "-> Dificultad: " << adaptarDificultad((*it)->getDificultad()) << endl;
-        cout << "-> Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
-        cout << "-> Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
+        cout << (*it)->getNombre() << endl;
+        cout << "|-> Descripcion: " << (*it)->getDescripcion() << endl;
+        cout << "|-> Dificultad: " << adaptarDificultad((*it)->getDificultad()) << endl;
+        cout << "|-> Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
+        cout << "|-> Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
+        cout << endl;
     }
     cout << "---------o---------" << endl;
     cout << "o Ingrese el nombre del curso al que se quiere inscribir" << endl;
