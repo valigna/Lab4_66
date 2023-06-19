@@ -222,10 +222,6 @@ void consultarIdiomas()
 // Para el Caso de Uso 5: [Alta de Curso]
 void altaCurso()
 {
-    // Para gestionar la memoria pedida
-    set<DataCompletarPalabras *> dCompletarCol;
-    set<DataTraduccion *> dTraduccionCol;
-
     set<string> nickProfesores = gestionCurso->getNicknamesProfesores();
     string nickProfesor;
     string idioma;
@@ -347,25 +343,12 @@ void altaCurso()
     }
     gestionCurso->confirmarAltaCurso();
     delete datosCurso;
-    for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
-    {
-        delete (*it);
-    }
-    for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
-    {
-        delete (*it);
-    }
-    
     cout << "-> Se creo el curso: " << infoCurso.nombre << endl;
 }
 
 // Para el Caso de Uso 6: [Agregar Leccion]
 void agregarLeccion()
 {
-    // Para gestionar la memoria pedida
-    set<DataCompletarPalabras *> dCompletarCol;
-    set<DataTraduccion *> dTraduccionCol;
-
     set<InformacionCurso *> cursos = gestionCurso->getCursosNoHabilitados();
     if(!cursos.empty()){
         cout << "Cursos no habilitados: " << endl;
@@ -430,14 +413,6 @@ void agregarLeccion()
             }
         }
         gestionCurso->altaLeccion();
-    }
-    for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
-    {
-        delete (*it);
-    }
-    for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
-    {
-        delete (*it);
     }
 }
 

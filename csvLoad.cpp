@@ -133,10 +133,6 @@ void mostrarConjuntosCreados()
 
 void crearDatos()
 {
-    // Para gestionar la memoria pedida
-    set<DataCompletarPalabras *> dCompletarCol;
-    set<DataTraduccion *> dTraduccionCol;
-
     // Se crean los Idiomas...
     for(map<string,string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
@@ -224,14 +220,6 @@ void crearDatos()
         }
         gCurso->confirmarAltaCurso();
         delete datosCurso;
-        for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
-        {
-            delete (*it);
-        }
-        for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
-        {
-            delete (*it);
-        }
         // Tengo que verificar si el curso esta habilitado...
         if(cur.habilitado)
         {
