@@ -91,8 +91,8 @@ void altaUsuario()
         cout << "  o Anio: "; getline(cin,ingresado.anio);
 
         DataFecha* fecha = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio));
-        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,f)
-        gestionUsuario->ingresarUsuario(est);
+        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,fecha);
+        gestionUsuario->ingresarUsuario(datosEst);
     } else
     {
         cout << "Se pasaran a pedir los datos necesarios para crear un Profesor: " << endl;
@@ -119,7 +119,7 @@ void altaUsuario()
         
         gestionUsuario->ingresarIdiomas(ingresado.seleccionados);
         DataProfesor* datosProf = new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins)
-        gestionUsuario->ingresarUsuario(prof);
+        gestionUsuario->ingresarUsuario(datosProf);
     }
 
     bool altaExitosa = gestionUsuario->confirmarAltaUsuario();
@@ -231,7 +231,7 @@ void altaCurso()
     {
         infoCurso.diff = Avanzado;
     }
-    DTCurso* datosCurso = new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff)
+    DTCurso* datosCurso = new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff);
     gestionCurso->ingresarDataCurso(nickProfesor, datosCurso);
     set<string> idiomas = gestionCurso->getIdiomasProfesor();
     cout << "Se listaran los idiomas en los cuales se especializa el profesor: " << endl;
@@ -265,6 +265,8 @@ void altaCurso()
     gestionCurso->ingresarCursosPrevios(previos);
     cout << "Comenzaremos a ingresar las lecciones del curso:" << endl;
     bool masLecciones = true;
+    set<DataCompletarPalabras *> dataCompletar;
+    set<DataTraduccion *> dataTraduccion;
     while (masLecciones)
     {
         string tema;
@@ -280,8 +282,6 @@ void altaCurso()
             string descEj;
             string auxEj;
             cout << "o Ingrese los ejercicios de la leccion: " << endl;
-            set<DataCompletarPalabras *> dataCompletar;
-            set<DataTraduccion *> dataTraduccion;
             while (masEjercicios)
             {   
                 cout << "o Desea agregar un nuevo ejercicio?: (1) Si, (2) No: "; getline(cin, auxEj);
@@ -346,6 +346,8 @@ void altaCurso()
 void agregarLeccion()
 {
     set<InformacionCurso *> cursos = gestionCurso->getCursosNoHabilitados();
+    set<DataCompletarPalabras *> dataCompletar;
+    set<DataTraduccion *> dataTraduccion;
     if(!cursos.empty()){
         cout << "Cursos no habilitados: " << endl;
         for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
@@ -366,8 +368,6 @@ void agregarLeccion()
         gestionCurso->ingresarDatosLeccion(nombreCurso, temaLeccion, objetivoLeccion);
         //Faltan los ejercicios
         bool masEjercicios = true;
-        set<DataCompletarPalabras *> dataCompletar;
-        set<DataTraduccion *> dataTraduccion;
         while(masEjercicios){
             string auxEj;
             cout << "o Desea agregar un Ejercicio? (1) SI, (2) NO: "; getline(cin, auxEj);
