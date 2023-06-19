@@ -148,7 +148,7 @@ void altaUsuario()
     
     if(stoi(ingresado.opcion) == 1)
     {
-        delete f;
+        // delete f;
         delete est;
     } else
     {

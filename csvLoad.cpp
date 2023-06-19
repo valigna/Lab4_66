@@ -535,5 +535,5 @@ void csvLoad()
     }
     //mostrarConjuntosCreados();
     crearDatos();
-    liberarMemoriaFabrica();
+    //liberarMemoriaFabrica();
 }
