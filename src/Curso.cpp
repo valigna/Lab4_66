@@ -292,7 +292,7 @@ float Curso::darPromedio()
     float res = 0;
     int cantEj = 0;
     float sumAvance = 0;
-    int totalInscriptos = this->colLecciones.size();
+    int totalInscriptos = this->colInscripciones.size();
 
     // Itero sobre mis lecciones...
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
