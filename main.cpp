@@ -122,7 +122,7 @@ int main()
             break;
 
         case 9: // Eliminar Curso
-            eliminarCurso(); // Falta ver si queda memoria colgada
+            eliminarCurso();
             cout << endl;
             break;
             
