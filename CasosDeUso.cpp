@@ -72,6 +72,11 @@ struct courseInfo{
 
 void altaUsuario()
 {
+    // Para gestionar la memoria pedida...
+    DataFecha* f;
+    DataEstudiante* est;
+    DataProfesor* prof;
+    //
     userInfo ingresado;
     cout << "Para poder crear un nuevo Usuario en el sistema, porfavor ingrese: " << endl;
     cout << "o Su Nombre: "; getline(cin,ingresado.name);
@@ -90,8 +95,8 @@ void altaUsuario()
         cout << "  o Mes: "; getline(cin,ingresado.mes);
         cout << "  o Anio: "; getline(cin,ingresado.anio);
 
-        DataFecha* fecha = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio));
-        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,fecha);
+        DataFecha* fecha = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio)); f = fecha;
+        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,fecha); est = datosEst;
         gestionUsuario->ingresarUsuario(datosEst);
     } else
     {
@@ -118,7 +123,7 @@ void altaUsuario()
         }
         
         gestionUsuario->ingresarIdiomas(ingresado.seleccionados);
-        DataProfesor* datosProf = new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins)
+        DataProfesor* datosProf = new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins); prof = datosProf;
         gestionUsuario->ingresarUsuario(datosProf);
     }
 
@@ -133,11 +138,11 @@ void altaUsuario()
     
     if(stoi(ingresado.opcion) == 1)
     {
-        delete fecha;
-        delete datosEst;
+        delete f;
+        delete est;
     } else
     {
-        delete datosProf;
+        delete prof;
     }
 }
 
@@ -207,6 +212,10 @@ void consultarIdiomas()
 // Para el Caso de Uso 5: [Alta de Curso]
 void altaCurso()
 {
+    // Para gestionar la memoria pedida
+    set<DataCompletarPalabras *> dCompletarCol;
+    set<DataTraduccion *> dTraduccionCol;
+
     set<string> nickProfesores = gestionCurso->getNicknamesProfesores();
     string nickProfesor;
     string idioma;
@@ -265,8 +274,6 @@ void altaCurso()
     gestionCurso->ingresarCursosPrevios(previos);
     cout << "Comenzaremos a ingresar las lecciones del curso:" << endl;
     bool masLecciones = true;
-    set<DataCompletarPalabras *> dataCompletar;
-    set<DataTraduccion *> dataTraduccion;
     while (masLecciones)
     {
         string tema;
@@ -305,7 +312,7 @@ void altaCurso()
                         }
                         DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                         gestionCurso->ingresarEjercicioParaAlta(ejCP);
-                        dataCompletar.insert(ejCP);
+                        dCompletarCol.insert(ejCP);
                     } else if (tipoEj == "2")
                     {
                         string frase;
@@ -314,7 +321,7 @@ void altaCurso()
                         cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                         DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                         gestionCurso->ingresarEjercicioParaAlta(ejT);
-                        dataTraduccion.insert(ejT);
+                        dTraduccionCol.insert(ejT);
                     }
                     
                 } else if (auxEj == "2")
@@ -330,11 +337,11 @@ void altaCurso()
     }
     gestionCurso->confirmarAltaCurso();
     delete datosCurso;
-    for(set<DataCompletarPalabras *>::iterator it = dataCompletar.begin(); it != dataCompletar.end(); ++it)
+    for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
     {
         delete (*it);
     }
-    for (set<DataTraduccion *>::iterator it = dataTraduccion.begin(); it!= dataTraduccion; ++it)
+    for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
     {
         delete (*it);
     }
@@ -345,9 +352,11 @@ void altaCurso()
 // Para el Caso de Uso 6: [Agregar Leccion]
 void agregarLeccion()
 {
+    // Para gestionar la memoria pedida
+    set<DataCompletarPalabras *> dCompletarCol;
+    set<DataTraduccion *> dTraduccionCol;
+
     set<InformacionCurso *> cursos = gestionCurso->getCursosNoHabilitados();
-    set<DataCompletarPalabras *> dataCompletar;
-    set<DataTraduccion *> dataTraduccion;
     if(!cursos.empty()){
         cout << "Cursos no habilitados: " << endl;
         for(set<InformacionCurso*>::iterator it = cursos.begin(); it != cursos.end(); it++){
@@ -392,7 +401,7 @@ void agregarLeccion()
                     }
                     DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                     gestionCurso->ingresarEjercicioParaAlta(ejCP);
-                    dataCompletar.insert(ejCP);
+                    dCompletarCol.insert(ejCP);
 
                 } else if (tipoEj == "2")
                 {
@@ -402,7 +411,7 @@ void agregarLeccion()
                     cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                     DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                     gestionCurso->ingresarEjercicioParaAlta(ejT);
-                    dataTraduccion.insert(ejT);
+                    dTraduccionCol.insert(ejT);
                 }
                 
             } else if (auxEj == "2")
@@ -412,11 +421,11 @@ void agregarLeccion()
         }
         gestionCurso->altaLeccion();
     }
-    for(set<DataCompletarPalabras *>::iterator it = dataCompletar.begin(); it != dataCompletar.end(); ++it)
+    for(set<DataCompletarPalabras *>::iterator it = dCompletarCol.begin(); it != dCompletarCol.end(); ++it)
     {
         delete (*it);
     }
-    for (set<DataTraduccion *>::iterator it = dataTraduccion.begin(); it!= dataTraduccion; ++it)
+    for (set<DataTraduccion *>::iterator it = dTraduccionCol.begin(); it!= dTraduccionCol.end(); ++it)
     {
         delete (*it);
     }
