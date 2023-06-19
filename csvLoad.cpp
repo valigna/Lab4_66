@@ -270,9 +270,7 @@ void liberarMemoriaFabrica()
 {
     delete Fab;
     delete gUsuario;
-    delete gNotificaciones;
     delete gCurso;
-    delete gIdiomas;
 }
 
 void csvLoad()
