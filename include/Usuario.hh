@@ -24,6 +24,7 @@ private:
 
     //Colecciones
     vector<Notificacion *> colNotificaciones;
+    set<string> idiomasSuscritos;
 
 public:
     // Constructores
@@ -53,6 +54,7 @@ public:
     
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();
+    void agregarIdiomasSuscrito(set<string> idiomas);
 
     // Para el caso de uso : [Eliminar Curso]
     void notificarBaja(string nombreCurso);

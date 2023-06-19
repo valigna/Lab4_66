@@ -109,6 +109,9 @@ public:
     // [Alta Curso]
     void ingresarPrevia(Curso* curso);
     void notificarNuevoCurso(Idioma* idiomaCurso);
+
+    // Para el caso de Uso : [Eliminar Curso]
+    void eliminarPrevio(string nombreCurso);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

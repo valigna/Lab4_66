@@ -31,9 +31,8 @@ void Usuario::notificarBaja(string nombreCurso)
 {
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it){
         if ((*it)->presentaCurso(nombreCurso)) {
-            vector<Notificacion *>::iterator itSup = it; //Se hace esto porque erase actualiza it para que apunte al proximo
+            delete (*it);
             this->colNotificaciones.erase(it);
-            delete (*itSup);
             break;
         }
     }
@@ -42,17 +41,26 @@ void Usuario::notificarBaja(string nombreCurso)
 // Para el caso de uso : [Suscribirse a notificaciones]
 set<string> Usuario::darIdiomasNoSuscritos() {
     // Obtengo la instancia de Controlador Curso y delego la operacion...
-    ControladorCurso* cu = ControladorCurso::getInstancia();
-    set<string> idiomas = cu->getIdiomas();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
+    set<string> idiomas = cc->getIdiomas();
+    set<string> suscritos = this->idiomasSuscritos;
     
-    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
+    for(set<string>::iterator it = suscritos.begin(); it != suscritos.end(); ++it)
     {
-        string idi = (*it)->darIdioma();
-        set<string>::iterator iter = idiomas.find(idi);
-        if(iter != idiomas.end()){ idiomas.erase(idi); }
+        set<string>::iterator iter = idiomas.find(*it);
+        if(iter != idiomas.end()){ idiomas.erase(*it); }
     }
 
     return idiomas;
+}
+
+void Usuario::agregarIdiomasSuscrito(set<string> idiomas)
+{
+    for (set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
+    {
+        this->idiomasSuscritos.insert((*it));
+    }
+    
 }
 
 set<DataNotificacion *> Usuario::darNotificaciones()
@@ -68,21 +76,26 @@ set<DataNotificacion *> Usuario::darNotificaciones()
 }
 // Para el caso de uso: [Eliminar Suscripciones]
 set<string> Usuario::darIdiomasSuscritos(){
-    set<string> res;
+    /* set<string> res;
     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it) {
         string idioma = (*it)->darIdioma();
         res.insert(idioma);
-    }
-    return res;
+    } */
+    return this->idiomasSuscritos;
 }
 
 void Usuario::eliminarSuscripciones(set<string> seleccionados)
 {
-    for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
+/*     for(vector<Notificacion *>::iterator it = this->colNotificaciones.begin(); it != this->colNotificaciones.end(); ++it)
     {
         string idioma = (*it)->darIdioma();
         if(seleccionados.find(idioma) != seleccionados.end()){this->colNotificaciones.erase(it);}
         delete (*it);
+    } */
+    for(set<string>::iterator it = seleccionados.begin(); it != seleccionados.end(); ++it)
+    {
+        set<string>::iterator itDummy = this->idiomasSuscritos.find(*it);
+        if(itDummy != this->idiomasSuscritos.end()) { this->idiomasSuscritos.erase(itDummy); }
     }
     Suscripcion* sub = (Suscripcion*) this;
     ControladorCurso* cc = ControladorCurso::getInstancia();

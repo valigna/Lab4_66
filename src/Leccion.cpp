@@ -51,7 +51,6 @@ Leccion::Leccion(string tema, string obj, int id, set<DataEjercicio*> ejs){
 // Destructor
 Leccion::~Leccion(){
     for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        //delete it->second;
         bool esTraduccion = it->second->esTraduccion();
         if (esTraduccion)
         {

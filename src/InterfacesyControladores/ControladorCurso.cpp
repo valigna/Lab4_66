@@ -271,6 +271,10 @@ void ControladorCurso::bajarCurso(string nombreCurso)
 {
     Curso *C = this->colCursos[nombreCurso];
     this->colCursos.erase(nombreCurso); // Se saca el curso de la coleccion
+    for(map<string,Curso*>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it)
+    {
+        it->second->eliminarPrevio(nombreCurso);
+    }
     delete C; // Se llama al destructor de Curso
 }
 

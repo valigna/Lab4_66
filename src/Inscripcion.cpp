@@ -17,6 +17,7 @@ Inscripcion::Inscripcion(Estudiante *est, string curso){
 // Destructor
 Inscripcion::~Inscripcion(){
     this->e->eliminarLinkE(this);
+    delete this->FechaInscripcion;
 }
 
 

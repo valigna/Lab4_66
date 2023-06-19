@@ -340,3 +340,16 @@ void Curso::notificarNuevoCurso(Idioma* idiomaCurso)
 {
     idiomaCurso->nuevoCurso(this);
 }
+
+// Para el caso de Uso : [Eliminar Curso]
+void Curso::eliminarPrevio(string nombreCurso)
+{
+    for(set<Curso *>::iterator it = this->colPrevios.begin(); it != this->colPrevios.end(); ++it)
+    {
+        if ((*it)->getNombre() == nombreCurso)
+        {
+            colPrevios.erase(it);
+            break;
+        }
+    }
+}

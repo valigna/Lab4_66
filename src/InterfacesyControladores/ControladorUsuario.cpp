@@ -188,6 +188,7 @@ void ControladorUsuario::inscribirseACurso(string curso){
 set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
 {
     set<string> res;
+    this->nickname = nickname;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     if(it != this->colUsuarios.end())
     {
@@ -196,11 +197,13 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
     return res;
 }
 
-void ControladorUsuario::suscribirse(set<string> idiomas){
-    
-    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname]);
+void ControladorUsuario::suscribirse(set<string> idiomas)
+{
+    Usuario* u = colUsuarios[this->nickname];
+    u->agregarIdiomasSuscrito(idiomas);
+    Suscripcion* sub = (Suscripcion*) (u);
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    cc->agregarObservador(u,idiomas);
+    cc->agregarObservador(sub,idiomas);
 }
 
 // Para el Caso de Uso : [Consulta de Notificaciones]
