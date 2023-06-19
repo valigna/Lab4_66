@@ -611,6 +611,12 @@ void realizarEjercicio()
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
         cout << "-> ID: " << (*it)->getId() << endl;
         cout << "   |-> Descripcion: " << (*it)->getDescripcion() << endl;
+        if((*it)->esCompletarPalabras()){
+            cout << "   |-> Ejercicio de Completar Palabras" << endl;
+        }
+        else{
+            cout << "   |-> Ejercicio de Traduccion" << endl;
+        }
         cout << endl;
     }
     cout << "o Escriba el ID de un ejercicio que quiera realizar: ";
@@ -746,11 +752,11 @@ void suscribirseNotificaciones()
 {
     string nick;
     cout << "o Ingrese su nickname: "; getline(cin, nick);
-    cout << "-> Idiomas no suscrito: " << endl;
+    cout << "Idiomas no suscrito: " << endl;
     set<string> idiomas = gestionNotificaciones->idiomasNoSuscritos(nick);
     for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
-        cout << "-> " << (*it) << endl;
+        cout << "|-> " << (*it) << endl;
     }
     bool masIdiomas = true;
     cout << "o Escriba los idiomas a los cuales desea suscribirse, uno por uno, y termine con -1: " << endl;
@@ -781,11 +787,11 @@ void consultaNotificaciones()
     string nick;
     cout << "o Ingrese su nickname: "; getline(cin, nick);
     set<DataNotificacion *> notif = gestionNotificaciones->obtenerNotificaciones(nick);
-    cout << "-> Aqui estan sus notificaciones: " << endl;
+    cout << "Aqui estan sus notificaciones: " << endl;
     for(set<DataNotificacion *>::iterator it = notif.begin(); it != notif.end(); ++it)
     {
-        cout << "-> Idioma: " << (*it)->getIdioma() << endl;
-        cout << "-> Nuevo Curso: " << (*it)->getNombreCurso() << endl;
+        cout << "--> Idioma: " << (*it)->getIdioma() << endl;
+        cout << "|-> Nuevo Curso: " << (*it)->getNombreCurso() << endl;
         cout << endl;
     }
 }
@@ -796,7 +802,7 @@ void eliminarSuscripciones()
     string nick;
     cout << "o Ingrese su nickname: ";
     getline(cin, nick);
-    cout << "-> Aqui estan sus suscripciones: " << endl;
+    cout << "Aqui estan sus suscripciones: " << endl;
     set<string> aux = gestionNotificaciones->idiomasSuscritos(nick);
     for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
         cout << "-> " << (*it) << endl;
