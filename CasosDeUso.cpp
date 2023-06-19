@@ -43,6 +43,16 @@ string adaptarDificultad(difficulty diff)
     }
 }
 
+void liberarFabrica()
+{
+    // delete gestionNotificaciones;
+    // delete gestionIdiomas;
+/*     delete gestionCurso;
+    delete gestionUsuario;
+    delete consEstadisticas;
+    delete Fabrica; */
+}
+
 /* ------------------------------------------------------------------------------------------------------------------ */
 
 // Para el Caso de Uso 1: [Alta de Usuario]
