@@ -7,6 +7,11 @@ DataProfesor::DataProfesor(string nick, string name, string con, string desc,str
     this->Idiomas = idiomas;
 }
 
+DataProfesor::DataProfesor(string nick, string name, string con, string desc,string inst) : DataUsuario(nick,name,con,desc)
+{
+    this->Instituto = inst;
+}
+
 // Destructor
 DataProfesor::~DataProfesor(){ }
 

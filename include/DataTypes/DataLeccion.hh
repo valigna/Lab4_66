@@ -12,15 +12,18 @@ class DataLeccion
 private:
     string Tema;
     string Objetivo;
-    map<int, DataEjercicio *> Ejercicios;
+    int Id;
+    set<DataEjercicio *> Ejercicios;
 public:
     // Constructores
-    DataLeccion(string tema, string obj, map<int, DataEjercicio *> ejs);
+    DataLeccion(string tema, string obj, set<DataEjercicio *> ejs);
+    DataLeccion(string tema, string obj, int id, set<DataEjercicio *> ejs);
     // Destructor
     ~DataLeccion();
     // Getters
     string getTema();
     string getObjetivo();
-    map<int, DataEjercicio *> getEjercicios();
+    int getId();
+    set<DataEjercicio *> getEjercicios();
 };
 #endif

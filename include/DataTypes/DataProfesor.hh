@@ -14,6 +14,7 @@ private:
 public:
     // Constructores
     DataProfesor(string nick, string name, string con, string desc,string inst,set<string> idiomas);
+    DataProfesor(string nick, string name, string con, string desc,string inst); // Para la creacion de 'Datos Profesor'
     // Destructor
     ~DataProfesor();
     // Getters

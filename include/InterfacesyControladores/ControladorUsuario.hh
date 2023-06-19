@@ -14,7 +14,8 @@
 // DataTypes
 #include "../DataTypes/DataEstudiante.hh"
 #include "../DataTypes/DataProfesor.hh"
-#include"../DataTypes/InfoCurso.hh"
+#include "../DataTypes/InfoCurso.hh"
+#include "../DataTypes/InformacionCurso.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class ControladorUsuario : public IGestionUsuario, public IGestionNotificaciones 
@@ -58,7 +59,7 @@ public:
     DataConsultaCurso* seleccionarCurso(string curso);  
 
     // Para el Caso de Uso : [Realizar Ejercicio]
-    set<string> getCursosInscriptosNoAporbados(string nickname);
+    set<string> getCursosInscriptosNoAprobados(string nickname);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso); // Aca estaba como DATA, confirmar...
     string getProblema(int ejercicio);
     void resolverEjercicioT(int ejercicio, string sol);

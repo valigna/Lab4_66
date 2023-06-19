@@ -5,6 +5,7 @@
 #include "Utils.hh"
 // Conceptos Del Modelo De Dominio
 #include "Ejercicio.hh"
+#include "DataTypes/DataCompletarPalabras.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class CompletarPalabras: public Ejercicio
@@ -14,12 +15,15 @@ private:
     set<string> solucion;
 public:
     // Constructores
-    CompletarPalabras(string frase, set<string> solucion);
+    /* CompletarPalabras(string frase, set<string> solucion); */
+    CompletarPalabras(int idEj, DataEjercicio* ejercicio);
     // Destructor
     ~CompletarPalabras();
     // Getters y Setters
     string getFraseCP();
     set<string> getSolucionCP();
+    // DataTypes
+    DataEjercicio* getDataEjercicio();
     // Para distinguir entre las distintas sub-clases
     bool esCompletarPalabras();
     bool esTraduccion();

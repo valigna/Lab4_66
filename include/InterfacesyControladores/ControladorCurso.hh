@@ -6,10 +6,11 @@
 // Interfaces
 #include "IGestionCurso.hh"
 #include "IGestionIdiomas.hh"
-#include "ControladorUsuario.hh"
 class Suscripcion;
+class ControladorUsuario;
 // Conceptos Del Modelo De Dominio
 #include "../Idioma.hh"
+//#include "../Ejercicio.hh"
 class Curso;
 // DataTypes
 #include "../DataTypes/DataTraduccion.hh"
@@ -27,8 +28,6 @@ private:
     // Colecciones
     map<string,Idioma *> colIdiomas;
     map<string,Curso *> colCursos;
-    // Para memoria de que caso de uso??
-    string nombreCurso;
     //Memoria Para : [Alta de Curso]
     int idLeccion;
     int idEjercicio;
@@ -38,8 +37,13 @@ private:
     set<string> previos;
     string temaLeccion;
     string objLeccion;
-    set<DataLeccion*> Lecciones;
-    map<int, DataEjercicio*> Ejercicios;
+    list<DataLeccion*> Lecciones;
+
+    // Memoria para : [Agregar Leccion]
+    set<DataEjercicio*> Ejs;
+    
+    // Memoria Para : [Agregar Ejercicio] (tambien usado en agregar Leccion)
+    string nombreCurso;
 
 public:
     // Destructor
@@ -63,7 +67,7 @@ public:
     void ingresarCursosPrevios(set<string> previos);
     void ingresarLeccionParaAlta(string tema, string objetivo);
     void ingresarEjercicioParaAlta(DataEjercicio* ejercicio);
-    void confirmarAltaLeccion();
+    void confirmarLeccion();
     void confirmarAltaCurso();
     // Para El Caso de Uso : [Agregar Leccion]
     void ingresarDatosLeccion(string cursoSeleccionado,string tema, string objetivo);
@@ -78,28 +82,29 @@ public:
     // Operaciones Para el Caso de Uso: [Eliminar Curso]
     set<string> getNombreCursos();
     void seleccionarCurso(string nombreCurso);
-    void bajarCurso();
+    void bajarCurso(string nombreCurso);
     // Para el Caso de Uso : [Consultar Curso]
     InscripcionCurso* getCurso(string seleccionado);
     DataConsultaCurso* obtenerDataCursoSeleccionado(string curso);
     // Para el caso de uso: [Inscribirse a curso]
-    set<InscripcionCurso *> getCursosDisponibles(string nickname);
-    Curso* encontrarCurso(string curso); // No entiendo el error : (Tenian un atributo llamado Curso, generando un conflicto...)
-    void inscribirseACurso(string nickname, string curso);
-    // Obtiene una lista de todos los cursos habilitados, sacandole los inscriptos y los que tengan previas sin aprobar...
+    Curso* encontrarCurso(string curso);
     set<InformacionCurso *> darCursosHabilitadosDisponibles(set<string> nombresCursosAprobados, set<string> nombresCursosInscriptos);
     // Para el Caso de Uso : [Realizar Ejercicio]
     string obtenerLetra(string nomC, int ejercicio);
+    DataEjercicio* encontrarEjercicio(string nomC, int ejercicio);
     // Para el Caso de Uso : [Consultar Estadisticas]
     set<string> darNombreCursos();
     InformacionCurso* darInformacionCurso(string nombreCurso);
     // Para el Caso de Uso : [Suscribirse a Notificaciones]
     void agregarObservador(Suscripcion *u, set<string> idiomas);
+    // Para el Caso de Uso : [Eliminar Suscripciones]
+    void quitarObservador(Suscripcion *s, set<string> seleccionados);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */
 #include "Suscripcion.hh"
 #include "../Curso.hh"
+#include "ControladorUsuario.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 

@@ -15,7 +15,7 @@ class Profesor : public Usuario
 private:
     string Instituto;
     // PseudoAtributos
-    map<string,Curso *> colCursos; // Se cambia la implementacion de set a map
+    map<string,Curso *> colCursos;
     map<string,Idioma *> colIdiomas;
 public:
     // Constructores

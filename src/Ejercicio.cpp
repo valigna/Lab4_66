@@ -1,19 +1,18 @@
 #include "../include/Ejercicio.hh"
 
-
 // Constructores
-Ejercicio::Ejercicio(){ }
-/* Ejercicio::Ejercicio(string desc, int id){
+Ejercicio::Ejercicio(int idEj, string desc)
+{
+    this->id = idEj;
     this->Descripcion = desc;
-    this->id = id;
-} */
+}
 
 // Destructor 
 Ejercicio::~Ejercicio(){ }
 
 // Getters
 string Ejercicio::getDescripcion(){ return this->Descripcion; }
-int Ejercicio::getId(){ return this->getId(); }
+int Ejercicio::getId(){ return this->id; }
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 
@@ -24,7 +23,8 @@ int Ejercicio::getId(){ return this->getId(); }
     return res;
 } */
 
-DataEjercicio* Ejercicio::obtenerDataEjercicio()
+/* DataEjercicio* Ejercicio::obtenerDataEjercicio()
 {
+    DataEjercicio res = new DataEjercicio();
     return NULL;
-}
+} */

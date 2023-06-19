@@ -19,6 +19,17 @@
         "__hash_table": "cpp",
         "__string": "cpp",
         "unordered_map": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "filesystem": "cpp",
+        "new": "cpp",
+        "iomanip": "cpp",
+        "__split_buffer": "cpp",
+        "array": "cpp",
+        "bitset": "cpp",
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "stack": "cpp",
+        "__node_handle": "cpp",
+        "forward_list": "cpp"
     }
 }

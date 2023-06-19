@@ -77,38 +77,45 @@ DataConsultaCurso* ControladorUsuario::seleccionarCurso(string curso){
 }
 
 // Para el caso de uso : [Realizar Ejercicio]
-set<string> ControladorUsuario::getCursosInscriptosNoAporbados(string nickname){
-    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
-    it->second->esEstudiante();
-    Estudiante* est = (Estudiante*) it->second;
-    /* Estudiante* est = dynamic_cast<Estudiante *>(it->second); */
-    return est->obtenerCursosNoAprobados();
+set<string> ControladorUsuario::getCursosInscriptosNoAprobados(string nickname){
+    set<string> res;
+    this->nickname = nickname;
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
+    if (it->second->esEstudiante())
+    {
+        Estudiante* est = (Estudiante*) it->second;
+        res = est->obtenerCursosNoAprobados();
+    }
+    return res;
 }
 
-/* it->second->esEstudiante()
-Estudiante* est = (Estudiante*) it->second */
-
 set<DataEjercicio *> ControladorUsuario::getEjerciciosNoAprobados(string curso){
+    set<DataEjercicio *> res;
+    this->nomC = curso;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
-    Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->obtenerEjerciciosNoAprobados(curso);
+    if(it->second->esEstudiante())
+    {
+        Estudiante* est = (Estudiante*) it->second;
+        res = est->obtenerEjerciciosNoAprobados(curso);
+    }
+    return res;
 }
 
 string ControladorUsuario::getProblema(int ejercicio){
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    return cc->obtenerLetra(this->nomC,ejercicio); // No estoy seguro del manejo de memoria
+    return cc->obtenerLetra(this->nomC,ejercicio);
 }
 
 void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->hacerEjercicioT(ejercicio, sol);
+    return est->hacerEjercicioT(this->nomC, ejercicio, sol);
 }
 
 void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
-    return est->hacerEjercicioCP(ejercicio, sol);
+    return est->hacerEjercicioCP(this->nomC, ejercicio, sol);
 }
 //
 
@@ -162,10 +169,9 @@ set<InfoCurso *> ControladorUsuario::darInfoCursos(string nickUsuario)
 set<InformacionCurso *> ControladorUsuario::getCursosDisponibles(string nickname){
     set<InformacionCurso *> res;
     this->nickname = nickname;
-    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickname]);
-    if (est != NULL) {
-        res = est->darCursosDisponibles();
-    }
+
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[this->nickname]);
+    res = est->darCursosDisponibles();
     return res;
 }
 
@@ -182,6 +188,7 @@ void ControladorUsuario::inscribirseACurso(string curso){
 set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
 {
     set<string> res;
+    this->nickname = nickname;
     map<string,Usuario *>::iterator it = this->colUsuarios.find(nickname);
     if(it != this->colUsuarios.end())
     {
@@ -190,11 +197,13 @@ set<string> ControladorUsuario::idiomasNoSuscritos(string nickname)
     return res;
 }
 
-void ControladorUsuario::suscribirse(set<string> idiomas){
-    
-    Suscripcion* u = dynamic_cast<Suscripcion*>(this->colUsuarios[nickname]);
+void ControladorUsuario::suscribirse(set<string> idiomas)
+{
+    Usuario* u = colUsuarios[this->nickname];
+    u->agregarIdiomasSuscrito(idiomas);
+    Suscripcion* sub = (Suscripcion*) (u);
     ControladorCurso* cc = ControladorCurso::getInstancia();
-    cc->agregarObservador(u,idiomas);
+    cc->agregarObservador(sub,idiomas);
 }
 
 // Para el Caso de Uso : [Consulta de Notificaciones]
@@ -202,6 +211,8 @@ void ControladorUsuario::suscribirse(set<string> idiomas){
 set<DataNotificacion *> ControladorUsuario::obtenerNotificaciones(string nickname)
 {
     set<DataNotificacion *> res;
+    Usuario* u = this->colUsuarios.find(nickname)->second;
+    res = u->darNotificaciones();
     return res;
 }
 
@@ -211,8 +222,11 @@ set<string> ControladorUsuario::idiomasSuscritos(string nickname){
     return this->colUsuarios[nickname]->darIdiomasSuscritos();
 }
 
-// Falta Implementar...
 void ControladorUsuario::eliminarSuscripciones(set<string> seleccionados)
 {
-
+    map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
+    if(it != this->colUsuarios.end())
+    {
+        it->second->eliminarSuscripciones(seleccionados);
+    }
 }

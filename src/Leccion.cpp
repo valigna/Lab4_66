@@ -4,17 +4,53 @@
 Leccion::Leccion(DataLeccion* datosLeccion){
     this->Tema = datosLeccion->getTema();
     this->Objetivo = datosLeccion->getObjetivo();
-    map<int, DataEjercicio*> ejercicios;
-    for (map<int, DataEjercicio*>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    map<int, Ejercicio*> ejercicios;
+    set<DataEjercicio*> datosEj = datosLeccion->getEjercicios();
+    for (set<DataEjercicio*>::iterator it = datosEj.begin(); it != datosEj.end(); ++it)
     {
-        ejercicios.emplace(it->first, it->second);
+        DataEjercicio* ej = (*it);
+        if(ej->esCompletarPalabras())
+        {
+            // CompletarPalabras::CompletarPalabras(int idEj, DataEjercicio* ejercicio) : Ejercicio(idEj,ejercicio->getDescripcion())
+            CompletarPalabras *CP = new CompletarPalabras(ej->getId(), ej);
+            this->colEjercicios.emplace(ej->getId(), CP);
+        } else if(ej->esTraduccion()){
+            Traduccion *T = new Traduccion(ej->getId(), ej);
+            this->colEjercicios.emplace(ej->getId(), T);
+        }
     }
-    
+    this->colEjercicios = ejercicios;
+/*     for(set<DataEjercicio *>::iterator it = datosLeccion->getEjercicios().begin(); it != datosLeccion->getEjercicios().end(); ++it)
+    {
+        ejercicios.emplace((*it)->getId(),)
+    } */   
 }
+
+Leccion::Leccion(string tema, string obj, int id, set<DataEjercicio*> ejs){
+    this->Tema = tema;
+    this->Objetivo = obj;
+    this->Id = id;
+    for(set<DataEjercicio *>::iterator it = ejs.begin(); it != ejs.end(); ++it){
+        DataEjercicio* ej = (*it);
+        if(ej->esCompletarPalabras())
+        {
+            this->colEjercicios.emplace(ej->getId(),new CompletarPalabras(ej->getId(),ej));
+        } else
+        {
+            this->colEjercicios.emplace(ej->getId(), new Traduccion(ej->getId(), ej));
+        }
+        
+    }
+}
+
+/* Ejercicio::Ejercicio(int idEj, string desc)
+{
+    this->id = idEj;
+    this->Descripcion = desc;
+} */
 // Destructor
 Leccion::~Leccion(){
     for(map<int, Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it){
-        //delete it->second;
         bool esTraduccion = it->second->esTraduccion();
         if (esTraduccion)
         {
@@ -28,6 +64,27 @@ Leccion::~Leccion(){
     }
 }
 // Getters y Setters
+int Leccion::getId(){
+    return this->Id;
+}
+// DataTypes
+DataLeccion* Leccion::getDataLeccion(bool conId)
+{
+    DataLeccion* res;
+    set<DataEjercicio *> ejercicios;
+    for(map<int,Ejercicio *>::iterator it = this->colEjercicios.begin(); it != this->colEjercicios.end(); ++it)
+    {
+        ejercicios.insert(it->second->getDataEjercicio());
+    }
+    if(conId)
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,this->Id,ejercicios);
+    } else
+    {
+        res = new DataLeccion(this->Tema,this->Objetivo,ejercicios);
+    }
+    return res;
+}
 
 // Otres
 
@@ -35,6 +92,19 @@ Leccion::~Leccion(){
     return 0;
     //return this->colEjAprobados->size();
 } */
+
+// Para el Caso de Uso : [Agregar Ejercicio]
+void Leccion::agregarEjercicio(int idEj, DataEjercicio* ejercicio)
+{
+    if(ejercicio->esTraduccion())
+    {
+        this->colEjercicios.emplace(idEj,new Traduccion(idEj,ejercicio));
+    } else
+    {
+        this->colEjercicios.emplace(idEj,new CompletarPalabras(idEj,ejercicio));
+    }
+    
+}
 
 // Para el Caso de Uso : [Realizar Ejercicio]
 set<int> Leccion::listaEjerciciosLeccion(){
@@ -58,12 +128,24 @@ bool Leccion::ejercicioEnLeccion(int ejercicio){
 
 DataEjercicio* Leccion::buscarEjercicioEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
-    return it->second->obtenerDataEjercicio();
+    return it->second->getDataEjercicio();
+}
+
+Ejercicio* Leccion::encontrarEjercicioEnLeccion(int ejercicio){
+    map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
+    return it->second;
 }
 
 string Leccion::buscarLetraEnLeccion(int ejercicio){
     map<int,Ejercicio *>::iterator it = this->colEjercicios.find(ejercicio);
-    return it->second->getDescripcion();
+    if(it->second->esTraduccion()){
+        Traduccion* tra = dynamic_cast<Traduccion *>(it->second);
+        return tra->getFraseT();
+    }
+    else{
+        CompletarPalabras* cp = dynamic_cast<CompletarPalabras *>(it->second);
+        return cp->getFraseCP();
+    }
 }
 
 Ejercicio* Leccion::buscarEjercicioEnLeccionT(int ejercicio, string sol){

@@ -8,10 +8,7 @@ DataEstudiante::DataEstudiante(string nick, string name, string con, string desc
 }
 
 // Destructor
-DataEstudiante::~DataEstudiante()
-{
-    delete this->Nacimiento;
-}
+DataEstudiante::~DataEstudiante(){ }
 
 // Getters
 string DataEstudiante::getPaisResidencia(){ return this->PaisResidencia; }

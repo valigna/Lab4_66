@@ -40,7 +40,7 @@ private:
 
 public:
     // Constructores
-    Curso(DTCurso* datosCurso);
+    Curso(DTCurso* datosCurso, string nickProfesor);
     // Destructor
     ~Curso();
     // Getters y Setters
@@ -52,6 +52,10 @@ public:
     int getIdEjercicios();
     //Profesor* getProfesor();
     //Idioma* getIdioma();
+    Leccion* getLeccion(int idLec);
+
+    void setHabilitado(bool hab);
+    void setIdioma(Idioma* idioma);
     // Implementar en caso de ser necesario...
     // list<Leccion *> getcolLecciones();
     // set<Inscripcion *> getcolInscripciones();
@@ -71,20 +75,27 @@ public:
     InscripcionCurso* getInscripcionCurso(); // Es el DataTCurso...
 
     DTCurso* getDTCurso();
-
-    void setHabilitado(bool hab);
-    void setIdioma(Idioma *idioma);
+	
+    set<DataLeccion *> darDataLecciones(bool conId);
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
+    
     // Para el Caso de Uso : [Realizar Ejercicio]
     bool igualCurso(string curso);
-    set<int> obtenerListaEjerciciosCurso();
+    set<int> obtenerListaEjerciciosCurso(Leccion* ultima);
     DataEjercicio* buscarEjercicioEnCurso(int ejercicio);
     string buscarLetraEnCurso(int ejercicio);
+    Ejercicio* encontrarEjercicioEnCurso(int ejercicio);
     Ejercicio* buscarEjercicioEnCursoT(int ejercicio, string sol);
     Ejercicio* buscarEjercicioEnCursoCP(int ejercicio, set<string> sol);
-    Leccion* comprobarUltimaLeccion(int ejercicio);
+    Leccion* obtenerLeccionDeEjercicio(int ejercicio);
 
+    // Para el Case de Uso : [Agregar Leccion]
+    DataEjercicio* obtenerIdEjercicio(DataEjercicio* ejercicio);
+    void agregarLeccion(string tema, string obj, set<DataEjercicio*> ejs);
+    // Para el Caso de Uso : [Agregar Ejercicio]
+    void agregarEjercicio(int leccionSeleccionada,DataEjercicio* ejercicio);
+    
     // Para el Caso de Uso : [Consultar Estadisticas]
     int obtenerTotalEjercicios();
     float darPromedio();
@@ -95,8 +106,12 @@ public:
     bool previosAprobados(set<string> nombresCursosAprobados);
     void crearLinkConInsc(Inscripcion *I);
 
-    void agregarLeccion(Leccion* leccion);
+    // [Alta Curso]
     void ingresarPrevia(Curso* curso);
+    void notificarNuevoCurso(Idioma* idiomaCurso);
+
+    // Para el caso de Uso : [Eliminar Curso]
+    void eliminarPrevio(string nombreCurso);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

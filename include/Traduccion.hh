@@ -5,6 +5,7 @@
 #include "Utils.hh"
 // Conceptos del Modelo de Dominio
 #include "Ejercicio.hh"
+#include "DataTypes/DataTraduccion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Traduccion: public Ejercicio
@@ -14,12 +15,15 @@ private:
     string solucion;
 public:
     // Constructor
-    Traduccion(string fra, string sol);
+    /* Traduccion(string fra, string sol); */
+    Traduccion(int idEj, DataEjercicio* ejercicio);
     // Destrcutor
     ~Traduccion();
     // Getters y Setters
     string getFraseT();
     string getSolucionT();
+    // DataTypes
+    DataEjercicio* getDataEjercicio();
     // Para distinguir entre las distintas sub-clases
     bool esCompletarPalabras();
     bool esTraduccion();

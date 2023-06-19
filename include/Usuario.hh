@@ -11,6 +11,7 @@ class Notificacion;
 #include "DataTypes/DataEstudiante.hh"
 #include "DataTypes/DataProfesor.hh"
 #include "DataTypes/InfoCurso.hh"
+#include "DataTypes/DataNotificacion.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class Usuario : public Suscripcion
@@ -23,6 +24,7 @@ private:
 
     //Colecciones
     vector<Notificacion *> colNotificaciones;
+    set<string> idiomasSuscritos;
 
 public:
     // Constructores
@@ -47,8 +49,12 @@ public:
     // Por el momento, al tener usuario solo 2 subclases, hacer una funcion para cada uno
     // resulta un tanto inescesario. Pero optamos por esta opcion ya que si en el 'futuro' se agregaran mas clases, los codigos no se verian afectados
 
+    // Para el Caso de Uso : [Alta de Curso]
+    void notificarAlta(Idioma *i,Curso *c);
+    
     // Para el caso de uso : [Suscribirse a notificaciones]
     set<string> darIdiomasNoSuscritos();
+    void agregarIdiomasSuscrito(set<string> idiomas);
 
     // Para el caso de uso : [Eliminar Curso]
     void notificarBaja(string nombreCurso);
@@ -56,11 +62,12 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     virtual set<InfoCurso *> getInfoCursos() = 0;
 
+    set<DataNotificacion *> darNotificaciones();
+
     // Para el caso de uso: [Eliminar Suscripciones]
     set<string> darIdiomasSuscritos();
+    void eliminarSuscripciones(set<string> seleccionados);
 
-    // Supongo que para cuando se haga alta de curso...
-    void notificarAlta(Idioma *i,Curso *c);
 };
 
 /* --------------------------------- Cierre de los Forward Declarations --------------------------------- */

@@ -69,35 +69,35 @@ set<string> Estudiante::obtenerCursosNoAprobados(){
 set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     set<DataEjercicio *> res;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        Curso * aux = (*it)->getCurso();
-        if(aux->igualCurso(curso)){
+        string aux = (*it)->darNombreCurso();
+        if(aux == curso){
             res = (*it)->obtenerListaEjerciciosNoAprobadosIns();
         }
     }
     return res;
 }
 
-void Estudiante::hacerEjercicioT(int ejercicio, string sol){
+void Estudiante::hacerEjercicioT(string curso, int ejercicio, string sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso* aux = (*it)->getCurso();
-        if(aux->igualCurso(aux->getNombre())){
+        if(aux->igualCurso(curso)){
             return (*it)->revisarEjercicioT(ejercicio, sol);
         }
     }
 }
 
-void Estudiante::hacerEjercicioCP(int ejercicio, set<string> sol){
+void Estudiante::hacerEjercicioCP(string curso, int ejercicio, set<string> sol){
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso * aux = (*it)->getCurso();
-        if(aux->igualCurso(aux->getNombre())){
+        if(aux->igualCurso(curso)){
             return (*it)->revisarEjercicioCP(ejercicio, sol);
         }
     }
 }
 
 // Otres
-void Estudiante::eliminarLinkE(string nombreCurso){
-    /* this->colInscripciones.erase(nombreCurso); // Se elimina la inscripcion con nombreCurso */
+void Estudiante::eliminarLinkE(Inscripcion *I){
+    this->colInscripciones.erase(I); // Se elimina la inscripcion con nombreCurso
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
@@ -121,11 +121,8 @@ set<InformacionCurso *> Estudiante::darCursosDisponibles(){
     set<InformacionCurso *> res;
     set<string> nombresCursosAprobados = this->obtenerCursosAprobados();
     set<string> nombresCursosInscriptos = this->obtenerCursosInscriptos();
-    ControladorCurso* cc;
-    cc = ControladorCurso::getInstancia();
+    ControladorCurso* cc = ControladorCurso::getInstancia();
     res = cc->darCursosHabilitadosDisponibles(nombresCursosAprobados, nombresCursosInscriptos);
-    
-    //con todos esos nombres, encontrar los cursos y armar los datatypes en la lista
     return res;
 }
 
