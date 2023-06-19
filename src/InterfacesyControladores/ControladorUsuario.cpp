@@ -106,13 +106,13 @@ string ControladorUsuario::getProblema(int ejercicio){
     return cc->obtenerLetra(this->nomC,ejercicio);
 }
 
-void ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
+bool ControladorUsuario::resolverEjercicioT(int ejercicio, string sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioT(this->nomC, ejercicio, sol);
 }
 
-void ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
+bool ControladorUsuario::resolverEjercicioCP(int ejercicio, set<string> sol){
     map<string,Usuario *>::iterator it = this->colUsuarios.find(this->nickname);
     Estudiante* est = dynamic_cast<Estudiante *>(it->second);
     return est->hacerEjercicioCP(this->nomC, ejercicio, sol);

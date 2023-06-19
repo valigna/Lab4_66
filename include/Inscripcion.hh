@@ -42,8 +42,8 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
     bool noAprobado(int curso);
-    void revisarEjercicioT(int ejercicio, string sol);
-    void revisarEjercicioCP(int ejercicio, set<string> sol);
+    bool revisarEjercicioT(int ejercicio, string sol);
+    bool revisarEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();

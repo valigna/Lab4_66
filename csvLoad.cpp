@@ -11,7 +11,6 @@ IGestionUsuario* gUsuario = Fab->getIGestionUsuario();
 IGestionNotificaciones* gNotificaciones = Fab->getIGestionNotificaciones();
 IGestionCurso* gCurso = Fab->getIGestionCurso();
 IGestionIdiomas* gIdiomas = Fab->getIGestionIdiomas();
-IConsultarEstadisticas* cEstadisticas = Fab->getIConsultarEstadisticas();
 
 /* --------------------------------------------- Directorios --------------------------------------------- */
 string DIdiomas = "cargaDatos/Idiomas.csv";
@@ -25,7 +24,6 @@ string DCursosLeccionesEjercicios = "cargaDatos/Cursos-Lecciones-Ejercicios.csv"
 string DInscripciones = "cargaDatos/Inscripciones.csv";
 string DInscripcionesEjerciciosArpobados = "cargaDatos/Inscripciones-EjerciciosAprobados.csv";
 /* ------------------------------------------------------------------------------------------------------ */
-
 
 string misArchivos[] = {DIdiomas, DUsuarios, DEstudiantes, DProfesores, DCursos, DCursosPrevios, DCursosLecciones, DCursosLeccionesEjercicios, DInscripciones, DInscripcionesEjerciciosArpobados};
 vector<string> archivos (misArchivos, misArchivos + sizeof(misArchivos) / sizeof(string));
@@ -140,7 +138,8 @@ void crearDatos()
     {
         gIdiomas->altaIdioma(it->second);
     }
-    cout << "Se cargaron los idiomas..." << endl;
+    cout << "-> Se cargaron correctamente los idiomas." << endl;
+    cout << "    |-> Total de idiomas cargados: " << idiomas.size() << endl;
 
     // Se crean los Usuarios...
     for(map<string,cargaUsuario>::iterator it = usuarios.begin(); it != usuarios.end(); ++it)
@@ -152,26 +151,30 @@ void crearDatos()
             DataEstudiante* est = new DataEstudiante(u.nick,u.name,u.pass,u.desc,u.pResidencia,f);
             gUsuario->ingresarUsuario(est);
             gUsuario->confirmarAltaUsuario();
+            delete est;
         } else if (u.tipo == "P")
         {
             DataProfesor* prof = new DataProfesor(u.nick,u.name,u.pass,u.desc,u.ins);
             gUsuario->ingresarUsuario(prof);
             gUsuario->ingresarIdiomas(u.idiomasP);
             gUsuario->confirmarAltaUsuario();
+            delete prof;
         }else
         {
             cout << "Error: Usuario no es ni Estudiante ni Profesor" << endl;
         }
     }
-    cout << "Se cargaron los usuarios..." << endl;
+    cout << "-> Se cargaron correctamente los usuarios." << endl;
+    cout << "    |-> Total de usuarios cargados: " << usuarios.size() << endl;
 
     // Se crean los Cursos...
     for(map<string,cargaCurso>::iterator it = cursos.begin(); it != cursos.end(); ++it)
     {
         cargaCurso cur = it->second;
-        gCurso->ingresarDataCurso(usuarios[cur.profRef].nick,new DTCurso(cur.name,cur.desc,cur.diff));
+        DTCurso* datosCurso = new DTCurso(cur.name,cur.desc,cur.diff);
+        gCurso->ingresarDataCurso(usuarios[cur.profRef].nick,datosCurso);
+        delete datosCurso;
         gCurso->agregarIdiomaCurso(idiomas[cur.idiRef]);
-        cout << "Parte 1 bien..." << endl;
 
         // Agrego los cursos previos...
         set<string> cursosPrevios;
@@ -180,7 +183,6 @@ void crearDatos()
             cursosPrevios.insert(cursos[(*it2)].name);
         }
         gCurso->ingresarCursosPrevios(cursosPrevios);
-        cout << "Parte 2 bien..." << endl;
 
         // Agrego las lecciones y sus ejercicios...
         for(list<string>::iterator it3 = cur.leccionesRef.begin(); it3 != cur.leccionesRef.end(); ++ it3)
@@ -194,7 +196,9 @@ void crearDatos()
                 cargaEjercicio ejer = ejercicios[(*it31)];
                 if(ejer.tipo == "T")
                 {
-                    gCurso->ingresarEjercicioParaAlta(new DataTraduccion(ejer.desc,0,ejer.problema,ejer.sol));
+                    DataTraduccion* dtTrad = new DataTraduccion(ejer.desc,0,ejer.problema,ejer.sol);
+                    gCurso->ingresarEjercicioParaAlta(dtTrad);
+                    delete dtTrad;
                 } else
                 {
                     // Adapto la solucion al formato necesario...
@@ -207,13 +211,14 @@ void crearDatos()
                     } 
 
                     // Creo el ejercicio...
-                    gCurso->ingresarEjercicioParaAlta(new DataCompletarPalabras(ejer.desc,0,ejer.problema,solucion));
+                    DataCompletarPalabras* dtCP = new DataCompletarPalabras(ejer.desc,0,ejer.problema,solucion);
+                    gCurso->ingresarEjercicioParaAlta(dtCP);
+                    delete dtCP;
                 }
             }
             // Creo la leccion...
             gCurso->confirmarLeccion();
         }
-        cout << "Se va a intentar de hacer un alta..." << endl;
         gCurso->confirmarAltaCurso();
 
         // Tengo que verificar si el curso esta habilitado...
@@ -222,7 +227,8 @@ void crearDatos()
             gCurso->habilitarCurso(cur.name);
         }
     }
-    cout << "Se cargaron los cursos..." << endl;
+    cout << "-> Se cargaron correctamente los cursos." << endl;
+    cout << "    |-> Total de cursos cargados: " << cursos.size() << endl;
 
     // Se registran las inscripciones...
     for(map<string,cargaInscripcion>::iterator it = inscripciones.begin(); it != inscripciones.end(); ++it)
@@ -238,7 +244,6 @@ void crearDatos()
             cargaEjercicio ej = ejercicios[(*it2)];
             set<string> inecesario2 = gUsuario->getCursosInscriptosNoAprobados(usuarios[insc.estRef].nick);
             set<DataEjercicio *> inecesario3 = gUsuario->getEjerciciosNoAprobados(cursos[insc.curRef].name);
-            cout << "Se realizo la inscripcion: " << insc.ref << endl;
             // Encuentro el ejercicio dentro del sistema...
             DataEjercicio* dataEj;
             for(set<DataEjercicio*>::iterator it3 = inecesario3.begin(); it3 != inecesario3.end();++it3)
@@ -250,14 +255,27 @@ void crearDatos()
             {
                 DataTraduccion* dtT = (DataTraduccion*) dataEj;
                 gUsuario->resolverEjercicioT(dtT->getId(),dtT->getTraduccion());
+                delete dtT;
             } else
             {
                 DataCompletarPalabras* dtCP = (DataCompletarPalabras*) dataEj;
                 gUsuario->resolverEjercicioCP(dtCP->getId(),dtCP->getSolucion());
+                delete dtCP;
             }
         }
-    } 
-    cout << "-> Se cargaron correctamente los datos publicados en el EVA" << endl;
+    }
+    cout << "-> Se cargaron correctamente las inscripciones." << endl;
+    cout << "   |-> Total de inscripciones cargadas: " << inscripciones.size() << endl;
+    cout << "---> Se cargaron correctamente los datos publicados en el EVA." << endl;
+}
+
+void liberarMemoriaFabrica()
+{
+    delete Fab;
+    delete gUsuario;
+    delete gNotificaciones;
+    delete gCurso;
+    delete gIdiomas;
 }
 
 void csvLoad()
@@ -522,4 +540,5 @@ void csvLoad()
     }
     //mostrarConjuntosCreados();
     crearDatos();
+    liberarMemoriaFabrica();
 }

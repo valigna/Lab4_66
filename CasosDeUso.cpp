@@ -24,12 +24,6 @@ IGestionCurso* gestionCurso = Fabrica->getIGestionCurso();
 IGestionIdiomas* gestionIdiomas = Fabrica->getIGestionIdiomas();
 IConsultarEstadisticas* consEstadisticas = Fabrica->getIConsultarEstadisticas();
 
-
-// Esto no deberia de estar en la version final...
-//ControladorCurso* cc = ControladorCurso::getInstancia();
-//ControladorUsuario* cu = ControladorUsuario::getInstancia();
-
-
 /* ---------------------------------------------- Funciones Auxiliares ---------------------------------------------- */
 
 string adaptarDificultad(difficulty diff)
@@ -96,8 +90,9 @@ void altaUsuario()
         cout << "  o Mes: "; getline(cin,ingresado.mes);
         cout << "  o Anio: "; getline(cin,ingresado.anio);
 
-        DataFecha* f = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio));
-        gestionUsuario->ingresarUsuario(new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,f));
+        DataFecha* fecha = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio));
+        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,f)
+        gestionUsuario->ingresarUsuario(est);
     } else
     {
         cout << "Se pasaran a pedir los datos necesarios para crear un Profesor: " << endl;
@@ -123,7 +118,8 @@ void altaUsuario()
         }
         
         gestionUsuario->ingresarIdiomas(ingresado.seleccionados);
-        gestionUsuario->ingresarUsuario(new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins));
+        DataProfesor* datosProf = new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins)
+        gestionUsuario->ingresarUsuario(prof);
     }
 
     bool altaExitosa = gestionUsuario->confirmarAltaUsuario();
@@ -133,6 +129,15 @@ void altaUsuario()
     } else
     {
         cout << "-> Hubo una falla a la hora de crear el Usuario pedido, seguramente se deba a que el nickname ingresado ya esta un uso." << endl;
+    }
+    
+    if(stoi(ingresado.opcion) == 1)
+    {
+        delete fecha;
+        delete datosEst;
+    } else
+    {
+        delete datosProf;
     }
 }
 
@@ -155,6 +160,7 @@ void consultaUsuario()
         DataFecha* nac = est->getNacimiento();
         cout << "-> Pais de Residencia: " << est->getPaisResidencia() << endl;
         cout << "-> Nacimiento: " << nac->getDia() << "/" << nac->getMes() << "/" << nac->getAnio() << endl;
+        delete est;
     } else
     {
         DataProfesor* prof = (DataProfesor*) datos;
@@ -165,6 +171,7 @@ void consultaUsuario()
         set<string> idiomas = prof->getIdiomas();
         cout << "-> Idiomas en los que se especializa: " << endl;
         for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it){cout << "   |-> " << (*it) << endl; }
+        delete prof;
     }
 
 }
@@ -224,7 +231,8 @@ void altaCurso()
     {
         infoCurso.diff = Avanzado;
     }
-    gestionCurso->ingresarDataCurso(nickProfesor, new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff));
+    DTCurso* datosCurso = new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff)
+    gestionCurso->ingresarDataCurso(nickProfesor, datosCurso);
     set<string> idiomas = gestionCurso->getIdiomasProfesor();
     cout << "Se listaran los idiomas en los cuales se especializa el profesor: " << endl;
     for (set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
@@ -272,6 +280,8 @@ void altaCurso()
             string descEj;
             string auxEj;
             cout << "o Ingrese los ejercicios de la leccion: " << endl;
+            set<DataCompletarPalabras *> dataCompletar;
+            set<DataTraduccion *> dataTraduccion;
             while (masEjercicios)
             {   
                 cout << "o Desea agregar un nuevo ejercicio?: (1) Si, (2) No: "; getline(cin, auxEj);
@@ -295,6 +305,7 @@ void altaCurso()
                         }
                         DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                         gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                        dataCompletar.insert(ejCP);
                     } else if (tipoEj == "2")
                     {
                         string frase;
@@ -303,6 +314,7 @@ void altaCurso()
                         cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                         DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                         gestionCurso->ingresarEjercicioParaAlta(ejT);
+                        dataTraduccion.insert(ejT);
                     }
                     
                 } else if (auxEj == "2")
@@ -317,6 +329,16 @@ void altaCurso()
         }
     }
     gestionCurso->confirmarAltaCurso();
+    delete datosCurso;
+    for(set<DataCompletarPalabras *>::iterator it = dataCompletar.begin(); it != dataCompletar.end(); ++it)
+    {
+        delete (*it);
+    }
+    for (set<DataTraduccion *>::iterator it = dataTraduccion.begin(); it!= dataTraduccion; ++it)
+    {
+        delete (*it);
+    }
+    
     cout << "-> Se creo el curso: " << infoCurso.nombre << endl;
 }
 
@@ -344,6 +366,8 @@ void agregarLeccion()
         gestionCurso->ingresarDatosLeccion(nombreCurso, temaLeccion, objetivoLeccion);
         //Faltan los ejercicios
         bool masEjercicios = true;
+        set<DataCompletarPalabras *> dataCompletar;
+        set<DataTraduccion *> dataTraduccion;
         while(masEjercicios){
             string auxEj;
             cout << "o Desea agregar un Ejercicio? (1) SI, (2) NO: "; getline(cin, auxEj);
@@ -368,6 +392,8 @@ void agregarLeccion()
                     }
                     DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                     gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                    dataCompletar.insert(ejCP);
+
                 } else if (tipoEj == "2")
                 {
                     string frase;
@@ -376,6 +402,7 @@ void agregarLeccion()
                     cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                     DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                     gestionCurso->ingresarEjercicioParaAlta(ejT);
+                    dataTraduccion.insert(ejT);
                 }
                 
             } else if (auxEj == "2")
@@ -385,7 +412,14 @@ void agregarLeccion()
         }
         gestionCurso->altaLeccion();
     }
-
+    for(set<DataCompletarPalabras *>::iterator it = dataCompletar.begin(); it != dataCompletar.end(); ++it)
+    {
+        delete (*it);
+    }
+    for (set<DataTraduccion *>::iterator it = dataTraduccion.begin(); it!= dataTraduccion; ++it)
+    {
+        delete (*it);
+    }
 }
 
 // Para el Caso de Uso 7: [Agregar Ejercicio]
@@ -437,6 +471,7 @@ void agregarEjercicio()
                 }
                 DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                 gestionCurso->agregarEjercicio(Id, ejCP);
+                delete ejCP;
             } else if (tipoEj == "2")
             {
                 string frase;
@@ -445,6 +480,7 @@ void agregarEjercicio()
                 cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                 DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                 gestionCurso->agregarEjercicio(Id, ejT);
+                delete ejT;
             }
         } else
         {
@@ -536,6 +572,7 @@ void consultarCurso()
         else{
             cout << "-> Habilitado: NO" << endl;
         }
+        delete res;
     } else
     {
         cout << "-> No hay cursos cargados." << endl;
@@ -594,6 +631,7 @@ void realizarEjercicio()
     cout << "-> Letra: " << endl;
     cout << "-> " << gestionCurso->obtenerLetra(cursoSeleccionado,idEjercicio) << endl;
     DataEjercicio* eje = gestionCurso->encontrarEjercicio(cursoSeleccionado, idEjercicio);
+    bool correcto;
     if(eje->esCompletarPalabras()){
         cout << "o Escriba sus soluciones, una por una, y termine con -1: " << endl;
         set<string> respuestaCP;
@@ -609,12 +647,19 @@ void realizarEjercicio()
                 respuestas = false;
             }
         }
-        gestionUsuario->resolverEjercicioCP(idEjercicio, respuestaCP);
+        correcto = gestionUsuario->resolverEjercicioCP(idEjercicio, respuestaCP);
     }
     else{
         string respuestaT;
         cout << "o Escriba su solucion: "; getline(cin, respuestaT);
-        gestionUsuario->resolverEjercicioT(idEjercicio, respuestaT);
+        correcto = gestionUsuario->resolverEjercicioT(idEjercicio, respuestaT);
+    }
+    if(correcto)
+    {
+        cout << "-> Respuesta correcta." << endl;
+    } else
+    {
+        cout << "-> Respuesta incorrecta, intente nuevamente." << endl;
     }
 }
 
@@ -691,7 +736,15 @@ void consultarEstadisticas()
         cout << " |-> Creado por: " << infoC->getProfesor() << endl;
         cout << " |-> Total lecciones: " << infoC->getCantLecciones() << endl;
         cout << " |-> Total ejercicios: " << infoC->getCantEjercicios() << endl;
-        cout << " |-> Grado de avance: " << infoC->getPromedio() << "%" << endl;
+        if(infoC->getHabilitado())
+        {
+            cout << " |-> Habilitado : Si" << endl;
+            cout << " |-> Grado de avance: " << infoC->getPromedio() << "%" << endl;
+        } else
+        {
+            cout << " |-> Habilitado : No" << endl;
+        }
+        delete infoC;
     } else
     {
         cout << "-> Opcion invalida, por favor vuelva a intentarlo" << endl;

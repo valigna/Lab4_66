@@ -106,14 +106,15 @@ bool Inscripcion::noAprobado(int ejercicio){
     return aux;
 }
 
-void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
+bool Inscripcion::revisarEjercicioT(int ejercicio, string sol){
+    bool aprobo = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     Traduccion* aux2 = (Traduccion*) aux;
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
-        bool aprobo = this->aproboLeccion(lec);
+        aprobo = this->aproboLeccion(lec);
         if(aprobo){
             //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
@@ -123,18 +124,17 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
             }
         }
     }
-    else{
-        //cout << "Respuesta incorrecta, la respuesta correcta es: " << aux2->getSolucionT() << endl;
-    }
+    return aprobo;
 }
 
-void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
+bool Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
+    bool aprobo = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
-        bool aprobo = this->aproboLeccion(lec);
+        aprobo = this->aproboLeccion(lec);
         if(aprobo){
             //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
@@ -144,9 +144,7 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
             }
         }
     }
-    else{
-        //cout << "Respuesta incorrecta" << endl;
-    }
+    return aprobo;
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]

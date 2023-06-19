@@ -77,22 +77,26 @@ set<DataEjercicio *> Estudiante::obtenerEjerciciosNoAprobados(string curso){
     return res;
 }
 
-void Estudiante::hacerEjercicioT(string curso, int ejercicio, string sol){
+bool Estudiante::hacerEjercicioT(string curso, int ejercicio, string sol){
+    bool res = false;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso* aux = (*it)->getCurso();
         if(aux->igualCurso(curso)){
-            return (*it)->revisarEjercicioT(ejercicio, sol);
+            res = (*it)->revisarEjercicioT(ejercicio, sol);
         }
     }
+    return res;
 }
 
-void Estudiante::hacerEjercicioCP(string curso, int ejercicio, set<string> sol){
+bool Estudiante::hacerEjercicioCP(string curso, int ejercicio, set<string> sol){
+    bool res = false;
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
         Curso * aux = (*it)->getCurso();
         if(aux->igualCurso(curso)){
-            return (*it)->revisarEjercicioCP(ejercicio, sol);
+            res = (*it)->revisarEjercicioCP(ejercicio, sol);
         }
     }
+    return res;
 }
 
 // Otres

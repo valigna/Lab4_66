@@ -56,9 +56,10 @@ int Curso::obtenerTotalLecciones(){ return this->colLecciones.size(); }
 // DataTypes
 InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
 {
-    string nom = this->getNombre();
-    string desc = this->getDescripcion();
-    difficulty dificultad = this->getDificultad();
+    string nom = this->Nombre;
+    string desc = this->Descricpion;
+    difficulty dificultad = this->Dificultad;
+    bool habi = this->Habilitado;
 
     // Obtengo los nombres de los cursos previos...
     set<string> previos;
@@ -96,7 +97,7 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     }
 
     // Construyo el DataType...
-    return new InformacionCurso(nom,desc,dificultad,previos,idi,prof,cantLec,cantEj,prom);
+    return new InformacionCurso(nom,desc,dificultad,habi,previos,idi,prof,cantLec,cantEj,prom);
 }
 
 InformacionCurso* Curso::getDatosCurso()
@@ -104,12 +105,13 @@ InformacionCurso* Curso::getDatosCurso()
     string nom = this->getNombre();
     string desc = this->getDescripcion();
     difficulty dificultad = this->getDificultad();
+    bool habilitado = this->Habilitado;
     string idi = getNombreIdioma();
     int cantL = obtenerTotalLecciones();
     int cantE = obtenerTotalEjercicios();
 
     // Construyo el DataType...
-    return new InformacionCurso(nom, desc, dificultad, idi, cantL, cantE);
+    return new InformacionCurso(nom, desc, dificultad,habilitado, idi, cantL, cantE);
 }
 
 DataConsultaCurso* Curso::getDataConsultaCurso()

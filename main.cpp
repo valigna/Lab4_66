@@ -65,6 +65,12 @@ int main()
         case -1: // Terminar
             separacion(SIN_ENTER);
             cout << "Se dio por finalizada la ejecucion del lab4_66" << endl;
+            delete Fabrica;
+            delete gestionUsuario;
+            delete gestionNotificaciones;
+            delete gestionCurso;
+            delete gestionIdiomas;
+            delete consEstadisticas;
             separacion(CON_ENTER);
             terminarEjecucion = true;
             break;
