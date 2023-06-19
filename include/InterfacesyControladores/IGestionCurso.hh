@@ -38,6 +38,10 @@ public:
     // Operaciones Para El Caso de Uso : [Habilitar Curso]
     virtual set<InformacionCurso *> getCursosNoHabilitados() = 0;
     virtual bool habilitarCurso(string seleccionado) = 0;
+    // Operaciones Para El Caso de Uso : [Realizar Ejercicio]
+    // Necesarias para la capa de presentacion:
+    virtual string obtenerLetra(string nomC, int ejercicio) = 0;
+    virtual DataEjercicio* encontrarEjercicio(string nomC, int ejercicio) = 0;
     // Operaciones Para El Caso de Uso : [Eliminar Curso]
     virtual set<string> getNombreCursos() = 0;
     virtual void seleccionarCurso(string nombreCurso) = 0;
@@ -45,6 +49,8 @@ public:
     // Operaciones para el Caso de Uso : [Consultar Curso]
     //virtual set<string> getNombresCursos() = 0;
     virtual InscripcionCurso* getCurso(string seleccionado) = 0;
+    // Necesaria para la capa de presentacion:
+    virtual DataConsultaCurso* obtenerDataCursoSeleccionado(string curso) = 0;
     //
     virtual ~IGestionCurso(){};
 };

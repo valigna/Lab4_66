@@ -4,7 +4,7 @@
 Inscripcion::Inscripcion(Estudiante *est, string curso){
     //Atributos...
     this->CursoAprobado = false;
-    this->FechaInscripcion = NULL; //FALTA FECHA
+    this->FechaInscripcion = new DataFecha(21, 6, 2023);
 
     //PseudoAtributos...
     this->e = est;
@@ -110,42 +110,42 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     Traduccion* aux2 = (Traduccion*) aux;
     if(aux != NULL){
-        cout << "Respuesta correcta" << endl;
+        //cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
         bool aprobo = this->aproboLeccion(lec);
         if(aprobo){
-            cout << "Leccion aprobada" << endl;
+            //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
-                cout << "Curso Aprobado" << endl;
+                //cout << "Curso Aprobado" << endl;
                 this->setCursoAprobado(true);
             }
         }
     }
     else{
-        cout << "Respuesta incorrecta, la respuesta correcta es: " << aux2->getSolucionT() << endl;
+        //cout << "Respuesta incorrecta, la respuesta correcta es: " << aux2->getSolucionT() << endl;
     }
 }
 
 void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
     Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
-        cout << "Respuesta correcta" << endl;
+        //cout << "Respuesta correcta" << endl;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
         bool aprobo = this->aproboLeccion(lec);
         if(aprobo){
-            cout << "Leccion aprobada" << endl;
+            //cout << "Leccion aprobada" << endl;
             this->colLecAprobadas.insert(lec);
             if(this->colLecAprobadas.size() == this->c->obtenerTotalLecciones()){
-                cout << "Curso Aprobado" << endl;
+                //cout << "Curso Aprobado" << endl;
                 this->setCursoAprobado(true);
             }
         }
     }
     else{
-        cout << "Respuesta incorrecta" << endl;
+        //cout << "Respuesta incorrecta" << endl;
     }
 }
 

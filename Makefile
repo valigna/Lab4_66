@@ -133,8 +133,8 @@ $(ODIR)/Traduccion.o: $(SDIR)/Traduccion.cpp $(HDIR)/Traduccion.hh $(SDIR)/Ejerc
 
 # Funciones extra
 clean:
-	rm $(ODIR)/*.o
-	rm main
+	@rm $(ODIR)/*.o
+	@rm main
 
 #Repasando
 #target: dependencies (Quiero volver a compilar esto cuando "dependencies" cambien)

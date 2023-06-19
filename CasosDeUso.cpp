@@ -30,6 +30,27 @@ IConsultarEstadisticas* consEstadisticas = Fabrica->getIConsultarEstadisticas();
 //ControladorUsuario* cu = ControladorUsuario::getInstancia();
 
 
+/* ---------------------------------------------- Funciones Auxiliares ---------------------------------------------- */
+
+string adaptarDificultad(difficulty diff)
+{
+    if (diff == 0)
+    {
+        return "Principiante";
+    } else if (diff == 1)
+    {
+        return "Intermedio";
+    } else if (diff == 2)
+    {
+        return "Avanzado";
+    } else
+    {
+        return "Desconocida";
+    }
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+
 // Para el Caso de Uso 1: [Alta de Usuario]
 
 struct userInfo{
@@ -155,7 +176,7 @@ void altaIdioma()
     cout << "o Ingrese el nombre del idioma que quiere dar de alta en el sistema: ";
     getline(cin,nombre);
 
-    bool altaExitosa = gestionIdioma->altaIdioma(nombre);
+    bool altaExitosa = gestionIdiomas->altaIdioma(nombre);
     if (altaExitosa)
     {
         cout << "-> Se creo el idioma: " << nombre << endl;
@@ -168,7 +189,7 @@ void altaIdioma()
 // Para el Caso de Uso 4: [Consultar Idiomas]
 void consultarIdiomas()
 {
-    set<string> idiomas = gestionIdioma->getIdiomas();
+    set<string> idiomas = gestionIdiomas->getIdiomas();
     cout << "Los idiomas creados en el sistema son: " << endl;
     for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
@@ -383,9 +404,15 @@ void agregarEjercicio()
         if (lecciones.size() != 0)
         {
             cout << "Lecciones:" << endl;
-            for(set<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+            for (int i = 1; i <= lecciones.size(); i++)
             {
-                cout << "  |-> Leccion Numero:" << (*it)->getId() << " -> " << (*it)->getTema() << endl; //Las muestra sin orden
+                for(set<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+                {
+                    if ((*it)->getId() == i)
+                    {
+                        cout << "  |-> Leccion Numero:" << (*it)->getId() << " -> " << (*it)->getTema() << endl;
+                    }
+                }
             }
             cout << "o Ingrese el Numero de la leccion a la cual desea agregar un ejercicio: " << endl;
             string IdStr;
@@ -472,7 +499,7 @@ void eliminarCurso()
 // Para el Caso de Uso 10: [Consultar Curso]
 void consultarCurso()
 {
-    set<string> aux = gestionCurso->darNombreCursos();
+    set<string> aux = gestionCurso->getNombreCursos();
     if (!aux.empty())
     {
         cout << "Cursos disponibles: " << endl;
@@ -527,7 +554,7 @@ void inscribirseCurso() //Hacer verificacion de que existe el curso
     for(set<InformacionCurso *>::iterator it = cursos.begin(); it != cursos.end(); it++){
         cout << "-> " << (*it)->getNombre() << endl;
         cout << "-> Descripcion: " << (*it)->getDescripcion() << endl;
-        cout << "-> Dificultad: " << (*it)->getDificultad() << endl;
+        cout << "-> Dificultad: " << adaptarDificultad((*it)->getDificultad()) << endl;
         cout << "-> Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
         cout << "-> Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
     }
@@ -544,11 +571,11 @@ void realizarEjercicio()
 {
     string nombre;
     cout << "o Ingrese su nickname: "; getline(cin,nombre);
-    cout << "-> Cursos no aprobados: " << endl;
+    cout << "Cursos no aprobados: " << endl;
     set<string> cursos = gestionUsuario->getCursosInscriptosNoAprobados(nombre);
     for(set<string>::iterator it = cursos.begin(); it != cursos.end(); ++it)
     {
-        cout << "-> " << (*it) << endl;
+        cout << "  |-> " << (*it) << endl;
     }
     cout << "o Escriba el nombre de un curso: ";
     string cursoSeleccionado;
@@ -556,7 +583,9 @@ void realizarEjercicio()
     set<DataEjercicio *> ejercicios = gestionUsuario->getEjerciciosNoAprobados(cursoSeleccionado);
     cout << "-> ID de los ejercicios no aprobados: " << endl;
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
-        cout << "-> " << (*it)->getId() << endl;
+        cout << "-> ID: " << (*it)->getId() << endl;
+        cout << "   |-> Descripcion: " << (*it)->getDescripcion() << endl;
+        cout << endl;
     }
     cout << "o Escriba el ID de un ejercicio que quiera realizar: ";
     string aux;
@@ -593,7 +622,7 @@ void realizarEjercicio()
 void consultarEstadisticas()
 {
     string opcion;
-    cout << "o Desea consultar las estadisticas de un: (1) Estudiante | (2) Profesor | (3) Curso"; getline(cin,opcion);
+    cout << "o Desea consultar las estadisticas de un: (1) Estudiante | (2) Profesor | (3) Curso ? "; getline(cin,opcion);
     if(opcion == "1")
     {
         cout << "Los nicks de los estudiantes dentro del sistema son:" << endl;
@@ -604,11 +633,17 @@ void consultarEstadisticas()
         }
         string estudiante;
         cout << "o De cual estudiante desea observar sus estadisticas? "; getline(cin,estudiante);
-        set<InfoCurso *> infoEst = listarCursosEstudiante(estudiante);
-        cout << "El estudiante " << estudiante << "presenta las siguientes estadisticas: " << endl;
-        for(set<InfoCurso *>::iterator it = infoEst.begin(); it != infoEst.end(); ++it)
+        set<InfoCurso *> infoEst = consEstadisticas->listarCursosEstudiante(estudiante);
+        cout << "El estudiante " << estudiante << " presenta las siguientes estadisticas: " << endl;
+        if(infoEst.empty())
         {
-            cout << "El curso " << (*it)->getNombreCurso() << "con un porcentaje de avance del " << (*it)->getDato() << "%" << endl;
+            cout << "-> Por el momento el estudiante " << estudiante << " no presenta estadisticas para mostrar..." << endl;
+        } else
+        {
+            for(set<InfoCurso *>::iterator it = infoEst.begin(); it != infoEst.end(); ++it)
+            {
+                cout << " |-> El curso " << (*it)->getNombreCurso() << " con un porcentaje de avance del " << (*it)->getDato() << "%" << endl;
+            }
         }
     } else if (opcion == "2")
     {
@@ -620,11 +655,17 @@ void consultarEstadisticas()
         }
         string profesor;
         cout << "o De cual profesor desea observar sus estadisticas? "; getline(cin,profesor);
-        set<InfoCurso *> infoProf = listarCursosPropuestos(profesor);
-        cout << "El profesor " << profesor << "presenta las siguientes estadisticas: " << endl;
-        for(set<InfoCurso *>::iterator it = infoProf.begin(); it != infoProf.end(); ++it)
+        set<InfoCurso *> infoProf = consEstadisticas->listarCursosPropuestos(profesor);
+        cout << "El profesor " << profesor << " presenta las siguientes estadisticas: " << endl;
+        if(infoProf.empty())
         {
-            cout << "El curso " << (*it)->getNombreCurso() << "con un promedio de avance del " << (*it)->getDato() << "%" << endl;
+            cout << "-> Por el momento el profesor " << profesor << " no presenta estadisticas para mostrar..." << endl;
+        } else
+        {
+            for(set<InfoCurso *>::iterator it = infoProf.begin(); it != infoProf.end(); ++it)
+            {
+                cout << " |-> El curso " << (*it)->getNombreCurso() << " con un promedio de avance del " << (*it)->getDato() << "%" << endl;
+            }
         }
     } else if (opcion == "3")
     {
@@ -637,9 +678,9 @@ void consultarEstadisticas()
         string curso;
         cout << "o De que curso desea observar sus estadisticas? ";getline(cin,curso);
         InformacionCurso* infoC = consEstadisticas->infoCurso(curso);
-        cout << "El curso " << curso << "presenta las siguientes estadisticas:" << endl;
+        cout << "El curso " << curso << " presenta las siguientes estadisticas:" << endl;
         cout << " |-> Descripcion: " << infoC->getDescripcion() << endl;
-        cout << " |-> Dificultad: " << adaptarDificultad(infoC->getDificultad) << endl;
+        cout << " |-> Dificultad: " << adaptarDificultad(infoC->getDificultad()) << endl;
         cout << " |-> Cursos previos: " << endl;
         set<string> previos = infoC->getPrevios();
         for(set<string>::iterator it = previos.begin(); it != previos.end(); ++it)
@@ -683,7 +724,7 @@ void suscribirseNotificaciones()
             masIdiomas = false;
         }
     }
-    gestionUsuario->suscribirse(idiomasSeleccionados);
+    gestionNotificaciones->suscribirse(idiomasSeleccionados);
     cout << "-> Se ha suscrito correctamente a los siguientes idiomas: " << endl;
     for(set<string>::iterator it = idiomasSeleccionados.begin(); it != idiomasSeleccionados.end(); ++it)
     {

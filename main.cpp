@@ -142,6 +142,7 @@ int main()
             break;
             
         case 13: // Consultar Estadisticas
+            consultarEstadisticas();
             cout << endl;
             break;
             
