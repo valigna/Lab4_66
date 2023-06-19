@@ -197,7 +197,6 @@ void crearDatos()
                 {
                     DataTraduccion* dtTrad = new DataTraduccion(ejer.desc,0,ejer.problema,ejer.sol);
                     gCurso->ingresarEjercicioParaAlta(dtTrad);
-                    dTraduccionCol.insert(dtTrad);
                 } else
                 {
                     // Adapto la solucion al formato necesario...
@@ -212,7 +211,6 @@ void crearDatos()
                     // Creo el ejercicio...
                     DataCompletarPalabras* dtCP = new DataCompletarPalabras(ejer.desc,0,ejer.problema,solucion);
                     gCurso->ingresarEjercicioParaAlta(dtCP);
-                    dCompletarCol.insert(dtCP);
                 }
             }
             // Creo la leccion...

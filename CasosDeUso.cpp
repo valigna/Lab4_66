@@ -318,7 +318,6 @@ void altaCurso()
                         }
                         DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                         gestionCurso->ingresarEjercicioParaAlta(ejCP);
-                        dCompletarCol.insert(ejCP);
                     } else if (tipoEj == "2")
                     {
                         string frase;
@@ -327,7 +326,6 @@ void altaCurso()
                         cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                         DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                         gestionCurso->ingresarEjercicioParaAlta(ejT);
-                        dTraduccionCol.insert(ejT);
                     }
                     
                 } else if (auxEj == "2")
@@ -394,8 +392,6 @@ void agregarLeccion()
                     }
                     DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                     gestionCurso->ingresarEjercicioParaAlta(ejCP);
-                    dCompletarCol.insert(ejCP);
-
                 } else if (tipoEj == "2")
                 {
                     string frase;
@@ -404,7 +400,6 @@ void agregarLeccion()
                     cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                     DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                     gestionCurso->ingresarEjercicioParaAlta(ejT);
-                    dTraduccionCol.insert(ejT);
                 }
                 
             } else if (auxEj == "2")
