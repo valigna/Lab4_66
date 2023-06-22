@@ -143,6 +143,14 @@ list<DataLeccion *> Curso::darDataLecciones(bool conId)
     }
     return res;
 }
+
+// Para el Caso de Uso : [Alta de Curso]
+void Curso::agregarLeccionParaAlta(string tema, string obj, set<DataEjercicio*> ejs){
+    this->idLecciones++;
+    this->idEjercicios += ejs.size();
+    this->colLecciones.push_back(new Leccion(tema,obj,this->idLecciones,ejs));
+}
+
 // Para el Caso de Uso : [Habilitar Curso]
 bool Curso::sePuedeHabilitar()
 {
@@ -262,7 +270,6 @@ DataEjercicio* Curso::obtenerIdEjercicio(DataEjercicio* ejercicio){
 
 void Curso::agregarLeccion(string tema, string obj, set<DataEjercicio*> ejs){
     this->idLecciones++;
-    this->idEjercicios += ejs.size();
     this->colLecciones.push_back(new Leccion(tema,obj,this->idLecciones,ejs));
 }
 

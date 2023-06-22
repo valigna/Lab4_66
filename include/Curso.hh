@@ -78,6 +78,10 @@ public:
     DTCurso* getDTCurso();
 	
     list<DataLeccion *> darDataLecciones(bool conId);
+
+    // Para el Caso de Uso : [Alta de Curso]
+    void agregarLeccionParaAlta(string tema, string obj, set<DataEjercicio*> ejs);
+
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
     
