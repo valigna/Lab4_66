@@ -13,6 +13,7 @@
 #include "DataTypes/InscripcionCurso.hh"
 #include "DataTypes/DTCurso.hh"
 #include "DataTypes/DataConsultaCurso.hh"
+#include "DataTypes/DataInscripto.hh"
 // Conceptos Del Modelo De Dominio
 #include "Leccion.hh"
 #include "Ejercicio.hh"
@@ -76,7 +77,11 @@ public:
 
     DTCurso* getDTCurso();
 	
-    set<DataLeccion *> darDataLecciones(bool conId);
+    list<DataLeccion *> darDataLecciones(bool conId);
+
+    // Para el Caso de Uso : [Alta de Curso]
+    void agregarLeccionParaAlta(string tema, string obj, set<DataEjercicio*> ejs);
+
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
     

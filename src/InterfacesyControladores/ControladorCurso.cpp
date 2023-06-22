@@ -162,7 +162,7 @@ void ControladorCurso::confirmarAltaCurso()
     Curso* curso = new Curso(this->seleccionado, nickProfesor);
     for (list<DataLeccion *>::iterator it = this->Lecciones.begin(); it != this->Lecciones.end(); it++)
     {   
-        curso->agregarLeccion((*it)->getTema(), (*it)->getObjetivo(), (*it)->getEjercicios());
+        curso->agregarLeccionParaAlta((*it)->getTema(), (*it)->getObjetivo(), (*it)->getEjercicios());
     }
     ControladorUsuario* cu = ControladorUsuario::getInstancia();
     Usuario* p = cu->findUsuario(this->nickProfesor);
@@ -199,12 +199,12 @@ void ControladorCurso::altaLeccion(){
 }
 
 // Para el Caso de Uso : [Agregar Ejercicio]
-set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
+list<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
 {
     // Recordamos el nombre del curso...
     this->nombreCurso = cursoSeleccionado;
 
-    set<DataLeccion *> res;
+    list<DataLeccion *> res;
     map<string,Curso *>::iterator it = this->colCursos.find(cursoSeleccionado);
     if (it != this->colCursos.end())
     {

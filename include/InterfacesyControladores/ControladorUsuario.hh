@@ -44,6 +44,9 @@ public:
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
 
+    // Para la Carga de Datos
+    void registrarInscripcion(string nombreCurso,string nickEstudiante,DataFecha* fecha);
+
     // Para el Caso de Uso : [Alta de Usuario]
     void ingresarUsuario(DataUsuario* datos);
     set<string> getIdiomas();
@@ -62,8 +65,8 @@ public:
     set<string> getCursosInscriptosNoAprobados(string nickname);
     set<DataEjercicio *> getEjerciciosNoAprobados(string curso); // Aca estaba como DATA, confirmar...
     string getProblema(int ejercicio);
-    void resolverEjercicioT(int ejercicio, string sol);
-    void resolverEjercicioCP(int ejercicio, set<string> sol);
+    bool resolverEjercicioT(int ejercicio, string sol);
+    bool resolverEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Alta de Curso]
     Usuario* findUsuario(string nickname);

@@ -4,12 +4,28 @@
 Inscripcion::Inscripcion(Estudiante *est, string curso){
     //Atributos...
     this->CursoAprobado = false;
-    this->FechaInscripcion = new DataFecha(21, 6, 2023);
+    //this->FechaInscripcion = new DataFecha(21, 6, 2023);
+    time_t t = time(NULL);
+    tm* timePtr = localtime(&t);
+    this->FechaInscripcion = new DataFecha(timePtr->tm_mday,timePtr->tm_mon,timePtr->tm_year + 1900);
 
     //PseudoAtributos...
     this->e = est;
     ControladorCurso *cc = ControladorCurso::getInstancia();
     Curso* C = cc->encontrarCurso(curso);
+    this->c = C;
+    C->crearLinkConInsc(this);
+}
+
+Inscripcion::Inscripcion(Estudiante *est, string nombreCurso, DataFecha* fecha){
+    //Atributos...
+    this->CursoAprobado = false;
+    this->FechaInscripcion = fecha;
+
+    //PseudoAtributos...
+    this->e = est;
+    ControladorCurso *cc = ControladorCurso::getInstancia();
+    Curso* C = cc->encontrarCurso(nombreCurso);
     this->c = C;
     C->crearLinkConInsc(this);
 }
@@ -40,6 +56,10 @@ bool Inscripcion::getCursoAprobado(){
 
 Curso* Inscripcion::getCurso(){
     return this->c;
+}
+
+Estudiante* Inscripcion::getEstudiante(){
+    return this->e;
 }
 
 int Inscripcion::getUltimaLeccion(){
@@ -106,11 +126,13 @@ bool Inscripcion::noAprobado(int ejercicio){
     return aux;
 }
 
-void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
+bool Inscripcion::revisarEjercicioT(int ejercicio, string sol){
+    bool res = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoT(ejercicio, sol);
     Traduccion* aux2 = (Traduccion*) aux;
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
+        res = true;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
         bool aprobo = this->aproboLeccion(lec);
@@ -123,15 +145,15 @@ void Inscripcion::revisarEjercicioT(int ejercicio, string sol){
             }
         }
     }
-    else{
-        //cout << "Respuesta incorrecta, la respuesta correcta es: " << aux2->getSolucionT() << endl;
-    }
+    return res;
 }
 
-void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
+bool Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
+    bool res = false;
     Ejercicio* aux = this->c->buscarEjercicioEnCursoCP(ejercicio, sol);
     if(aux != NULL){
         //cout << "Respuesta correcta" << endl;
+        res = true;
         this->colEjAprobados.insert(aux);
         Leccion* lec = this->c->obtenerLeccionDeEjercicio(ejercicio);
         bool aprobo = this->aproboLeccion(lec);
@@ -144,9 +166,7 @@ void Inscripcion::revisarEjercicioCP(int ejercicio, set<string> sol){
             }
         }
     }
-    else{
-        //cout << "Respuesta incorrecta" << endl;
-    }
+    return res;
 }
 
 // Para el Caso de Uso : [Consultar Estadisticas]
@@ -155,18 +175,14 @@ int Inscripcion::cantEjAprobados(){ return this->colEjAprobados.size(); }
 string Inscripcion::darNombreCurso(){ return this->c->getNombre(); }
 
 float Inscripcion::darAvance(){
-    float res;
-
-    int aprobados = this->colEjAprobados.size();
-    int total = this->c->obtenerTotalEjercicios();
-
+    float aprobados = this->colEjAprobados.size();
+    float total = this->c->obtenerTotalEjercicios();
     return ((aprobados/total) * 100);
-
 }
 
-float Inscripcion::darAvance(int cantEj){
+float Inscripcion::darAvance(float cantEj){
     if (cantEj > 0) {
-        int cantAprobados = this->colEjAprobados.size();
+        float cantAprobados = this->colEjAprobados.size();
         return ((cantAprobados/cantEj) * 100);
     } else {
         return 0;

@@ -42,8 +42,8 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<string> obtenerCursosNoAprobados();
     set<DataEjercicio *> obtenerEjerciciosNoAprobados(string curso);
-    void hacerEjercicioT(string curso, int ejercicio, string sol);
-    void hacerEjercicioCP(string curso, int ejercicio, set<string> sol);
+    bool hacerEjercicioT(string curso, int ejercicio, string sol);
+    bool hacerEjercicioCP(string curso, int ejercicio, set<string> sol);
     // Otres
     void eliminarLinkE(Inscripcion *I);
 
@@ -53,6 +53,8 @@ public:
     // Para el caso de uso: [Inscribirse a curso]
     set<InformacionCurso *> darCursosDisponibles();
     void realizarInscripcion(string curso);
+    // Para la Carga de Datos
+    void realizarInscripcion(string nombreCurso, DataFecha* fecha);
 
 };
 

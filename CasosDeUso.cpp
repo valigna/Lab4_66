@@ -24,12 +24,6 @@ IGestionCurso* gestionCurso = Fabrica->getIGestionCurso();
 IGestionIdiomas* gestionIdiomas = Fabrica->getIGestionIdiomas();
 IConsultarEstadisticas* consEstadisticas = Fabrica->getIConsultarEstadisticas();
 
-
-// Esto no deberia de estar en la version final...
-//ControladorCurso* cc = ControladorCurso::getInstancia();
-//ControladorUsuario* cu = ControladorUsuario::getInstancia();
-
-
 /* ---------------------------------------------- Funciones Auxiliares ---------------------------------------------- */
 
 string adaptarDificultad(difficulty diff)
@@ -47,6 +41,16 @@ string adaptarDificultad(difficulty diff)
     {
         return "Desconocida";
     }
+}
+
+void liberarFabrica()
+{
+    // delete gestionNotificaciones;
+    // delete gestionIdiomas;
+/*     delete gestionCurso;
+    delete gestionUsuario;
+    delete consEstadisticas;
+    delete Fabrica; */
 }
 
 /* ------------------------------------------------------------------------------------------------------------------ */
@@ -78,10 +82,16 @@ struct courseInfo{
 
 void altaUsuario()
 {
+    // Para gestionar la memoria pedida...
+    DataFecha* f;
+    DataEstudiante* est;
+    DataProfesor* prof;
+    //
     userInfo ingresado;
     cout << "Para poder crear un nuevo Usuario en el sistema, porfavor ingrese: " << endl;
-    cout << "o Su Nombre: "; getline(cin,ingresado.name);
     cout << "o El Nickname por el cual quiere ser reconocido en el sistema: "; getline(cin,ingresado.nick);
+    cout << "o Su Nombre: "; getline(cin,ingresado.name);
+    cout << "o Su Contrasenia: "; getline(cin,ingresado.pass);
     cout << "o Una breve descricpion sobre usted: "; getline(cin,ingresado.desc);
 
     // Pasamos a distinguir entre Estudiante y Profesor
@@ -96,8 +106,9 @@ void altaUsuario()
         cout << "  o Mes: "; getline(cin,ingresado.mes);
         cout << "  o Anio: "; getline(cin,ingresado.anio);
 
-        DataFecha* f = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio));
-        gestionUsuario->ingresarUsuario(new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,f));
+        DataFecha* fecha = new DataFecha(stoi(ingresado.dia),stoi(ingresado.mes),stoi(ingresado.anio)); f = fecha;
+        DataEstudiante* datosEst = new DataEstudiante(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.pResidencia,fecha); est = datosEst;
+        gestionUsuario->ingresarUsuario(datosEst);
     } else
     {
         cout << "Se pasaran a pedir los datos necesarios para crear un Profesor: " << endl;
@@ -123,7 +134,8 @@ void altaUsuario()
         }
         
         gestionUsuario->ingresarIdiomas(ingresado.seleccionados);
-        gestionUsuario->ingresarUsuario(new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins));
+        DataProfesor* datosProf = new DataProfesor(ingresado.nick,ingresado.name,ingresado.pass,ingresado.desc,ingresado.ins); prof = datosProf;
+        gestionUsuario->ingresarUsuario(datosProf);
     }
 
     bool altaExitosa = gestionUsuario->confirmarAltaUsuario();
@@ -133,6 +145,15 @@ void altaUsuario()
     } else
     {
         cout << "-> Hubo una falla a la hora de crear el Usuario pedido, seguramente se deba a que el nickname ingresado ya esta un uso." << endl;
+    }
+    
+    if(stoi(ingresado.opcion) == 1)
+    {
+        // delete f;
+        delete est;
+    } else
+    {
+        delete prof;
     }
 }
 
@@ -155,6 +176,7 @@ void consultaUsuario()
         DataFecha* nac = est->getNacimiento();
         cout << "-> Pais de Residencia: " << est->getPaisResidencia() << endl;
         cout << "-> Nacimiento: " << nac->getDia() << "/" << nac->getMes() << "/" << nac->getAnio() << endl;
+        delete est;
     } else
     {
         DataProfesor* prof = (DataProfesor*) datos;
@@ -165,6 +187,7 @@ void consultaUsuario()
         set<string> idiomas = prof->getIdiomas();
         cout << "-> Idiomas en los que se especializa: " << endl;
         for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it){cout << "   |-> " << (*it) << endl; }
+        delete prof;
     }
 
 }
@@ -224,7 +247,8 @@ void altaCurso()
     {
         infoCurso.diff = Avanzado;
     }
-    gestionCurso->ingresarDataCurso(nickProfesor, new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff));
+    DTCurso* datosCurso = new DTCurso(infoCurso.nombre, infoCurso.desc, infoCurso.diff);
+    gestionCurso->ingresarDataCurso(nickProfesor, datosCurso);
     set<string> idiomas = gestionCurso->getIdiomasProfesor();
     cout << "Se listaran los idiomas en los cuales se especializa el profesor: " << endl;
     for (set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
@@ -317,6 +341,7 @@ void altaCurso()
         }
     }
     gestionCurso->confirmarAltaCurso();
+    delete datosCurso;
     cout << "-> Se creo el curso: " << infoCurso.nombre << endl;
 }
 
@@ -367,7 +392,7 @@ void agregarLeccion()
                         solucion.insert(palabra);    
                     }
                     DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
-                    gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                    gestionCurso->ingresarEjercicio(ejCP);
                 } else if (tipoEj == "2")
                 {
                     string frase;
@@ -375,7 +400,7 @@ void agregarLeccion()
                     cout << "o Ingrese la frase: "; getline(cin, frase);
                     cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                     DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
-                    gestionCurso->ingresarEjercicioParaAlta(ejT);
+                    gestionCurso->ingresarEjercicio(ejT);
                 }
                 
             } else if (auxEj == "2")
@@ -385,7 +410,6 @@ void agregarLeccion()
         }
         gestionCurso->altaLeccion();
     }
-
 }
 
 // Para el Caso de Uso 7: [Agregar Ejercicio]
@@ -400,13 +424,13 @@ void agregarEjercicio()
         string nombreCurso;
         cout << "o Ingrese el nombre del curso que desea agregar un ejercicio: ";
         getline(cin, nombreCurso);
-        set<DataLeccion *> lecciones = gestionCurso->getLecciones(nombreCurso);
+        list<DataLeccion *> lecciones = gestionCurso->getLecciones(nombreCurso);
         if (lecciones.size() != 0)
         {
             cout << "Lecciones:" << endl;
             for (int i = 1; i <= lecciones.size(); i++)
             {
-                for(set<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+                for(list<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
                 {
                     if ((*it)->getId() == i)
                     {
@@ -437,6 +461,7 @@ void agregarEjercicio()
                 }
                 DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
                 gestionCurso->agregarEjercicio(Id, ejCP);
+                delete ejCP;
             } else if (tipoEj == "2")
             {
                 string frase;
@@ -445,6 +470,7 @@ void agregarEjercicio()
                 cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                 DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
                 gestionCurso->agregarEjercicio(Id, ejT);
+                delete ejT;
             }
         } else
         {
@@ -536,6 +562,27 @@ void consultarCurso()
         else{
             cout << "-> Habilitado: NO" << endl;
         }
+        cout << "-> Lecciones: " << endl;
+        list<DataLeccion *> lecs = res->getLecciones();
+        for(list<DataLeccion *>::iterator it = lecs.begin(); it != lecs.end(); it++){
+            cout << "   -> Leccion "  << (*it)->getId() << endl;
+            cout << "       |-> Tema: " << (*it)->getTema() << endl;
+            cout << "       |-> Objetivo: " << (*it)->getObjetivo() << endl;
+            set<DataEjercicio *> ejes = (*it)->getEjercicios();
+            cout << "       |-> Ejercicios:" << endl;
+            for(set<DataEjercicio *>::iterator it2 = ejes.begin(); it2 != ejes.end(); it2++){
+                cout << "           -> Ejercicio " << (*it2)->getId() << endl;
+                cout << "               |-> Descripcion: " << (*it2)->getDescripcion() << endl;
+            }
+        }
+        set<DataInscripto *> estus = res->getEstudiantes();
+        cout << "-> Estudiantes Inscriptos:" << endl; 
+        for(set<DataInscripto *>::iterator it3 = estus.begin(); it3 != estus.end(); it3++){
+            cout << "   |-> " << (*it3)->getNombre() << endl;
+            DataFecha* fecha = (*it3)->getFecha();
+            cout << "       -> Fecha de Inscripcion: " << fecha->getDia() << "/" << fecha->getMes() << "/" << fecha->getAnio() << endl;
+        }
+        delete res;
     } else
     {
         cout << "-> No hay cursos cargados." << endl;
@@ -551,12 +598,14 @@ void inscribirseCurso() //Hacer verificacion de que existe el curso
     getline(cin, nicknameUsuario);
     set<InformacionCurso *> cursos = gestionUsuario->getCursosDisponibles(nicknameUsuario);
     cout << "-> Sus cursos disponibles son:" << endl;
+    cout << endl;
     for(set<InformacionCurso *>::iterator it = cursos.begin(); it != cursos.end(); it++){
-        cout << "-> " << (*it)->getNombre() << endl;
-        cout << "-> Descripcion: " << (*it)->getDescripcion() << endl;
-        cout << "-> Dificultad: " << adaptarDificultad((*it)->getDificultad()) << endl;
-        cout << "-> Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
-        cout << "-> Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
+        cout << (*it)->getNombre() << endl;
+        cout << "|-> Descripcion: " << (*it)->getDescripcion() << endl;
+        cout << "|-> Dificultad: " << adaptarDificultad((*it)->getDificultad()) << endl;
+        cout << "|-> Cantidad de Lecciones: " << (*it)->getCantLecciones() << endl;
+        cout << "|-> Cantidad de Ejercicios: " << (*it)->getCantEjercicios() << endl;
+        cout << endl;
     }
     cout << "---------o---------" << endl;
     cout << "o Ingrese el nombre del curso al que se quiere inscribir" << endl;
@@ -585,6 +634,12 @@ void realizarEjercicio()
     for(set<DataEjercicio* >::iterator it = ejercicios.begin(); it != ejercicios.end(); it++){
         cout << "-> ID: " << (*it)->getId() << endl;
         cout << "   |-> Descripcion: " << (*it)->getDescripcion() << endl;
+        if((*it)->esCompletarPalabras()){
+            cout << "   |-> Ejercicio de Completar Palabras" << endl;
+        }
+        else{
+            cout << "   |-> Ejercicio de Traduccion" << endl;
+        }
         cout << endl;
     }
     cout << "o Escriba el ID de un ejercicio que quiera realizar: ";
@@ -594,6 +649,7 @@ void realizarEjercicio()
     cout << "-> Letra: " << endl;
     cout << "-> " << gestionCurso->obtenerLetra(cursoSeleccionado,idEjercicio) << endl;
     DataEjercicio* eje = gestionCurso->encontrarEjercicio(cursoSeleccionado, idEjercicio);
+    bool correcto;
     if(eje->esCompletarPalabras()){
         cout << "o Escriba sus soluciones, una por una, y termine con -1: " << endl;
         set<string> respuestaCP;
@@ -609,12 +665,20 @@ void realizarEjercicio()
                 respuestas = false;
             }
         }
-        gestionUsuario->resolverEjercicioCP(idEjercicio, respuestaCP);
+        correcto = gestionUsuario->resolverEjercicioCP(idEjercicio, respuestaCP);
     }
-    else{
+    else
+    {
         string respuestaT;
         cout << "o Escriba su solucion: "; getline(cin, respuestaT);
-        gestionUsuario->resolverEjercicioT(idEjercicio, respuestaT);
+        correcto = gestionUsuario->resolverEjercicioT(idEjercicio, respuestaT);
+    }
+    if(correcto)
+    {
+        cout << "-> Respuesta correcta." << endl;
+    } else
+    {
+        cout << "-> Respuesta incorrecta, intente nuevamente." << endl;
     }
 }
 
@@ -691,7 +755,15 @@ void consultarEstadisticas()
         cout << " |-> Creado por: " << infoC->getProfesor() << endl;
         cout << " |-> Total lecciones: " << infoC->getCantLecciones() << endl;
         cout << " |-> Total ejercicios: " << infoC->getCantEjercicios() << endl;
-        cout << " |-> Grado de avance: " << infoC->getPromedio() << "%" << endl;
+        if(infoC->getHabilitado())
+        {
+            cout << " |-> Habilitado : Si" << endl;
+            cout << " |-> Grado de avance: " << infoC->getPromedio() << "%" << endl;
+        } else
+        {
+            cout << " |-> Habilitado : No" << endl;
+        }
+        delete infoC;
     } else
     {
         cout << "-> Opcion invalida, por favor vuelva a intentarlo" << endl;
@@ -703,11 +775,11 @@ void suscribirseNotificaciones()
 {
     string nick;
     cout << "o Ingrese su nickname: "; getline(cin, nick);
-    cout << "-> Idiomas no suscrito: " << endl;
+    cout << "Idiomas no suscrito: " << endl;
     set<string> idiomas = gestionNotificaciones->idiomasNoSuscritos(nick);
     for(set<string>::iterator it = idiomas.begin(); it != idiomas.end(); ++it)
     {
-        cout << "-> " << (*it) << endl;
+        cout << "|-> " << (*it) << endl;
     }
     bool masIdiomas = true;
     cout << "o Escriba los idiomas a los cuales desea suscribirse, uno por uno, y termine con -1: " << endl;
@@ -738,11 +810,11 @@ void consultaNotificaciones()
     string nick;
     cout << "o Ingrese su nickname: "; getline(cin, nick);
     set<DataNotificacion *> notif = gestionNotificaciones->obtenerNotificaciones(nick);
-    cout << "-> Aqui estan sus notificaciones: " << endl;
+    cout << "Aqui estan sus notificaciones: " << endl;
     for(set<DataNotificacion *>::iterator it = notif.begin(); it != notif.end(); ++it)
     {
-        cout << "-> Idioma: " << (*it)->getIdioma() << endl;
-        cout << "-> Nuevo Curso: " << (*it)->getNombreCurso() << endl;
+        cout << "--> Idioma: " << (*it)->getIdioma() << endl;
+        cout << "|-> Nuevo Curso: " << (*it)->getNombreCurso() << endl;
         cout << endl;
     }
 }
@@ -753,7 +825,7 @@ void eliminarSuscripciones()
     string nick;
     cout << "o Ingrese su nickname: ";
     getline(cin, nick);
-    cout << "-> Aqui estan sus suscripciones: " << endl;
+    cout << "Aqui estan sus suscripciones: " << endl;
     set<string> aux = gestionNotificaciones->idiomasSuscritos(nick);
     for(set<string>::iterator it = aux.begin(); it != aux.end(); it++){
         cout << "-> " << (*it) << endl;

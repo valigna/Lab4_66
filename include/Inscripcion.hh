@@ -26,6 +26,7 @@ private:
 public:
     // Constructores
     Inscripcion(Estudiante *est, string curso);
+    Inscripcion(Estudiante *est, string curso, DataFecha* fecha);
     // Destructor
     ~Inscripcion();
 
@@ -33,6 +34,7 @@ public:
     DataFecha* getFechaInscripcion();
     bool getCursoAprobado();
     Curso* getCurso();
+    Estudiante* getEstudiante();
     int getUltimaLeccion();
     void setCursoAprobado(bool curso);
 
@@ -42,13 +44,13 @@ public:
     // Para el Caso de Uso : [Realizar Ejercicio]
     set<DataEjercicio *> obtenerListaEjerciciosNoAprobadosIns();
     bool noAprobado(int curso);
-    void revisarEjercicioT(int ejercicio, string sol);
-    void revisarEjercicioCP(int ejercicio, set<string> sol);
+    bool revisarEjercicioT(int ejercicio, string sol);
+    bool revisarEjercicioCP(int ejercicio, set<string> sol);
 
     // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();
     float darAvance();
-    float darAvance(int cantEj);
+    float darAvance(float cantEj);
     int cantEjAprobados();
 };
 

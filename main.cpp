@@ -38,7 +38,11 @@ int main()
     // Presentacion...
     titulo(" Laboratorio 4 | Grupo 66 ");
     cout << "Integrantes:" << endl;
-    cout << " o Nuestros nombres y cedulas..." << endl;
+    cout << "|-> Ignacio Pérez | CI: 5.298.266-0" << endl;
+    cout << "|-> Mateo Olveira | CI: 5.314.183-5" << endl;
+    cout << "|-> Juan Ignacio Valero | CI: 4.942.857-4" << endl;
+    cout << "|-> Martin Idiart | CI: 5.641.696-0" << endl;
+    cout << "|-> Bruno Martínez | CI: 5.316.644-9" << endl;
     cout << endl;
     cout << "Docente: Leonel Peña" << endl;
     separacion(CON_ENTER);
@@ -65,6 +69,7 @@ int main()
         case -1: // Terminar
             separacion(SIN_ENTER);
             cout << "Se dio por finalizada la ejecucion del lab4_66" << endl;
+            liberarFabrica();
             separacion(CON_ENTER);
             terminarEjecucion = true;
             break;
