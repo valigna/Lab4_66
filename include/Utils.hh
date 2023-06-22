@@ -11,9 +11,11 @@
 #include<fstream>
 #include<sstream>
 // Para el menu
-#include <iomanip>
-#include <sys/ioctl.h>
-#include <unistd.h>
+#include<iomanip>
+#include<sys/ioctl.h>
+#include<unistd.h>
+// Para el registro de las fechas de inscripcion...
+#include<ctime>
 
 using namespace std;
 /* ------------------------------------------------------------------------------------------------------ */

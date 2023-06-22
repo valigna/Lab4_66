@@ -4,7 +4,10 @@
 Inscripcion::Inscripcion(Estudiante *est, string curso){
     //Atributos...
     this->CursoAprobado = false;
-    this->FechaInscripcion = new DataFecha(21, 6, 2023);
+    //this->FechaInscripcion = new DataFecha(21, 6, 2023);
+    time_t t = time(NULL);
+    tm* timePtr = localtime(&t);
+    this->FechaInscripcion = new DataFecha(timePtr->tm_mday,timePtr->tm_mon,timePtr->tm_year + 1900);
 
     //PseudoAtributos...
     this->e = est;
