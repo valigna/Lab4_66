@@ -391,7 +391,7 @@ void agregarLeccion()
                         solucion.insert(palabra);    
                     }
                     DataCompletarPalabras* ejCP = new DataCompletarPalabras(descEj, 0, frase, solucion);
-                    gestionCurso->ingresarEjercicioParaAlta(ejCP);
+                    gestionCurso->ingresarEjercicio(ejCP);
                 } else if (tipoEj == "2")
                 {
                     string frase;
@@ -399,7 +399,7 @@ void agregarLeccion()
                     cout << "o Ingrese la frase: "; getline(cin, frase);
                     cout << "o Ingrese la frase traducida: "; getline(cin, traduccion);
                     DataTraduccion* ejT = new DataTraduccion(descEj, 0, frase, traduccion);
-                    gestionCurso->ingresarEjercicioParaAlta(ejT);
+                    gestionCurso->ingresarEjercicio(ejT);
                 }
                 
             } else if (auxEj == "2")
@@ -560,6 +560,26 @@ void consultarCurso()
         }
         else{
             cout << "-> Habilitado: NO" << endl;
+        }
+        cout << "-> Lecciones: " << endl;
+        set<DataLeccion *> lecs = res->getLecciones();
+        for(set<DataLeccion *>::iterator it = lecs.begin(); it != lecs.end(); it++){
+            cout << "   -> Leccion "  << (*it)->getId() << endl;
+            cout << "       |-> Tema: " << (*it)->getTema() << endl;
+            cout << "       |-> Objetivo: " << (*it)->getObjetivo() << endl;
+            set<DataEjercicio *> ejes = (*it)->getEjercicios();
+            cout << "       |-> Ejercicios:" << endl;
+            for(set<DataEjercicio *>::iterator it2 = ejes.begin(); it2 != ejes.end(); it2++){
+                cout << "           -> Ejercicio " << (*it2)->getId() << endl;
+                cout << "               |-> Descripcion: " << (*it2)->getDescripcion() << endl;
+            }
+        }
+        set<DataInscripto *> estus = res->getEstudiantes();
+        cout << "-> Estudiantes Inscriptos:" << endl; 
+        for(set<DataInscripto *>::iterator it3 = estus.begin(); it3 != estus.end(); it3++){
+            cout << "   |-> " << (*it3)->getNombre() << endl;
+            DataFecha* fecha = (*it3)->getFecha();
+            cout << "       -> Fecha de Inscripcion: " << fecha->getDia() << "/" << fecha->getMes() << "/" << fecha->getAnio() << endl;
         }
         delete res;
     } else

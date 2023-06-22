@@ -4,6 +4,8 @@
 /* ---------------------------------------------- Includes ---------------------------------------------- */
 #include "../Utils.hh"
 // DataTypes 
+#include "DataLeccion.hh"
+#include "DataInscripto.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class DataConsultaCurso
@@ -15,9 +17,11 @@ private:
     string Idioma;
     string profesor;
     bool habilitado;
+    set<DataLeccion *> lecciones;
+    set<DataInscripto *> estudiantes;
 public:
     // Constructores
-    DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil);
+    DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, set<DataLeccion *> lecs, set<DataInscripto *> estus);
     // Destructor
     ~DataConsultaCurso();
     // Getters
@@ -26,7 +30,9 @@ public:
     difficulty getDifificulty();
     string getIdioma();
     string getProfesor();
-    bool getHabilitado(); 
+    bool getHabilitado();
+    set<DataLeccion *> getLecciones(); 
+    set<DataInscripto *> getEstudiantes();
 };
 
 #endif

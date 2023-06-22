@@ -1,7 +1,9 @@
 #include "../../include/DataTypes/DataConsultaCurso.hh"
+#include "../../include/DataTypes/DataLeccion.hh"
+#include "../../include/DataTypes/DataUsuario.hh"
 
 // Constructores
-DataConsultaCurso::DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil)
+DataConsultaCurso::DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, set<DataLeccion *> lecs, set<DataInscripto *> estus)
 {
     this->Nombre = name;
     this->Descricpion = desc;
@@ -9,6 +11,8 @@ DataConsultaCurso::DataConsultaCurso(string name, string desc, difficulty diff, 
     this->Idioma = idi;
     this->profesor = prof;
     this->habilitado = habil;
+    this->lecciones = lecs;
+    this->estudiantes = estus;
 }
 
 // Destructor
@@ -32,4 +36,10 @@ string DataConsultaCurso::getProfesor(){
 }
 bool DataConsultaCurso::getHabilitado(){ 
     return this->habilitado; 
+}
+set<DataLeccion *> DataConsultaCurso::getLecciones() {
+    return this->lecciones;
+}
+set<DataInscripto *> DataConsultaCurso::getEstudiantes(){
+    return this->estudiantes;
 }

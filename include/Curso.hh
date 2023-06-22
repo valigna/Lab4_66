@@ -13,6 +13,7 @@
 #include "DataTypes/InscripcionCurso.hh"
 #include "DataTypes/DTCurso.hh"
 #include "DataTypes/DataConsultaCurso.hh"
+#include "DataTypes/DataInscripto.hh"
 // Conceptos Del Modelo De Dominio
 #include "Leccion.hh"
 #include "Ejercicio.hh"

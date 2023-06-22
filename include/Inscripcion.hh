@@ -33,6 +33,7 @@ public:
     DataFecha* getFechaInscripcion();
     bool getCursoAprobado();
     Curso* getCurso();
+    Estudiante* getEstudiante();
     int getUltimaLeccion();
     void setCursoAprobado(bool curso);
 

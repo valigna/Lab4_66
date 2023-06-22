@@ -42,6 +42,10 @@ Curso* Inscripcion::getCurso(){
     return this->c;
 }
 
+Estudiante* Inscripcion::getEstudiante(){
+    return this->e;
+}
+
 int Inscripcion::getUltimaLeccion(){
     int res = 0;
 

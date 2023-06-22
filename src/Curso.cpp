@@ -122,7 +122,14 @@ DataConsultaCurso* Curso::getDataConsultaCurso()
     string idi = this->getNombreIdioma();
     string prof = this->profesor->getNombre();
     bool habil = this->getHabilitado();
-    return new DataConsultaCurso(nom,desc,diff,idi,prof,habil);
+    set<DataLeccion *> lecs = this->darDataLecciones(true);
+    set<DataInscripto *> estus;
+    for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
+            Estudiante* aux15 = (*it)->getEstudiante();
+            DataInscripto* res = new DataInscripto(aux15->getNickname(), (*it)->getFechaInscripcion());
+            estus.insert(res);
+    }
+    return new DataConsultaCurso(nom,desc,diff,idi,prof,habil,lecs,estus);
 }
 
 
@@ -254,6 +261,7 @@ DataEjercicio* Curso::obtenerIdEjercicio(DataEjercicio* ejercicio){
 
 void Curso::agregarLeccion(string tema, string obj, set<DataEjercicio*> ejs){
     this->idLecciones++;
+    this->idEjercicios += ejs.size();
     this->colLecciones.push_back(new Leccion(tema,obj,this->idLecciones,ejs));
 }
 
