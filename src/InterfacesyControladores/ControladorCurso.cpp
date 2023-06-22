@@ -199,12 +199,12 @@ void ControladorCurso::altaLeccion(){
 }
 
 // Para el Caso de Uso : [Agregar Ejercicio]
-set<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
+list<DataLeccion *> ControladorCurso::getLecciones(string cursoSeleccionado)
 {
     // Recordamos el nombre del curso...
     this->nombreCurso = cursoSeleccionado;
 
-    set<DataLeccion *> res;
+    list<DataLeccion *> res;
     map<string,Curso *>::iterator it = this->colCursos.find(cursoSeleccionado);
     if (it != this->colCursos.end())
     {

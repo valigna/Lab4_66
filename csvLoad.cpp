@@ -232,8 +232,10 @@ void crearDatos()
     {
         // Registramos la inscripcion...
         cargaInscripcion insc = it->second;
-        set<InformacionCurso *> inecesario = gUsuario->getCursosDisponibles(usuarios[insc.estRef].nick);
-        gUsuario->inscribirseACurso(cursos[insc.curRef].name);
+        DataFecha* f = new DataFecha(insc.dia,insc.mes,insc.anio);
+        gUsuario->registrarInscripcion(cursos[insc.curRef].name,usuarios[insc.estRef].nick,f);
+        // set<InformacionCurso *> inecesario = gUsuario->getCursosDisponibles(usuarios[insc.estRef].nick);
+        // gUsuario->inscribirseACurso(cursos[insc.curRef].name);
 
         // Apruebo los ejercicios correspondientes...
         for(list<string>::iterator it2 = insc.ejerciciosRef.begin(); it2 != insc.ejerciciosRef.end(); ++it2)

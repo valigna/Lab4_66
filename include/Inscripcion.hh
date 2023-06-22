@@ -26,6 +26,7 @@ private:
 public:
     // Constructores
     Inscripcion(Estudiante *est, string curso);
+    Inscripcion(Estudiante *est, string curso, DataFecha* fecha);
     // Destructor
     ~Inscripcion();
 
@@ -49,7 +50,7 @@ public:
     // Para el Caso de Uso : [Consultar Estadisticas]
     string darNombreCurso();
     float darAvance();
-    float darAvance(int cantEj);
+    float darAvance(float cantEj);
     int cantEjAprobados();
 };
 

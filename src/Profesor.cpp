@@ -69,10 +69,12 @@ set<InfoCurso *> Profesor::getInfoCursos()
     set<InfoCurso *> res; 
     for(map<string,Curso *>::iterator it = this->colCursos.begin(); it != this->colCursos.end(); ++it) {
         string nomC = it->first;
-        float promedio = it->second->darPromedio();
-
-        InfoCurso* elem = new InfoCurso(nomC,promedio);
-        res.insert(elem);
+        if(it->second->getHabilitado())
+        {
+            float promedio = it->second->darPromedio();
+            InfoCurso* elem = new InfoCurso(nomC,promedio);
+            res.insert(elem);
+        }
     }
     return res;
 }

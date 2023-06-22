@@ -53,6 +53,8 @@ public:
     // Para el caso de uso: [Inscribirse a curso]
     set<InformacionCurso *> darCursosDisponibles();
     void realizarInscripcion(string curso);
+    // Para la Carga de Datos
+    void realizarInscripcion(string nombreCurso, DataFecha* fecha);
 
 };
 

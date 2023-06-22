@@ -17,11 +17,11 @@ private:
     string Idioma;
     string profesor;
     bool habilitado;
-    set<DataLeccion *> lecciones;
+    list<DataLeccion *> lecciones;
     set<DataInscripto *> estudiantes;
 public:
     // Constructores
-    DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, set<DataLeccion *> lecs, set<DataInscripto *> estus);
+    DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, list<DataLeccion *> lecs, set<DataInscripto *> estus);
     // Destructor
     ~DataConsultaCurso();
     // Getters
@@ -31,7 +31,7 @@ public:
     string getIdioma();
     string getProfesor();
     bool getHabilitado();
-    set<DataLeccion *> getLecciones(); 
+    list<DataLeccion *> getLecciones(); 
     set<DataInscripto *> getEstudiantes();
 };
 

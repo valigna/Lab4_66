@@ -73,10 +73,10 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     string prof = this->profesor->getNombre();
     
     int cantLec = this->colLecciones.size();
-    int cantEj = 0;
+    float cantEj = 0;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) 
     {
-        int cEj;
+        float cEj;
         cEj = (*it)->totalEjercicios();
         cantEj += cEj;
     }
@@ -86,11 +86,12 @@ InformacionCurso* Curso::getInformacionCurso(bool conPromedio)
     {
         // Obtengo el avance del curso...
         float avances = 0;
-        int totalInscriptos = this->colInscripciones.size();
+        float av;
+        float totalInscriptos = this->colInscripciones.size();
 
         for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it) 
         {
-            float av = (*it)->darAvance(cantEj);
+            av = (*it)->darAvance(cantEj);
             avances += av;
         }
     prom = avances/totalInscriptos;
@@ -122,7 +123,7 @@ DataConsultaCurso* Curso::getDataConsultaCurso()
     string idi = this->getNombreIdioma();
     string prof = this->profesor->getNombre();
     bool habil = this->getHabilitado();
-    set<DataLeccion *> lecs = this->darDataLecciones(true);
+    list<DataLeccion *> lecs = this->darDataLecciones(true);
     set<DataInscripto *> estus;
     for (set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end(); ++it){
             Estudiante* aux15 = (*it)->getEstudiante();
@@ -133,12 +134,12 @@ DataConsultaCurso* Curso::getDataConsultaCurso()
 }
 
 
-set<DataLeccion *> Curso::darDataLecciones(bool conId)
+list<DataLeccion *> Curso::darDataLecciones(bool conId)
 {
-    set<DataLeccion *> res;
+    list<DataLeccion *> res;
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it)
     {
-        res.insert((*it)->getDataLeccion(conId));
+        res.push_back((*it)->getDataLeccion(conId));
     }
     return res;
 }
@@ -298,20 +299,23 @@ int Curso::obtenerTotalEjercicios()
 float Curso::darPromedio()
 {    
     float res = 0;
-    int cantEj = 0;
+    float cantEj = 0;
+    float cEj;
+    float cAp;
+    float avance;
     float sumAvance = 0;
-    int totalInscriptos = this->colInscripciones.size();
+    float totalInscriptos = this->colInscripciones.size();
 
     // Itero sobre mis lecciones...
     for(list<Leccion *>::iterator it = this->colLecciones.begin(); it != this->colLecciones.end(); ++it) {
-        int cEj = (*it)->totalEjercicios();
+        cEj = (*it)->totalEjercicios();
         cantEj += cEj;
     }
 
     // Itero sobre mis inscripciones...
     for(set<Inscripcion *>::iterator it = this->colInscripciones.begin(); it != this->colInscripciones.end();++it){
-        int cAp = (*it)->cantEjAprobados();
-        float avance = (cAp/cantEj) * 100;
+        cAp = (*it)->cantEjAprobados();
+        avance = (cAp/cantEj) * 100;
 
         sumAvance += avance;
     }

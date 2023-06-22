@@ -77,7 +77,7 @@ public:
 
     DTCurso* getDTCurso();
 	
-    set<DataLeccion *> darDataLecciones(bool conId);
+    list<DataLeccion *> darDataLecciones(bool conId);
     // Para el Caso de Uso : [Habilitar Curso]
     bool sePuedeHabilitar();
     

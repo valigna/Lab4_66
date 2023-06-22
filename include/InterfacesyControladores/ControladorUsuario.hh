@@ -44,6 +44,9 @@ public:
     // Implementacion del Patron de Disenio : Singleton
     static ControladorUsuario* getInstancia();
 
+    // Para la Carga de Datos
+    void registrarInscripcion(string nombreCurso,string nickEstudiante,DataFecha* fecha);
+
     // Para el Caso de Uso : [Alta de Usuario]
     void ingresarUsuario(DataUsuario* datos);
     set<string> getIdiomas();

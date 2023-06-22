@@ -7,6 +7,7 @@
 #include "../DataTypes/DataUsuario.hh"
 #include "../DataTypes/DataEjercicio.hh"
 #include "../DataTypes/InformacionCurso.hh"
+#include "../DataTypes/DataFecha.hh"
 /* ------------------------------------------------------------------------------------------------------ */
 
 class IGestionUsuario
@@ -29,6 +30,8 @@ public:
     // Operaciones Para el Caso de Uso : [Inscribirse a Curso]
     virtual set<InformacionCurso *> getCursosDisponibles(string nickname) = 0;
     virtual void inscribirseACurso(string curso) = 0;
+    // Para la Carga de Datos
+    virtual void registrarInscripcion(string nombreCurso,string nickEstudiante,DataFecha* fecha) = 0;
     //
     virtual ~IGestionUsuario(){};
 };

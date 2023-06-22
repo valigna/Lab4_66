@@ -14,6 +14,19 @@ Inscripcion::Inscripcion(Estudiante *est, string curso){
     C->crearLinkConInsc(this);
 }
 
+Inscripcion::Inscripcion(Estudiante *est, string nombreCurso, DataFecha* fecha){
+    //Atributos...
+    this->CursoAprobado = false;
+    this->FechaInscripcion = fecha;
+
+    //PseudoAtributos...
+    this->e = est;
+    ControladorCurso *cc = ControladorCurso::getInstancia();
+    Curso* C = cc->encontrarCurso(nombreCurso);
+    this->c = C;
+    C->crearLinkConInsc(this);
+}
+
 // Destructor
 Inscripcion::~Inscripcion(){
     this->e->eliminarLinkE(this);
@@ -159,18 +172,14 @@ int Inscripcion::cantEjAprobados(){ return this->colEjAprobados.size(); }
 string Inscripcion::darNombreCurso(){ return this->c->getNombre(); }
 
 float Inscripcion::darAvance(){
-    float res;
-
-    int aprobados = this->colEjAprobados.size();
-    int total = this->c->obtenerTotalEjercicios();
-
+    float aprobados = this->colEjAprobados.size();
+    float total = this->c->obtenerTotalEjercicios();
     return ((aprobados/total) * 100);
-
 }
 
-float Inscripcion::darAvance(int cantEj){
+float Inscripcion::darAvance(float cantEj){
     if (cantEj > 0) {
-        int cantAprobados = this->colEjAprobados.size();
+        float cantAprobados = this->colEjAprobados.size();
         return ((cantAprobados/cantEj) * 100);
     } else {
         return 0;

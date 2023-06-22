@@ -16,6 +16,17 @@ ControladorUsuario* ControladorUsuario::getInstancia()
     return ControladorUsuario::instancia;
 }
 
+// Para la Carga de Datos
+void ControladorUsuario::registrarInscripcion(string nombreCurso,string nickEstudiante,DataFecha* fecha)
+{
+    // Se busca al estudiante en la coleccion de usuarios usando el nickname
+    Estudiante* est = dynamic_cast<Estudiante *>(this->colUsuarios[nickEstudiante]);
+    // Se corrobora que el usuario sea un estudiante
+    if (est != NULL) {
+        est->realizarInscripcion(nombreCurso,fecha);
+    }
+}
+
 // Para el Caso de Uso : [Alta de Usuario]
 void ControladorUsuario::ingresarUsuario(DataUsuario *datos) { this->datos = datos; }
 

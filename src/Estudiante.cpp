@@ -134,3 +134,9 @@ void Estudiante::realizarInscripcion(string curso){
     Inscripcion *I = new Inscripcion(this, curso);
     this->colInscripciones.insert(I);
 }
+
+void Estudiante::realizarInscripcion(string nombreCurso, DataFecha* fecha)
+{
+    Inscripcion *I = new Inscripcion(this,nombreCurso,fecha);
+    this->colInscripciones.insert(I);
+}

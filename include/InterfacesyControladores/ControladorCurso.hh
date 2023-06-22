@@ -74,7 +74,7 @@ public:
     void ingresarEjercicio(DataEjercicio* ejercicio);
     void altaLeccion();
     // Para El Caso de Uso : [Agregar Ejercicio]
-    set<DataLeccion *> getLecciones(string cursoSeleccionado);
+    list<DataLeccion *> getLecciones(string cursoSeleccionado);
     void agregarEjercicio(int leccionSeleccionada, DataEjercicio* ejercicio);
     // Para el Caso de Uso : [Habilitar Curso]
     set<InformacionCurso *> getCursosNoHabilitados();

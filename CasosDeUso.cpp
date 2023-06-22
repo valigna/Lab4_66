@@ -89,8 +89,9 @@ void altaUsuario()
     //
     userInfo ingresado;
     cout << "Para poder crear un nuevo Usuario en el sistema, porfavor ingrese: " << endl;
-    cout << "o Su Nombre: "; getline(cin,ingresado.name);
     cout << "o El Nickname por el cual quiere ser reconocido en el sistema: "; getline(cin,ingresado.nick);
+    cout << "o Su Nombre: "; getline(cin,ingresado.name);
+    cout << "o Su Contrasenia: "; getline(cin,ingresado.pass);
     cout << "o Una breve descricpion sobre usted: "; getline(cin,ingresado.desc);
 
     // Pasamos a distinguir entre Estudiante y Profesor
@@ -423,13 +424,13 @@ void agregarEjercicio()
         string nombreCurso;
         cout << "o Ingrese el nombre del curso que desea agregar un ejercicio: ";
         getline(cin, nombreCurso);
-        set<DataLeccion *> lecciones = gestionCurso->getLecciones(nombreCurso);
+        list<DataLeccion *> lecciones = gestionCurso->getLecciones(nombreCurso);
         if (lecciones.size() != 0)
         {
             cout << "Lecciones:" << endl;
             for (int i = 1; i <= lecciones.size(); i++)
             {
-                for(set<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
+                for(list<DataLeccion *>::iterator it = lecciones.begin(); it != lecciones.end(); ++it)
                 {
                     if ((*it)->getId() == i)
                     {
@@ -562,8 +563,8 @@ void consultarCurso()
             cout << "-> Habilitado: NO" << endl;
         }
         cout << "-> Lecciones: " << endl;
-        set<DataLeccion *> lecs = res->getLecciones();
-        for(set<DataLeccion *>::iterator it = lecs.begin(); it != lecs.end(); it++){
+        list<DataLeccion *> lecs = res->getLecciones();
+        for(list<DataLeccion *>::iterator it = lecs.begin(); it != lecs.end(); it++){
             cout << "   -> Leccion "  << (*it)->getId() << endl;
             cout << "       |-> Tema: " << (*it)->getTema() << endl;
             cout << "       |-> Objetivo: " << (*it)->getObjetivo() << endl;

@@ -3,7 +3,7 @@
 #include "../../include/DataTypes/DataUsuario.hh"
 
 // Constructores
-DataConsultaCurso::DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, set<DataLeccion *> lecs, set<DataInscripto *> estus)
+DataConsultaCurso::DataConsultaCurso(string name, string desc, difficulty diff, string idi, string prof, bool habil, list<DataLeccion *> lecs, set<DataInscripto *> estus)
 {
     this->Nombre = name;
     this->Descricpion = desc;
@@ -37,7 +37,7 @@ string DataConsultaCurso::getProfesor(){
 bool DataConsultaCurso::getHabilitado(){ 
     return this->habilitado; 
 }
-set<DataLeccion *> DataConsultaCurso::getLecciones() {
+list<DataLeccion *> DataConsultaCurso::getLecciones() {
     return this->lecciones;
 }
 set<DataInscripto *> DataConsultaCurso::getEstudiantes(){
